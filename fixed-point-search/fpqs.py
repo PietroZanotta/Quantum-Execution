@@ -79,32 +79,49 @@ def s_alpha(alpha, num_qubits):
     circuit = QuantumCircuit(num_qubits + 1, name="W(\alpha)")
 
     # Apply A_dagger to all num_qubits qubits
+    circuit.barrier()
     circuit.h(range(num_qubits))             # A_dagger = A, since H is self-adjoint
+    circuit.barrier()
 
     # Apply Z_{-alpha0.5} to last qubit (not ancilla qubit)
+    circuit.barrier()
     circuit.rz(-alpha*0.5,num_qubits-1) 
+    circuit.barrier()
 
     # Apply Multi-(XoX)-controlled NOT gate to last and ancilla qubit
+    circuit.barrier()
     circuit.x(range(num_qubits-1))
+    circuit.barrier()
     circuit.mcx(list(range(num_qubits-1)), num_qubits-1)
+    circuit.barrier()
     circuit.mcx(list(range(num_qubits-1)), num_qubits)
+    circuit.barrier()
     circuit.x(range(num_qubits-1))
+    circuit.barrier()
 
     # Apply Z_{-alpha0.5} to last qubit AND ancilla qubit
     circuit.rz(-alpha*0.5,num_qubits-1) 
+    circuit.barrier()
     circuit.rz(-alpha*0.5,num_qubits) 
+    circuit.barrier()
 
     # Apply Multi-(XoX)-controlled CNOT gate to last and ancilla qubit
     circuit.x(range(num_qubits-1))
+    circuit.barrier()
     circuit.mcx(list(range(num_qubits-1)), num_qubits-1)
+    circuit.barrier()
     circuit.mcx(list(range(num_qubits-1)), num_qubits)
+    circuit.barrier()
     circuit.x(range(num_qubits-1))
+    circuit.barrier()
 
     # Apply Z_alpha to last qubit (not ancilla qubit)
     circuit.rz(alpha,num_qubits-1) 
+    circuit.barrier()
 
     # Apply A to all num_qubits qubits
-    circuit.h(range(num_qubits))  
+    circuit.h(range(num_qubits)) 
+    circuit.barrier() 
 
     return circuit
 
@@ -146,8 +163,9 @@ def fpqs_circ(delta, num_qubits, auto_num_step = True, num_steps=0):
 fp_qc = fpqs_circ(.5, 5)
 fp_qc.measure_all()
 # print(fp_qc)
-fp_qc.draw(output="mpl")
+# fp_qc.draw(output="mpl")
 
+print(fp_qc)
 
 result = AerSimulator().run(fp_qc, shots=1024, memory=True).result()
 counts = result.get_counts()
