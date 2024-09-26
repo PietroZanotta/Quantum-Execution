@@ -1,5 +1,4 @@
 import math
-import itertools
 import numpy as np
 from qiskit import QuantumCircuit, QuantumRegister, transpile
 from qiskit.circuit.library import QFT, SGate, SdgGate, TGate, TdgGate, CPhaseGate

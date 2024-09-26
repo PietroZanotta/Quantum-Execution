@@ -61,13 +61,14 @@ def encoding(digits=3):
     return qc
 
 
-def simulate_classical_circ(n_shots=100):
+def simulate_classical_circ(n_shots=100, n_iter=None, plot=True):
     '''
         Simulate the classical circuit and returns any potential overflow, while plotting the result
         of the simulations
 
         Parameters:
             n_shots (int): number of times the simulation is performed
+            n_iter (int): number of times the fpqs iterator runs
     '''
 
     simulator = AerSimulator()
@@ -105,7 +106,7 @@ def simulate_classical_circ(n_shots=100):
     A = qc
 
     # Perform fixed-point quantum search
-    fpqs_qc = fpqs_circ(oracle, .5, 4, A)
+    fpqs_qc = fpqs_circ(oracle, .5, 4, A, n_iter)
 
     qc.append(fpqs_qc, range(0, 14), range(0,4))
 
@@ -115,12 +116,13 @@ def simulate_classical_circ(n_shots=100):
 
     # Run the simulation
     qct = transpile(qc, simulator)
-    print(qct)
+    # print(qct)
 
     result = Aer.get_backend('statevector_simulator').run(qct, shots=n_shots).result()
     counts = result.get_counts()
 
     print(counts)
+    return(counts)
 
     # Post processing
     # decimal_list = [int(reversed_key, 2) for reversed_key in counts.keys()]
@@ -128,13 +130,14 @@ def simulate_classical_circ(n_shots=100):
     # print(digit_dict)
     
     # Plot the frequencies
-    plt.figure(figsize=(10, 5))
-    plt.bar(counts.keys(), counts.values())
-    plt.xlabel('States')
-    plt.ylabel('Frequency')
-    plt.xticks(rotation=90)
-    plt.tight_layout()
-    plt.show()
+    if plot == True:
+        plt.figure(figsize=(10, 5))
+        plt.bar(counts.keys(), counts.values())
+        plt.xlabel('States')
+        plt.ylabel('Frequency')
+        plt.xticks(rotation=90)
+        plt.tight_layout()
+        plt.show()
 
 
-simulate_classical_circ()
+# simulate_classical_circ()

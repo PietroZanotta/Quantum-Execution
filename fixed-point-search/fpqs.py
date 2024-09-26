@@ -26,16 +26,25 @@ def beta_fixed_point(j, l, delta):
     return -alpha_fixed_point(l - j + 1, l, delta)
 
 
+# def u_f(circuit, num_qubits):
+#     """Implement an oracle returning TRUE if the first two digits of the input are 11 (e.g. 1100 is a solution, 0100 is not) 
+
+#         Parameters:
+#         circuit (QuantumCircuit): the quantum circuit on the oracle which operates
+#         num_qubits (int): Number of qubits
+#     """
+
+#     circuit.ccx(0, 1, num_qubits)
+
+
 def u_f(circuit, num_qubits):
-    """Implement an oracle returning TRUE if the first two digits of the input are 11 (e.g. 1100 is a solution, 0100 is not) 
+    """Implement an oracle returning TRUE if all the digits of the input are 1 (i.e. 111111 is the only solution) 
 
         Parameters:
         circuit (QuantumCircuit): the quantum circuit on the oracle which operates
         num_qubits (int): Number of qubits
     """
-
-    circuit.ccx(0, 1, num_qubits)
-
+    circuit.mcx(list(range(6)), 6)
 
 def s_beta(beta, num_qubits):
     """Implement the S(\beta) operator
@@ -143,6 +152,7 @@ def fpqs_circ(delta, num_qubits, auto_num_step = True, num_steps=0):
     if auto_num_step == True:
         num_steps = int(np.ceil(np.log(2/delta)*np.sqrt(np.power(2, num_qubits))))
 
+    print(num_steps)
     # Compute the number of qubits in circuit
     qc = QuantumCircuit(num_qubits + 1)
 
@@ -160,22 +170,25 @@ def fpqs_circ(delta, num_qubits, auto_num_step = True, num_steps=0):
 
 
 # Run the simulation
-fp_qc = fpqs_circ(.5, 5)
-fp_qc.measure_all()
-# print(fp_qc)
-# fp_qc.draw(output="mpl")
+def simultare_fpqs_circ(n_shots=100, auto_iter = True, num_iter=None, num_qubit=4, plot=True):
+    fp_qc = fpqs_circ(.5, num_qubit, auto_iter, num_iter)
+    fp_qc.measure_all()
 
-print(fp_qc)
+    print(fp_qc)
 
-result = AerSimulator().run(fp_qc, shots=1024, memory=True).result()
-counts = result.get_counts()
+    result = AerSimulator().run(fp_qc, shots=n_shots, memory=True).result()
+    counts = result.get_counts()
 
-plt.figure(figsize=(10, 5))
-plt.bar(counts.keys(), counts.values())
-plt.xlabel('States')
-plt.ylabel('Frequency')
-plt.xticks(rotation=90)
-plt.tight_layout()
-plt.show()
+    if plot == True:
+        plt.figure(figsize=(10, 5))
+        plt.bar(counts.keys(), counts.values())
+        plt.xlabel('States')
+        plt.ylabel('Frequency')
+        plt.xticks(rotation=90)
+        plt.tight_layout()
+        plt.show()
 
-print(counts)
+    print(counts)
+    return counts
+
+# simultare_fpqs_circ()
