@@ -9,13 +9,19 @@ c = QuantumRegister(2)
 ca = ClassicalRegister(4)
 cb = ClassicalRegister(4)
 cc = ClassicalRegister(2)
-qc = QuantumCircuit(a,b,c,ca, cc)
+qc = QuantumCircuit(a,b,c,ca,cb,cc)
 
 # Inputs.
 qc.x(a[1]) # a = 0010 / 0011
 qc.h(a[0])
 
 qc.x(b[3]) # b = 1000
+# qc.x(b[4]) # b = 111 000
+# qc.x(b[5])
+# qc.x(b[3])
+
+
+# print(qc)
 
 # Divide b by a.
 div(qc, b, a, c, 2)
@@ -24,14 +30,14 @@ div(qc, b, a, c, 2)
 # Measure.
 qc.barrier()
 qc.measure(a, (ca))
-# qc.measure(b, cb)
+qc.measure(b, cb)
 
 qc.measure(c, (cc))
 
 # Simulate the circuit.
 simulator = AerSimulator()
 qct = transpile(qc, simulator)
-print(qct)
+# print(qct)
 
 result = Aer.get_backend('statevector_simulator').run(qct, shots=1024).result()
 counts = result.get_counts()

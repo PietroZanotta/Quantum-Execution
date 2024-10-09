@@ -91,7 +91,7 @@ def controlled_quantum_addition(prep_circuit, digits, control):
     circuit.barrier()
     # QFT on the a register and the ancilla
     controlled_qft(circuit, control, range(digits, 2*digits))
-
+    # qft(circuit, range(digits, 2*digits))
     circuit.barrier()
 
     qubits_range = range(int(len(circuit.qubits)/2), len(circuit.qubits))
@@ -104,5 +104,36 @@ def controlled_quantum_addition(prep_circuit, digits, control):
 
     # # IQFT on the a register
     controlled_iqft(circuit, control, range(digits, 2*digits))
+    # iqft(circuit, range(digits, 2*digits))
+    return circuit
 
+
+def controlled_quantum_subtraction(prep_circuit, digits, control):
+    '''
+        Implementing regular quantum addition but controlled by a qubit
+
+        Parameters:
+            prep_circuit (function): Function initializing the circuit
+            digits (int): Number of digits encoding the values
+            control (int): Index of the control qubit 
+
+        Returns:
+            QuantumCircuit: the controlled addition circuit
+    '''
+    circuit = prep_circuit()
+    circuit.barrier()
+    # QFT on the a register and the ancilla
+    controlled_qft(circuit, control, range(digits, 2*digits))
+    circuit.barrier()
+
+    qubits_range = range(int(len(circuit.qubits)/2), len(circuit.qubits))
+
+    for tar in range(digits, digits*2):
+        for contr in range(tar - digits, digits):
+            ctrl_cp = CPhaseGate(-2*math.pi / (2**(digits - (tar - contr) + 1))).control(1)
+            circuit.append(ctrl_cp, [control, contr, tar])
+        circuit.barrier()
+
+    # # IQFT on the a register
+    controlled_iqft(circuit, control, range(digits, 2*digits))
     return circuit

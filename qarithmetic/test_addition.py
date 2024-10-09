@@ -1,6 +1,6 @@
 from qiskit import QuantumCircuit, ClassicalRegister, QuantumRegister, transpile
 from qiskit_aer import AerSimulator, Aer
-from QArithmetic import add, parse_encoding
+from QArithmetic import add
 
 # Registers and circuit.
 a = QuantumRegister(4)
@@ -15,6 +15,11 @@ qc.x(a[3])
 qc.h(b[0]) # b = 01011 / 01010
 qc.x(b[1])
 qc.x(b[3])
+
+# qc.x(a[1]) # 1010
+# qc.x(a[3]) # 00001
+# qc.x(b[0])
+
 
 qc.barrier()
 

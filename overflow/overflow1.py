@@ -122,8 +122,7 @@ def simulate_classical_circ(n_shots=100, n_iter=None, plot=True):
     counts = result.get_counts()
 
     print(counts)
-    return(counts)
-
+    print(qct)
     # Post processing
     # decimal_list = [int(reversed_key, 2) for reversed_key in counts.keys()]
     # digit_dict = {int(key, 2): value for key, value in counts.items()}
@@ -139,5 +138,6 @@ def simulate_classical_circ(n_shots=100, n_iter=None, plot=True):
         plt.tight_layout()
         plt.show()
 
+    return(counts)
 
 # simulate_classical_circ()

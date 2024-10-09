@@ -41,6 +41,6 @@ plt.plot(x_new, y_new, color='red', label='Linear Interpolation')
 plt.xlabel('FPQS iteration')
 plt.ylabel('Precision')
 
-plt.show()
+# plt.show()
 
 simultare_fpqs_circ(100, num_qubit=6, plot=False)
