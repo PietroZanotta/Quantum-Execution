@@ -102,7 +102,10 @@ qc_new.barrier()
 # qc_new.measure(m, cm)
 # qc_new.measure(b, cb)
 # qc_new.measure(anc, canc)
-qc_new.measure(reversed([x[3], x[2], x[1], x[0]]), cc)
+# qc_new.measure(reversed([x[3], x[2], x[1], x[0]]), cc)
+
+qc_new.measure_all()
+
 # qc_new.measure(x, cx)
 
 # Simulate the circuit.
@@ -113,11 +116,26 @@ qct = transpile(qc_new, simulator)
 result = Aer.get_backend('statevector_simulator').run(qct, shots=30).result()
 counts = result.get_counts()
 print(counts)
-decimal_dict = {int(key, 2): value for key, value in counts.items()}
+# decimal_dict = {int(key, 2): value for key, value in counts.items()}
 
-sorted_dict = dict(sorted(decimal_dict.items()))
+# sorted_dict = dict(sorted(decimal_dict.items()))
 
-print(sorted_dict)
+# print(sorted_dict)
+
+# print(sum(counts.values()))
+
+new_dict={}
+
+for key, value in counts.items():
+    new_key = key[7:-11]  # Remove the first 7 and last 6 bits
+
+    if new_key in new_dict:
+        new_dict[new_key] += value  # Sum the values if the key already exists
+    else:
+        new_dict[new_key] = value 
+
+# Print the new dictionary
+print(new_dict)
 
 plt.figure(figsize=(10, 5))
 plt.bar(counts.keys(), counts.values())

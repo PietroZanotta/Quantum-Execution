@@ -49,3 +49,7 @@ dists = job.result().quasi_dists
 
 counts = {key: int(value * 128) for key, value in dists[0].items()}
 print(counts)
+
+transpiled_circuit = transpile(qc, AerSimulator())
+gate_count = transpiled_circuit.count_ops()
+print(sum(gate_count.values()))

@@ -6,11 +6,14 @@ def qft(circ, q, n):
     # Iterate through the target.
     for i in range(n,0,-1):
         # Apply the Hadamard gate to the target.
+        # circ.barrier()
         circ.h(q[i-1])
-
+        # circ.barrier()
         # Iterate through the control.
         for j in range(i-1,0,-1):
             circ.cp(2*pi/2**(i-j+1), q[j-1], q[i-1])
+            # circ.barrier()
+
 
 # Inverse Fourier transform of |q>, of length n.
 def iqft(circ, q, n):
@@ -40,11 +43,14 @@ def cqft(circ, p, q, n):
     # Iterate through the target.
     for i in range(n,0,-1):
         # Apply the Hadamard gate to the target.
+        # circ.barrier()
         circ.ch(p, q[i-1])
+        # circ.barrier()
 
         # Iterate through the control.
         for j in range(i-1,0,-1):
             ccu1(circ, 2*pi/2**(i-j+1), p, q[j-1], q[i-1])
+            # circ.barrier()
 
 # Inverse quantum Fourier transform of p, controlled by p.
 def ciqft(circ, p, q, n):

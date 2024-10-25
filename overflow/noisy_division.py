@@ -9,7 +9,7 @@ from QArithmetic import div
 coupling_map = [(0, 1), (1, 2), (2, 3), (3, 4)]
 device = GenericBackendV2(num_qubits=5, coupling_map=coupling_map, seed=54)
 
-seed = 171
+seed = 170
 algorithm_globals.random_seed = seed
 
 noise_model = NoiseModel.from_backend(device)
@@ -55,3 +55,11 @@ dists = job.result().quasi_dists
 
 counts = {key: int(value * 128) for key, value in dists[0].items()}
 print(counts)
+
+# exp:
+# 00 0010 0011 
+# 01 0000 0010
+
+transpiled_circuit = transpile(qc, AerSimulator())
+gate_count = transpiled_circuit.count_ops()
+print(sum(gate_count.values()))

@@ -64,10 +64,13 @@ def carry_dg(circ, cin, a, b, cout):
 def add(circ, a, b, n):
     n += 1
     qft(circ, b, n)
+    # circ.barrier()
     for i in range(n, 0, -1):
         for j in range(i, 0, -1):
             if len(a) - 1 >= j - 1:
                 circ.cp(2*pi/2**(i-j+1), a[j-1], b[i-1])  # Use cp instead of cu1
+        # circ.barrier()
+
     iqft(circ, b, n)
 
 # Draper adder that takes |a>|b> to |a>|a+b>, controlled on |c>.
@@ -214,11 +217,12 @@ def cmult(circ, control, a, b, c, n):
 def div(circ, p, d, q, n):
     # Calculate each bit of the quotient and remainder.
     for i in range(n,0,-1):
-        # Left shift |p>, which multiplies it by 2.
+        # # Left shift |p>, which multiplies it by 2.
         lshift(circ, p, 2*n)
-
-        # Subtract |d> from |p>.
+        
+        # # # Subtract |d> from |p>.
         sub_swap(circ, p, d, 2*n)
+        # print(circ)
 
         # If |p> is positive, indicated by its most significant bit being 0,
         # the (i-1)th bit of the quotient is 1.
@@ -230,6 +234,10 @@ def div(circ, p, d, q, n):
         # to P.
         circ.x(q[i-1])
         cadd(circ, q[i-1], d, p, 2*n - 1)
+        # # print(circ)
+        # # # print(i)
+        # print(str(i) + ": " + str(circ.size()))
+        # # print(circ)
         circ.x(q[i-1])
 
 ################################################################################
