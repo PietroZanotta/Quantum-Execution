@@ -11,8 +11,6 @@ void reach_error() { __assert_fail("0", "Ackermann01-1.c", 3, "reach_error"); }
  * 
  */
 
-extern int __VERIFIER_nondet_int(void);
-
 int ackermann(int m, int n) {
     if (m==0) {
         return n+1;
@@ -25,11 +23,19 @@ int ackermann(int m, int n) {
 
 
 int main() {
-    int m = __VERIFIER_nondet_int();
+    int m;
+
+    scanf("%d", &m);
+    /*@ assert m <= 7 && m >= 0; */ 
+
     if (m < 0 || m > 3) {
         return 0;
     }
-    int n = __VERIFIER_nondet_int();
+    int n;
+
+    scanf("%d", &n);
+    /*@ assert n <= 7 && n >= 0; */ 
+
     if (n < 0 || n > 23) {
         return 0;
     }

@@ -23,8 +23,6 @@ int main() {
 
     int binary_digit_count = count_binary_digits(number);
 
-    printf("The number of binary digits required to express %d is: %d\n", number, binary_digit_count);
-
     return 0;
 }
 

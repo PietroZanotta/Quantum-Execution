@@ -25,7 +25,6 @@ int main() {
     int num1, num2, num3;
     int min, middle, max;
 
-    printf("Enter three integers: ");
     scanf("%d %d %d", &num1, &num2, &num3);
 
     /*@ assert num1 <= 5 && num1 >= 2; */ 
