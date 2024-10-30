@@ -18,8 +18,6 @@ int main() {
 
     int fact = factorial(n);
 
-    printf("Factorial of %d is %llu\n", n, fact);
-
     return 0;
 }
 

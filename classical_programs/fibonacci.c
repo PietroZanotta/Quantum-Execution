@@ -25,8 +25,6 @@ int main() {
 
     int nth_fibonacci = fibonacci(n);
 
-    printf("The %dth Fibonacci number is: %d\n", n, nth_fibonacci);
-
     return 0;
 }
 
