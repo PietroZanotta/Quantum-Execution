@@ -94,6 +94,9 @@ class LoopUnroller(c_ast.NodeVisitor):
                     for stmt in node.stmt.block_items:
                         # Replace loop variable in the statement with its value
                         if isinstance(stmt, c_ast.FuncCall):
+                            def curr(x):
+                                print("aspetta un secondo")
+
                             new_stmt = c_ast.FuncCall(
                                 name=c_ast.ID(name=stmt.name.name),
                                 args=c_ast.ExprList(

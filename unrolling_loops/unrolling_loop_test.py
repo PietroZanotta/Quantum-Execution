@@ -13,18 +13,12 @@ c_code = """
 int main() {
     a = 0;
     a++;
+    
     for(int i = 0; i <= 3; i++){
         printf("Loop iteration %d\\n", i);
     }
-    // for (int i = 0; i < 3; i++) //{
-    // printf("Loop iteration %d\\n", i);
-    // }
-
-    // while (i < 5){
-    // i++;
-    // }
-
-  //  return 0;
+ 
+    return 0;
 }
 """
 
@@ -48,6 +42,8 @@ def unfold_loops(cursor):
         if c ==4:
             break
         c+=1
+
+        print(node.kind)
         
         if node.kind == clang.cindex.CursorKind.FOR_STMT:
 #             # For loop handling
@@ -89,16 +85,17 @@ def unfold_loops(cursor):
             continue  # You can implement similar logic if needed
 
         else:
-            if(node.children()):
+            # if(node.children()):
                 continue
             # For all other nodes, just extract their code representation
-            unfolded_code += extract_code_from_node(node)
+                unfolded_code += extract_code_from_node(node)
 
     return unfolded_code
+    
 
 # # Unfold loops in the C code
 unfolded_c_code = unfold_loops(root)
-# print(unfolded_c_code)
+print(unfolded_c_code)
 
 def print_ast(node, indent=2):
     # Print the node's kind, spelling, and location
@@ -109,4 +106,4 @@ def print_ast(node, indent=2):
         print_ast(child, indent + 1)
 
 # Print the AST
-# print_ast(root)
+print_ast(root)

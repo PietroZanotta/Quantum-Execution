@@ -21,7 +21,7 @@ index = clang.cindex.Index.create()
 translation_unit = index.parse("temp.c")
 
 # Define a function to traverse the AST and create a custom representation
-class ASTNode():
+class ASTNode:
     def __init__(self, kind, spelling, children=None):
         self.kind = kind
         self.spelling = spelling
@@ -71,33 +71,23 @@ def generate_code(node):
 print("\nGenerated Modified Code:")
 print(generate_code(custom_ast))
 
-
-# Generate the complete modified code from the custom AST
+# Generate the modified code from our custom AST
 def generate_code(node):
-    code = ""
-    
-    # Handle variable declarations
-    if node.kind == 'CursorKind.VAR_DECL':
-        code += f"int {node.spelling} = {node.children[0].spelling};\n"
-    
-    # Handle return statements
-    elif node.kind == 'CursorKind.RETURN_STMT':
-        code += f"    return {node.children[0].spelling};\n"
-
-    # Handle the main function
-    elif node.kind == 'CursorKind.FUNCTION_DECL':
-        code += f"int {node.spelling}() {{\n"
-        for child in node.get_children():
+    if node.kind == 'CursorKind.INTEGER_LITERAL' and node.spelling == "100":
+        return "100"
+    if node.kind == "CursorKind.INTEGER_LITERAL" and node.spelling == "1001":
+        return 33
+    if node.kind == "12":
+        parser.error("invalid number arguments") 
+    elif node.kind == 'CursorKind.VAR_DECL' and node.spelling == "x":
+        return "int x = 100;\n"
+    else:
+        code = ""
+        for child in node.children:
             code += generate_code(child)
-        code += "}\n"
-    
-    # Recursively generate code for child nodes
-    for child in node.children:
-        code += generate_code(child)
+        return code
 
-    return code
-
-# Generate the modified code using the custom AST
+# Generate the modified code
 modified_code = generate_code(custom_ast)
 print("\nGenerated Modified Code:")
 print(modified_code)
@@ -106,6 +96,7 @@ print(modified_code)
 with open("modified_temp.c", "w") as f:
     f.write("#include <stdio.h>\n\n")
     f.write(modified_code)
+    f.write("diocane\n")
     f.write("int main() {\n    return 0;\n}\n")
 
 print("\nModified code has been written to 'modified_temp.c'.")
