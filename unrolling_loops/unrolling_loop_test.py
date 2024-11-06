@@ -5,15 +5,12 @@ clang.cindex.Config.set_library_file("/home/linuxbrew/.linuxbrew/opt/python@3.11
 
 def parse_c_code(code):
     index = clang.cindex.Index.create()
-    translation_unit = index.parse('temp.c', args=['-std=c11'], unsaved_files=[('temp.c', code)])
+    translation_unit = index.parse('tempfile.c', args=['-std=c11'], unsaved_files=[('tempfile.c', code)])
     return translation_unit.cursor
 
 # Sample C code
 c_code = """
-int main() {
-    a = 0;
-    a++;
-    
+int main() {  
     for(int i = 0; i <= 3; i++){
         printf("Loop iteration %d\\n", i);
     }
