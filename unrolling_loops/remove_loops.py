@@ -29,23 +29,41 @@ class UnrollForLoopsVisitor(c_ast.NodeVisitor):
         
         inclusive = (for_node.cond.op == "<=")
 
-        if not (isinstance(for_node.next, c_ast.UnaryOp) and for_node.next.op == "p++"):
-            return None
+        # if not (isinstance(for_node.next, c_ast.UnaryOp) and for_node.next.op == "p++"):
+        #     return None
 
         max_value = end_value if inclusive else end_value - 1
         unrolled_statements = []
-        for i in range(start_value, max_value + 1):
-            # Redefine the loop variable `i` at the beginning of each unrolled iteration
-            new_var_assign = c_ast.Assignment(
-                op='=', 
-                lvalue=c_ast.ID(name=loop_var), 
-                rvalue=c_ast.Constant(type="int", value=str(i))
-            )
-            unrolled_statements.append(new_var_assign)  # Add the redefinition of `i`
-            
-            # Now replace occurrences of `i` inside the loop body with the updated value
-            body_copy = self.replace_loop_var(for_node.stmt, loop_var, i)
-            unrolled_statements.extend(body_copy if isinstance(body_copy, list) else [body_copy])
+        
+        if for_node.cond.op == "<=" or for_node.cond.op == "<":
+          # <= and i++
+          for i in range(start_value, max_value + 1):
+              # Redefine the loop variable `i` at the beginning of each unrolled iteration
+              new_var_assign = c_ast.Assignment(
+                  op='=', 
+                  lvalue=c_ast.ID(name=loop_var), 
+                  rvalue=c_ast.Constant(type="int", value=str(i))
+              )
+              unrolled_statements.append(new_var_assign)  # Add the redefinition of `i`
+              
+              # Now replace occurrences of `i` inside the loop body with the updated value
+              body_copy = self.replace_loop_var(for_node.stmt, loop_var, i)
+              unrolled_statements.extend(body_copy if isinstance(body_copy, list) else [body_copy])
+        
+        elif for_node.cond.op == ">=" or for_node.cond.op == ">":
+          # >= and i--
+          for i in reversed(range(max_value, start_value + 1)):
+              # Redefine the loop variable `i` at the beginning of each unrolled iteration
+              new_var_assign = c_ast.Assignment(
+                  op='=', 
+                  lvalue=c_ast.ID(name=loop_var), 
+                  rvalue=c_ast.Constant(type="int", value=str(i))
+              )
+              unrolled_statements.append(new_var_assign)  # Add the redefinition of `i`
+              
+              # Now replace occurrences of `i` inside the loop body with the updated value
+              body_copy = self.replace_loop_var(for_node.stmt, loop_var, i)
+              unrolled_statements.extend(body_copy if isinstance(body_copy, list) else [body_copy])
 
         return unrolled_statements
 
@@ -73,7 +91,7 @@ class UnrollForLoopsVisitor(c_ast.NodeVisitor):
                     if isinstance(child, c_ast.ID) and child.name == self.var_name:
                         # print("a")
                         # Replace the ID node with a Constant node
-                        setattr(node, child_name, c_ast.Constant(type="int", value=str(11)))#self.value)))
+                        setattr(node, child_name, c_ast.Constant(type="int", value="i"))
                     elif isinstance(child, c_ast.ExprList):
                         # print("b")
                         # Iterate over elements in ExprList and replace variable if found
@@ -108,11 +126,19 @@ def unroll_loops_in_code(c_code):
 c_code = """
 #include <stdio.h>
 
+int doStuff(a){
+  printf(a);
+}
+
 int main() {
     int i;
-    for (i = 0; i < 3; i++) {
-      printf("%d\\n", i);
+    int x;
+    for (i = 5; i >= 3; i--) {
+      x = i * 3;
+      doStuff(x);
     }
+
+    return 0;
 }
 """
 

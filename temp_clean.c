@@ -1,14 +1,33 @@
-# 0 "temp.c"
-# 0 "<built-in>"
-# 0 "<command-line>"
-# 1 "/usr/include/stdc-predef.h" 1 3 4
-# 0 "<command-line>" 2
-# 1 "temp.c"
+#include <stdio.h>
 
-int main() {
+int doStuff(int a)
+{
+  printf("%d\n", a);
+}
 
-
-    x = 42;
-    prinf(x);
-    return 0;
+int main()
+{
+  int i;
+  int x;
+  i = 5;
+  {
+    x = i * 3;
+    doStuff(x);
+  }
+  i = 4;
+  {
+    x = i * 3;
+    doStuff(x);
+  }
+  i = 3;
+  {
+    x = i * 3;
+    doStuff(x);
+  }
+  i = 2;
+  {
+    x = i * 3;
+    doStuff(x);
+  }
+  return 0;
 }
