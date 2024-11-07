@@ -39,14 +39,13 @@ def extract_functions(c_code):
     function_definitions = {}
 
     for ext in ast.ext:
-        print(ext)
-        print("\n\n\n")
+        # print(ext)
+        # print("\n\n\n")
         if isinstance(ext, c_ast.FuncDef):
             function_name = ext.decl.name
             function_decl = ext.decl
-            print(222)
-            print(ext.decl.type)
-            print(dir(ext.decl.type.type))
+            # print(ext.decl.type)
+            # print(dir(ext.decl.type.type))
             function_body = ext.body
             function_definitions[function_name] = (function_decl, function_body)
 
@@ -63,6 +62,7 @@ def inline_function_calls(c_code):
     # Use the visitor to inline function calls with their body
     inliner = FunctionCallInliner(function_definitions)
     inliner.visit(ast)
+    print(dir(inliner.visit(ast)))
 
     # Use the generator to convert the modified AST back to C code
     generator = c_generator.CGenerator()
@@ -73,7 +73,7 @@ def inline_function_calls(c_code):
 # Example usage
 c_code = """
 void doStuff(int a){
-    int b = 0;
+    int b;
     b = a;
 }
 
