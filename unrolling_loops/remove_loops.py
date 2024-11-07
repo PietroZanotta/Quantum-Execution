@@ -27,10 +27,7 @@ class UnrollForLoopsVisitor(c_ast.NodeVisitor):
             return None
         end_value = int(for_node.cond.right.value)
         
-        inclusive = (for_node.cond.op == "<=")
-
-        # if not (isinstance(for_node.next, c_ast.UnaryOp) and for_node.next.op == "p++"):
-        #     return None
+        inclusive = (for_node.cond.op == "<=" or for_node.cond.op == ">=")
 
         max_value = end_value if inclusive else end_value - 1
         unrolled_statements = []
@@ -68,16 +65,14 @@ class UnrollForLoopsVisitor(c_ast.NodeVisitor):
         return unrolled_statements
 
     def replace_loop_var(self, node, var_name, value):
-        # print("value: " + str(value))
         """
         Replace all occurrences of `var_name` in `node` with the constant `value`.
         """
+        # print("value: " + str(value))
         class ReplaceVarVisitor(c_ast.NodeVisitor):
             def __init__(self, var_name, value):
                 self.var_name = var_name
                 self.value = value
-                # print(value)
-                # print("\n\n")
 
             def visit(self, node):
                 # Traverse children and replace variable instances
@@ -133,8 +128,13 @@ int doStuff(a){
 int main() {
     int i;
     int x;
-    for (i = 5; i >= 3; i--) {
-      x = i * 3;
+    for (i = 5; i >= 4; i--) {
+      x = i;
+      doStuff(x);
+    }
+
+    for (i = 0; i <= 1; i++) {
+      x = i;
       doStuff(x);
     }
 
