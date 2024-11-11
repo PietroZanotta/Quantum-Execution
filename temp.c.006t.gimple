@@ -1,0 +1,43 @@
+int main ()
+{
+  int D.2562;
+
+  {
+    int i;
+    int x;
+
+    i = 5;
+    goto <D.2556>;
+    <D.2555>:
+    x = i;
+    doStuff (x);
+    i = i + -1;
+    <D.2556>:
+    if (i > 3) goto <D.2555>; else goto <D.2553>;
+    <D.2553>:
+    i = 0;
+    goto <D.2560>;
+    <D.2559>:
+    x = i;
+    doStuff (x);
+    i = i + 1;
+    <D.2560>:
+    if (i <= 1) goto <D.2559>; else goto <D.2557>;
+    <D.2557>:
+    D.2562 = 0;
+    return D.2562;
+  }
+  D.2562 = 0;
+  return D.2562;
+}
+
+
+__attribute__((always_inline))
+void doStuff (int a)
+{
+  int b;
+
+  b = a;
+}
+
+

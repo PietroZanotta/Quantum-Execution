@@ -118,11 +118,13 @@ def unroll_loops_in_code(c_code):
     return modified_code
 
 # Example usage
-c_code = """
+c_code_2 = """
 #include <stdio.h>
 
-int doStuff(a){
-  printf(a);
+inline void doStuff(a/*,int i*/){
+  //i= i + 1
+  int b = a;
+  //dostuff 
 }
 
 int main() {
@@ -132,7 +134,31 @@ int main() {
       x = i;
       doStuff(x);
     }
+    int i = 0;
+    for (i = 0; i <= 1; i++) {
+      x = i;
+      doStuff(x,i); //how many recursive calls  how many lines of this function
+    }
 
+    return 0;
+}
+"""
+
+c_code = """
+#include <stdio.h>
+
+inline void doStuff(a){
+  int b = a;
+}
+
+int main() {
+    int i;
+    int x;
+    for (i = 5; i >= 4; i--) {
+      x = i;
+      doStuff(x);
+    }
+    int i = 0;
     for (i = 0; i <= 1; i++) {
       x = i;
       doStuff(x);
