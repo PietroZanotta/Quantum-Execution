@@ -1,32 +1,57 @@
-// #include <stdio.h>
+/*
+  A division algorithm, by Kaldewaij
+  returns A//B
+*/
 
-// inline __attribute__((always_inline)) void doStuff(int a){
-//   int b = a; 
-//   printf("Value: %d\n", b);
-
-// }
-
-// int main() {
-//     int i;
-//     int x;
-//     for (i = 5; i >= 4; i--) {
-//       x = i;
-//       doStuff(x);
-//     }
-
-//     for (i = 0; i <= 1; i++) {
-//       x = i;
-//       doStuff(x);
-//     }
-
-//     return 0;
-// }
-
+// #include <limits.h>
 #include <stdio.h>
+#include <assert.h>
 
+// extern void abort(void);
+void reach_error() { assert(0); }
+// extern unsigned __VERIFIER_nondet_uint(void);
+// extern void abort(void);
+void assume_abort_if_not(int cond) {
+  if(!cond) {printf("not cond");}
+}
+void __VERIFIER_assert(int cond) {
+    if (!(cond)) {
+    ERROR:
+        {reach_error();}
+    }
+    return;
+}
+
+int counter = 0;
 int main() {
-    unsigned short x;
-    x = 16;
-    printf("Size of x: %zu bytes\n", sizeof(x));
+  unsigned A, B;
+  unsigned q, r, b;
+    A = 10;//__VERIFIER_nondet_uint();
+    B = 1;
+
+    q = 0;
+    r = A;
+    b = B;
+
+    while (counter++<5) {
+        printf("b\n");
+        if (!(r >= b)) break;
+        b = 2 * b;
+    }
+
+    while (counter++<5) {
+        printf("a\n");
+        __VERIFIER_assert(A == q * b + r);
+        if (!(b != B)) break;
+
+        q = 2 * q;
+        b = b / 2;
+        if (r >= b) {
+            q = q + 1;
+            r = r - b;
+        }
+    }
+
+    __VERIFIER_assert(A == q * b + r);
     return 0;
 }
