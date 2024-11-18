@@ -26,116 +26,122 @@ int main() {
   unsigned A, B;
   unsigned q, r, b;
 
-    A = __VERIFIER_nondet_uint(); // subtraction, entangeld with q, r and b
-    B = 1; // entangeld with b
+    A = __VERIFIER_nondet_uint(); //3 qbits
+    B = 1; //3 qbits
 
-    q = 0; // addition, multiplication, entangled with r, b
-    r = A; // 3 cnots; only subtractions and entangled with b, q
-    b = B; // 3 cnots; mult, sub, div, entangled with r, q, entangled with B
+    q = 0; //3 qbits
+    r = A; //3 qbits
+    b = B; //3 qbits
 
-    // note that the breaks ancilla as used every time with a mcnots to start the following loop
+    // note that the breaks ancillas as used every time with a mcnots to start the following loop
+    // my idea is to simply use that ancillas as control qbits for all the coming operations
 
-    counter++; // counter + 1
+    counter++; //requires 3 more qubits to encode 1 (we can use those 3 qubits also in operations where there's the (1) symbol)
+    
     //1
-    if (counter < 5){ // (counter + 3), cnot, dagger(counter + 3)
-        if (!(r >= b)) break; // >=?, not, cnot -> ancilla to break (used to go on), (!! ENTANGLEMENT !!)
-        b = 2 * b; // b*2, b was already entangled hence cannot use again the qbits encoding 2
-        counter++; // (counter + 1), easy no entanglement, so no probs for us
+    if (counter < 5){ // (1) and an ancilla
+        if (!(r >= b)) break; // dagger prevents the entanglement, requires an ancilla 
+        b = 2 * b; // (1) being a multiplication requires 6 qubits to store the result of the operation (we can use the 3 qubits that become free in other operations where there's the (2) symbol)
+        counter++; // (1)
     }
 
     //2
-    if (counter < 5){ // (counter + 3), cnot, dagger(counter + 3)
-        if (!(r >= b)) break; // >=?, not, cnot -> ancilla to break (used to go on), (!! ENTANGLEMENT !!)
-        b = 2 * b; // b*2, b was already entangled hence cannot use again the qbits encoding 2 
-        counter++; // (counter + 1), easy no entanglement, so no probs for us
+    if (counter < 5){ // (1) and an ancilla
+        if (!(r >= b)) break; // dagger prevents the entanglement, requires an ancilla 
+        b = 2 * b; // (1) (2)
+        counter++; // (1)
     }
 
     //3
-    if (counter < 5){ // (counter + 3), cnot, dagger(counter + 3)
-        if (!(r >= b)) break; // >=?, not, cnot -> ancilla to break (used to go on), (!! ENTANGLEMENT !!)
-        b = 2 * b; // b*2, b was already entangled hence cannot use again the qbits encoding 2 
-        counter++; // (counter + 1), easy no entanglement, so no probs for us
+    if (counter < 5){ // (1) and an ancilla
+        if (!(r >= b)) break; // dagger prevents the entanglement, requires an ancilla 
+        b = 2 * b; // (1) (2)
+        counter++; // (1)
     }
 
     //4
-    if (counter < 5){ // (counter + 3), cnot, dagger(counter + 3)
-        if (!(r >= b)) break; // >=?, not, cnot -> ancilla to break (used to go on), (!! ENTANGLEMENT !!)
-        b = 2 * b; // b*2, b was already entangled hence cannot use again the qbits encoding 2 
-        counter++; // (counter + 1), easy no entanglement, so no probs for us
+    if (counter < 5){ // (1) and an ancilla
+        if (!(r >= b)) break; // dagger prevents the entanglement, requires an ancilla 
+        b = 2 * b; // (1) (2)
+        counter++; // (1)
     }
 
     //5
-    if (counter < 5){ // (counter + 3), cnot, dagger(counter + 3)
-        if (!(r >= b)) break; // >=?, not, cnot -> ancilla to break (used to go on), (!! ENTANGLEMENT !!)
-        b = 2 * b; // b*2, b was already entangled hence cannot use again the qbits encoding 2 
-        counter++; // (counter + 1), easy no entanglement, so no probs for us
+    if (counter < 5){ // (1) and an ancilla
+        if (!(r >= b)) break; // dagger prevents the entanglement, requires an ancilla 
+        b = 2 * b; // (1) (2)
+        counter++; // (1)
     }
 
-    //1
-    if (counter < 5){ // (counter + 3), cnot, dagger(counter + 3)
-        __VERIFIER_assert(A == q * b + r); // (A -(q*b+r))==0 as mcnot -> ancilla (!! ENTANGLEMENT? not necessarily !!)
-        if (!(b != B)) break; // (B - b)==0 as mcnot -> ancilla to break (use it to go on)
 
-        q = 2 * q; // q*2, entanglement (?)
-        b = b / 2; // b/2, entanglement (?)
-        if (r >= b) { // >=? (probably a subtraction), cnot -> ancilla
-            q = q + 1; // q+1, entanglement (?)
-            r = r - b; // r-b (!!! ENTANGLEMENT !!!)
+// 34 qbits so far
+//////////////////////////////////
+    
+    //1
+    if (counter < 5){ // (1) and an ancilla
+        __VERIFIER_assert(A == q * b + r); // requires 1 more ancilla: the firs one to store the exit status of the program
+        if (!(b != B)) break; // dagger prevents the entanglement, requires an ancilla 
+
+        q = 2 * q; // (1), being a multiplication requires 6 qubits to store the result of the operation (we can use the 3 qubits that become free in other operations where there's the (3) symbol). No entangelement being 2 pure states
+        b = b / 2; // (1) being a ration requires 2 more qubits (we can use the 3 qubits that become free in other operations where there's the (4) symbol). No entangelement being two pure states 
+        if (r >= b) { // ancilla
+            q = q + 1; // no entanglement being two pure states
+            r = r - b; // 3 more qubits
         }
     }
 
     //2
-    if (counter < 5){ // (counter + 3), cnot, dagger(counter + 3)
-        __VERIFIER_assert(A == q * b + r); // (A -(q*b+r))==0 as mcnot -> ancilla (!! ENTANGLEMENT? not necessarily !!)
-        if (!(b != B)) break; // (B - b)==0 as mcnot -> ancilla to break (use it to go on)
+    if (counter < 5){ // (1) and an ancilla
+        __VERIFIER_assert(A == q * b + r); // requires 1 more ancilla: the firs one to store the exit status of the program
+        if (!(b != B)) break; // dagger prevents the entanglement, requires an ancilla 
 
-        q = 2 * q; // q*2, entanglement (?)
-        b = b / 2; // b/2, entanglement (?)
-        if (r >= b) { // >=? (probably a subtraction), cnot -> ancilla
-            q = q + 1; // q+1, entanglement (?)
-            r = r - b; // r-b (!!! ENTANGLEMENT !!!)
+        q = 2 * q; // (1) (3)
+        b = b / 2; // (1) (4)
+        if (r >= b) { // ancilla
+        q = q + 1; // no entanglement being two pure states
+            r = r - b; // 3 more qubits
         }
     }
     
     //3
-    if (counter < 5){ // (counter + 3), cnot, dagger(counter + 3)
-        __VERIFIER_assert(A == q * b + r); // (A -(q*b+r))==0 as mcnot -> ancilla (!! ENTANGLEMENT? not necessarily !!)
-        if (!(b != B)) break; // (B - b)==0 as mcnot -> ancilla to break (use it to go on)
+    if (counter < 5){ // (1) and an ancilla
+        __VERIFIER_assert(A == q * b + r); // requires 1 more ancilla: the firs one to store the exit status of the program
+        if (!(b != B)) break; // dagger prevents the entanglement, requires an ancilla 
 
-        q = 2 * q; // q*2, entanglement (?)
-        b = b / 2; // b/2, entanglement (?)
-        if (r >= b) { // >=? (probably a subtraction), cnot -> ancilla
-            q = q + 1; // q+1, entanglement (?)
-            r = r - b; // r-b (!!! ENTANGLEMENT !!!)
+        q = 2 * q; // (1) (3)
+        b = b / 2; // (1) (4)
+        if (r >= b) { // ancilla
+        q = q + 1; // no entanglement being two pure states
+            r = r - b; // 3 more qubits
         }
     }
 
     //4
-    if (counter < 5){ // (counter + 3), cnot, dagger(counter + 3)
-        __VERIFIER_assert(A == q * b + r); // (A -(q*b+r))==0 as mcnot -> ancilla (!! ENTANGLEMENT? not necessarily !!)
-        if (!(b != B)) break; // (B - b)==0 as mcnot -> ancilla to break (use it to go on)
+    if (counter < 5){ // (1) and an ancilla
+        __VERIFIER_assert(A == q * b + r); // requires 1 more ancilla: the firs one to store the exit status of the program
+        if (!(b != B)) break; // dagger prevents the entanglement, requires an ancilla 
 
-        q = 2 * q; // q*2, entanglement (?)
-        b = b / 2; // b/2, entanglement (?)
-        if (r >= b) { // >=? (probably a subtraction), cnot -> ancilla
-            q = q + 1; // q+1, entanglement (?)
-            r = r - b; // r-b (!!! ENTANGLEMENT !!!)
+        q = 2 * q; // (1) (3)
+        b = b / 2; // (1) (4)
+        if (r >= b) { // ancilla
+        q = q + 1; // no entanglement being two pure states
+            r = r - b; // 3 more qubits
         }
     }
 
     //5
-    if (counter < 5){ // (counter + 3), cnot, dagger(counter + 3)
-        __VERIFIER_assert(A == q * b + r); // (A -(q*b+r))==0 as mcnot -> ancilla (!! ENTANGLEMENT? not necessarily !!)
-        if (!(b != B)) break; // (B - b)==0 as mcnot -> ancilla to break (use it to go on)
+    if (counter < 5){ // (1) and an ancilla
+        __VERIFIER_assert(A == q * b + r); // requires 1 more ancilla: the firs one to store the exit status of the program
+        if (!(b != B)) break; // dagger prevents the entanglement, requires an ancilla 
 
-        q = 2 * q; // q*2, entanglement (?)
-        b = b / 2; // b/2, entanglement (?)
-        if (r >= b) { // >=? (probably a subtraction), cnot -> ancilla
-            q = q + 1; // q+1, entanglement (?)
-            r = r - b; // r-b (!!! ENTANGLEMENT !!!)
+        q = 2 * q; // (1) (3)
+        b = b / 2; // (1) (4)
+        if (r >= b) { // ancilla
+        q = q + 1; // no entanglement being two pure states
+            r = r - b; // 3 more qubits
         }
     }
 
-    __VERIFIER_assert(A == q * b + r); // (A -(q*b+r))==0 as mcnot -> ancilla (!! ENTANGLEMENT? not necessarily !!)
+    __VERIFIER_assert(A == q * b + r); // one more ancilla
     return 0;
 }
