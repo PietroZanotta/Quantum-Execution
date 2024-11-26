@@ -2,7 +2,7 @@ from qiskit import QuantumCircuit, ClassicalRegister, QuantumRegister, transpile
 from qiskit_aer import AerSimulator, Aer
 from QArithmetic import div
 
-n=8
+n=4
 
 # Registers and circuit.
 a = QuantumRegister(2*n)
@@ -34,5 +34,4 @@ def add_size(n):
     return int(2*(0-n*(n+1)/2 + n**2 + n) + n**2 +n - n*(n+1)/2)
 
 print(int(n*(4*n + add_size(2*n) + 5 + 2*cqft_size(5, 2*n) + qft_size(2) + 2*n-1 )))
-
-
+print(qc.depth())

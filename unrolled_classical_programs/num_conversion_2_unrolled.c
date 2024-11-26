@@ -19,6 +19,11 @@ void __VERIFIER_assert(int cond) {
 }
 //#include <assert.h>
 
+// 87 qubits required
+// depth: 1137
+// n gates: 
+
+
 int main()
 {
     unsigned char x = __VERIFIER_nondet_uchar();
@@ -28,107 +33,87 @@ int main()
     y = 0;
     c = 0;
     //0
-    if (c < (unsigned char)8) {
-        unsigned char i = ((unsigned char)1) << c;
-        unsigned char bit = x & i;
-        if (bit != (unsigned char)0) {
-            y = y + i;
+    if (c < (unsigned char)7) { // ancilla and needs a 3 qbits (that can be reused and will be indicated as (1))
+        unsigned char i = ((unsigned char)1) << c; // 4 more qubits, the bit shift can be implemente with swap gates
+        unsigned char bit = x & i; // 4 more qubits
+        if (bit != (unsigned char)0) { // ancilla
+            y = y + i; // both pure states, no entanglement
         }
-        c = c + ((unsigned char)1);
+        c = c + ((unsigned char)1); // (1), no entanglement both are pure state
     }
 
     //1
-    (c < (unsigned char)8) {
-        unsigned char i = ((unsigned char)1) << c;
-        unsigned char bit = x & i;
-        if (bit != (unsigned char)0) {
-            y = y + i;
+    (c < (unsigned char)7) { // (1) ancilla 
+        unsigned char i = ((unsigned char)1) << c; // 4 more qubits
+        unsigned char bit = x & i; // 4 more qubits
+        if (bit != (unsigned char)0) { // (1) and ancilla
+            y = y + i; // both pure states, no entanglement
         }
-        c = c + ((unsigned char)1);
+        c = c + ((unsigned char)1); // (1), no entanglement both are pure state
     }
 
     //2
-    (c < (unsigned char)8) {
-        unsigned char i = ((unsigned char)1) << c;
-        unsigned char bit = x & i;
-        if (bit != (unsigned char)0) {
-            y = y + i;
+    (c < (unsigned char)7) { // (1) ancilla 
+        unsigned char i = ((unsigned char)1) << c; // 4 more qubits
+        unsigned char bit = x & i; // 4 more qubits
+        if (bit != (unsigned char)0) { // (1) and ancilla
+            y = y + i; // both pure states, no entanglement
         }
-        c = c + ((unsigned char)1);
-    }
-
-    //2
-    (c < (unsigned char)8) {
-        unsigned char i = ((unsigned char)1) << c;
-        unsigned char bit = x & i;
-        if (bit != (unsigned char)0) {
-            y = y + i;
-        }
-        c = c + ((unsigned char)1);
+        c = c + ((unsigned char)1); // (1), no entanglement both are pure state
     }
 
     //3
-    (c < (unsigned char)8) {
-        unsigned char i = ((unsigned char)1) << c;
-        unsigned char bit = x & i;
-        if (bit != (unsigned char)0) {
-            y = y + i;
+    (c < (unsigned char)7) { // (1) ancilla 
+        unsigned char i = ((unsigned char)1) << c; // 4 more qubits
+        unsigned char bit = x & i; // 4 more qubits
+        if (bit != (unsigned char)0) { // (1) and ancilla
+            y = y + i; // both pure states, no entanglement
         }
-        c = c + ((unsigned char)1);
+        c = c + ((unsigned char)1); // (1), no entanglement both are pure state
     }
 
     //4
-    (c < (unsigned char)8) {
-        unsigned char i = ((unsigned char)1) << c;
-        unsigned char bit = x & i;
-        if (bit != (unsigned char)0) {
-            y = y + i;
+    (c < (unsigned char)7) { // (1) ancilla 
+        unsigned char i = ((unsigned char)1) << c; // 4 more qubits
+        unsigned char bit = x & i; // 4 more qubits
+        if (bit != (unsigned char)0) { // (1) and ancilla
+            y = y + i; // both pure states, no entanglement
         }
-        c = c + ((unsigned char)1);
+        c = c + ((unsigned char)1); // (1), no entanglement both are pure state
     }
 
     //5
-    (c < (unsigned char)8) {
-        unsigned char i = ((unsigned char)1) << c;
-        unsigned char bit = x & i;
-        if (bit != (unsigned char)0) {
-            y = y + i;
+    (c < (unsigned char)7) { // (1) ancilla 
+        unsigned char i = ((unsigned char)1) << c; // 4 more qubits
+        unsigned char bit = x & i; // 4 more qubits
+        if (bit != (unsigned char)0) { // (1) and ancilla
+            y = y + i; // both pure states, no entanglement
         }
-        c = c + ((unsigned char)1);
+        c = c + ((unsigned char)1); // (1), no entanglement both are pure state
     }
 
     //6
-    (c < (unsigned char)8) {
-        unsigned char i = ((unsigned char)1) << c;
-        unsigned char bit = x & i;
-        if (bit != (unsigned char)0) {
-            y = y + i;
+    (c < (unsigned char)7) { // (1) ancilla 
+        unsigned char i = ((unsigned char)1) << c; // 4 more qubits
+        unsigned char bit = x & i; // 4 more qubits
+        if (bit != (unsigned char)0) { // (1) and ancilla
+            y = y + i; // both pure states, no entanglement
         }
-        c = c + ((unsigned char)1);
+        c = c + ((unsigned char)1); // (1), no entanglement both are pure state
     }
 
     //7
-    (c < (unsigned char)8) {
-        unsigned char i = ((unsigned char)1) << c;
-        unsigned char bit = x & i;
-        if (bit != (unsigned char)0) {
-            y = y + i;
+    (c < (unsigned char)7) { // (1) ancilla 
+        unsigned char i = ((unsigned char)1) << c; // 4 more qubits
+        unsigned char bit = x & i; // 4 more qubits
+        if (bit != (unsigned char)0) { // (1) and ancilla
+            y = y + i; // both pure states, no entanglement
         }
-        c = c + ((unsigned char)1);
-    }
-
-    //8
-    (c < (unsigned char)8) {
-        unsigned char i = ((unsigned char)1) << c;
-        unsigned char bit = x & i;
-        if (bit != (unsigned char)0) {
-            y = y + i;
-        }
-        c = c + ((unsigned char)1);
+        c = c + ((unsigned char)1); // (1), no entanglement both are pure state
     }
 
     
-    __VERIFIER_assert(x == y);
+    __VERIFIER_assert(x == y); // ancilla
     
     return 0;
 }

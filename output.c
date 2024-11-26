@@ -5,11 +5,9 @@ extern void abort(void);
 extern void __assert_fail(const char *, const char *, unsigned int, const char *) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__noreturn__));
 void reach_error() { __assert_fail("0", "fibo_2calls_5-1.c", 4, "reach_error"); };
 
-// 204 qubits required
-// depth: 1568
-// n gates: 4470
-
-// look for quantum fibonacci algorithms
+// qubits required: 232
+// depth:
+// n gates: 13,182
 
 int res;
 int f1;
@@ -35,22 +33,29 @@ int f1121;
 int f1122;
 int f1211;
 int f1212;
+int f1221;
 int f2111;
 int f2112;
+int f2121;
+int f2211;
 
 int f11111; // 32
 int f11112;
+int f11121;
+int f11211;
+int f12111;
+int f21111;
 int f21211;
 int f21212;
 
 
 int main(void) {;
-    int n = 7;
+    int n = 7; // 3
 
 
-if (n < 1) {; // ancilla
+if (n - 1 < 0) {; // 
     res= 0;
-} else if (n == 1) {; // ancilla
+} else if (n - 1 == 0) {; // ancilla 
     res= 1;
 } else {;
 
@@ -115,13 +120,15 @@ if (n < 1) {; // ancilla
                     
                     //fibo1(n-6)
                     if(n-7<0) {;// (1), ancilla
-                        f1112= 0;
+                        f11121= 0;
                     } else if(n-7==0) {;// (1), ancilla
-                        f1112= 1;
+                        f11121= 1;
                     } else {;
                         
-                        f1112 = 1; 
+                        f11121 = 1; 
                     };
+
+                    f1112 = f11121; //+ f11122;
                 };
 
                 f111 = f1111 + f1112;
@@ -143,13 +150,15 @@ if (n < 1) {; // ancilla
                     
                     //fibo1(n-6)
                     if(n-7<0) {;// (1), ancilla
-                        f1121= 0;
+                        f11211= 0;
                     } else if(n-7==0) {;// (1), ancilla
-                        f1121= 1;
+                        f11211= 1;
                     } else {;
                         
-                        f1121 = 1; 
+                        f11211 = 1; 
                     };
+
+                    f1121 = f11211; // + f11212;
                 };
 
                 //fibo1(n-6)
@@ -157,8 +166,7 @@ if (n < 1) {; // ancilla
                     f1122 = 0;
                 } else if(n-7==0) {;// (1), ancilla
                     f1122 = 1;
-                } else {;
-                };
+                }
 
                 f112 = f1121 + f1122;
             };
@@ -189,14 +197,15 @@ if (n < 1) {; // ancilla
                     
                     //fibo1(n-6) 
                     if(n-7<0) {;// (1), ancilla
-                        f1211= 0;
+                        f12111= 0;
                     } else if(n-7==0) {;// (1), ancilla
-                        f1211= 1;
+                        f12111= 1;
                     } else {;
                         
-                        f1211 = 1; 
+                        f12111 = 1; 
                     };
 
+                    f1211 = f12111; // + f12112;
                 };
 
                 //fibo1(n-6)
@@ -204,8 +213,7 @@ if (n < 1) {; // ancilla
                     f1212 = 0;
                 } else if(n-7==0) {;// (1), ancilla
                     f1212 = 1;
-                } else {;
-                };
+                }
 
                 f121 = f1211 + f1212;
             };
@@ -220,12 +228,12 @@ if (n < 1) {; // ancilla
 
                 //fibo1(n-6) 
                 if(n-7<0) {;// (1), ancilla
-                    f122 = 0;
+                    f1221 = 0;
                 } else if(n-7==0) {;// (1), ancilla
-                    f122 = 1;
-                } else {;
-                    
-                };
+                    f1221 = 1;
+                } 
+
+                f122 = f1221; // + f1222;
             };
 
             f12= f121 + f122;
@@ -264,13 +272,15 @@ if (n < 1) {; // ancilla
                     
                     //fibo1(n-6)
                     if(n-7<0) {;// (1), ancilla
-                        f2111= 0;
+                        f21111= 0;
                     } else if(n-7==0) {;// (1), ancilla
-                        f2111= 1;
+                        f21111= 1;
                     } else {;
                         
-                        f2111 = 1; 
+                        f21111 = 1; 
                     };
+
+                    f2111 = f21111; // + f21112;
                 };
 
                 //fibo1(n-6)
@@ -278,8 +288,7 @@ if (n < 1) {; // ancilla
                     f2112 = 0;
                 } else if(n-7==0) {;// (1), ancilla
                     f2112 = 1;
-                } else {;
-                };
+                } 
 
                 f211 = f2111 + f2112;
             };
@@ -293,12 +302,15 @@ if (n < 1) {; // ancilla
 
                 //fibo1(n-6)
                 if(n-7<0) {;// (1), ancilla
-                    f212 = 0;
+                    f2121 = 0;
                 } else if(n-7==0) {;// (1), ancilla
-                    f212 = 1;
-                } else {;
-                };
+                    f2121 = 1;
+                } 
+
+                f212 = f2121; //+ f2122;
             };
+
+            f21= f211 + f212;
         };
         
         //fibo1(n-4)
@@ -317,13 +329,13 @@ if (n < 1) {; // ancilla
 
                 //fibo1(n-6) 
                 if(n-7<0) {;// (1), ancilla
-                    f221 = 0;
+                    f2211 = 0;
                 } else if(n-7==0) {;// (1), ancilla
-                    f221 = 1;
-                } else {;
-                    
-                };
+                    f2211 = 1;
+                }
 
+
+                f221 = f2211;// + f2212;
             };
 
             // fibo2(n-6) 
@@ -331,8 +343,7 @@ if (n < 1) {; // ancilla
                 f222 = 0;
             } else if(n-7==0) {;// (1), ancilla
                 f222 = 1;
-            } else {;
-            };
+            }
 
             f22= f221 + f222;
         };
