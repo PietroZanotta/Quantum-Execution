@@ -10,20 +10,24 @@ void __VERIFIER_assert(int cond) {
   return;
 }
 
+#include <stdio.h>
+
 int main(void) {
   unsigned int x = 0;
   unsigned int y;
 
-    // y = 2;
-
   scanf("%d", &y);
-  /*@ assert y <= 3 && y >= 2; */ 
+  /*@ assert y <= 7 && y >= 0; */ 
 
-  while (x < 99) {
+  while (x < 6) {
     if (y % 2 == 0) {
       x += 2;
     } else {
       x++;
     }
   }
+
+  printf("%d \n", x);
+
+  return 0;
 }

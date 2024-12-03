@@ -15,16 +15,17 @@ int main() {
     int number;
 
     scanf("%d", &number);
-    /*@ assert number <= 11 && number >= 0; */ 
+    /*@ assert number <= 7 && number >= 0; */ 
 
 
     int digit_sum = sum_of_digits(number);
+    printf("%d", digit_sum);
 
     return 0;
 }
 
 // Expected result:
-// digit_sum \isin {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+// digit_sum \isin {0, 1, 2, 3, 4, 5, 6, 7}
 
 // Got:
 // digit_sum ∈ [0..2147483647]

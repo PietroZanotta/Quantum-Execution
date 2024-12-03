@@ -1,7 +1,4 @@
-extern int __VERIFIER_nondet_int();
-extern void abort(void);
-extern void __assert_fail(const char *, const char *, unsigned int, const char *) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__noreturn__));
-void reach_error() { __assert_fail("0", "fibo_2calls_5-1.c", 4, "reach_error"); }
+# include <stdio.h> 
 
 int fibo1(int n);
 int fibo2(int n);
@@ -35,10 +32,10 @@ int fibo2(int n) {
 // 121393, 196418, 317811, 514229, 832040
 
 int main(void) {
-    int x = 5;
+    int x;
+    scanf("%d", &x);
     int result = fibo1(x);
-    if (result != 5) {
-        ERROR: {reach_error();abort();}
-    }
+
+    printf("%d\n", result);
     return 0;
 }

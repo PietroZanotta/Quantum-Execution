@@ -15,14 +15,17 @@
 /* shift_add algorithm for computing the 
    product of two natural numbers
 */
+
+#include <stdio.h>
+
 int main() {
     int a, b;
     int x, y, z;
 
     scanf("%d", &a);
-    /*@ assert a <= 7 && a >= 1; */ 
+    /*@ assert a <= 3 && a >= 1; */ 
     scanf("%d", &b);
-    /*@ assert b <= 7 && b >= 1; */ 
+    /*@ assert b <= 2 && b >= 1; */ 
     // assume_abort_if_not(b >= 1);
 
 
@@ -35,10 +38,7 @@ int main() {
     y = b;
     z = 0;
 
-    while (1) {
-        if (!(z + x * y == a * b))
-            break;
-
+    while (y>0) {
         if (y % 2 == 1) {
             z = z + x;
             y = y - 1;
@@ -46,6 +46,8 @@ int main() {
         x = 2 * x;
         y = y / 2;
     }
+
+    printf("%d\n", z);
     
     return 0;
 }

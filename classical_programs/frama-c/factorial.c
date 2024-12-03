@@ -14,9 +14,11 @@ int main() {
     int n;
 
     scanf("%d", &n);
-    /*@ assert n <= 7 && n >= 0; */ 
+    /*@ assert n <= 3 && n >= 0; */ 
 
     int fact = factorial(n);
+
+    printf("%d", fact);
 
     return 0;
 }

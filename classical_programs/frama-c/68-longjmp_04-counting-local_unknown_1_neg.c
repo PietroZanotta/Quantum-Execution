@@ -5,10 +5,7 @@
 //
 // SPDX-License-Identifier: MIT
 #include <assert.h>
-extern void abort(void);
-void reach_error() { assert(0); }
-void __VERIFIER_assert(int cond) { if(!(cond)) { ERROR: {reach_error();abort();} } }
-
+#include <stdio.h>
 #include <setjmp.h>
 
 jmp_buf my_jump_buffer;
@@ -20,11 +17,21 @@ void foo(int count)
 
 int main(void)
 {
-    volatile int count = 0;
+    int count;
+    // volatile int count = 0;
+
+    scanf("%d", &count);
+    /*@ assert count <= 7 && count >= 0; */ 
+    
     setjmp(my_jump_buffer);
-    __VERIFIER_assert(!(count == 0));
+    
+
     if (count < 5) {
+        // printf("%d", count);
         count++;
         foo(count);
     }
+    
+    printf("%d", count);
+    return 0;
 }

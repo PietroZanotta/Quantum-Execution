@@ -24,7 +24,7 @@ int main() {
     scanf("%d", &x);
     /*@ assert x <= 7 && x >= 0; */ 
     int closest = closestOdd(x);
-
+    printf("%d\n", closest);
     return 0;
 }
 

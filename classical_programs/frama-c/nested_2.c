@@ -13,17 +13,35 @@ extern void __assert_fail(const char *, const char *, unsigned int, const char *
 void reach_error() { __assert_fail("0", "nested_2.c", 13, "reach_error"); }
 
 int main() {
-	int a = 6;
-	int b = 6;
+	int a;
+	int b;
+	int c;
+	int d;
+
+	scanf("%d", &c);
+	/*@ assert 0 <= c <= 6; */
+
+	scanf("%d", &d);
+	/*@ assert 0 <= d <= 7; */
 
 
-	for(a = 0; a < 6; ++a) {
-		for(b = 0; b < 6; ++b) {
+	for(a = 0; a < c; ++a) {
+			if(c%3 == 0){
+				a++;
+				c++;
+			}
 
-		}
 	}
-	if(!(a == 6 && b == 6  )) {
-		reach_error();
+
+	for(b = 0; b < d; ++b) {
+			if(d%2 == 0){
+				b++;
+				d++;
+			}
 	}
-	return 1;
+
+	printf("%d", a);
+	// printf("%d", b);
+
+	return 0;
 }

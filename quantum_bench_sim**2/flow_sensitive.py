@@ -142,4 +142,7 @@ qct = transpile(qc_new, simulator)
 
 result = Aer.get_backend('statevector_simulator').run(qct, shots=30).result()
 counts = result.get_counts()
-print(counts)
+# print(counts)
+integer_dict = {int(key, 2): value for key, value in counts.items()}
+
+print(integer_dict)

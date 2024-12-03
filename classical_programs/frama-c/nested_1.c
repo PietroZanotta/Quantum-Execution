@@ -1,25 +1,20 @@
-// This file is part of the SV-Benchmarks collection of verification tasks:
-// https://github.com/sosy-lab/sv-benchmarks
-//
-// This file was part of CPAchecker,
-// a tool for configurable software verification:
-// https://cpachecker.sosy-lab.org
-//
-// SPDX-FileCopyrightText: 2007-2020 Dirk Beyer <https://www.sosy-lab.org>
-//
-// SPDX-License-Identifier: Apache-2.0
-
-void reach_error() { __assert_fail("0", "nested_1.c", 13, "reach_error"); }
+#include <stdio.h>
 
 int main() {
-	int a = 6;
+	int a;
 
+	int b;
+	scanf("%d", &b);
+	/*@ assert 0 <= b <= 7; */
 
-	for(a = 0; a < 6; ++a) {
-
+	for(a = 0; a < b; ++a) {
+		if(b%2 == 0){
+			a++;
+			b++;
+		}
 	}
-	if(!(a == 6 )) {
-		reach_error();
-	}
-	return 1;
+	
+	printf("%d \n", a);
+
+	return 0;
 }

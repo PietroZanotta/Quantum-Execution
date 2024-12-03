@@ -11,6 +11,8 @@ void reach_error() { __assert_fail("0", "Ackermann01-1.c", 3, "reach_error"); }
  * 
  */
 
+#include <stdio.h>
+
 int ackermann(int m, int n) {
     if (m==0) {
         return n+1;
@@ -26,23 +28,26 @@ int main() {
     int m;
 
     scanf("%d", &m);
-    /*@ assert m <= 7 && m >= 0; */ 
+    /*@ assert m <= 2 && m >= 0; */ 
 
-    if (m < 0 || m > 3) {
+    if (m < 0 || m > 2) {
         return 0;
     }
     int n;
 
     scanf("%d", &n);
-    /*@ assert n <= 7 && n >= 0; */ 
+    /*@ assert n <= 2 && n >= 0; */ 
 
-    if (n < 0 || n > 23) {
+    if (n < 0 || n > 2) {
         return 0;
     }
     int result = ackermann(m,n);
+    printf("%d \n", result);
+
     if (m < 0 || n < 0 || result >= 0) {
         return 0;
     } else {
         ERROR: {reach_error();abort();}
     }
+
 }

@@ -43,8 +43,10 @@ int main() {
     int x;
 
     scanf("%d", &x);
-    /*@ assert x <= 4 && x >= 3; */ 
+    /*@ assert x <= 7 && x >= 0; */ 
     int closest = closestPrime(x);
+
+    printf("%d", closest);
 
     return 0;
 }

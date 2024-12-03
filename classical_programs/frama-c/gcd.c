@@ -20,11 +20,12 @@ int main() {
     int a, b;
     scanf("%d %d", &a, &b);
 
-    /*@ assert 0 <= a <= 7; */  
-    /*@ assert 0 <= b <= 7; */
-    /*@ assert a!=b; */
+    /*@ assert 1 <= a <= 7; */  
+    /*@ assert 1 <= b <= 6; */
 
     int result = gcd(a, b);    
+
+    printf("%d", result);
     return 0;
 }
 

@@ -36,7 +36,11 @@ int main() {
     min = results[0];
     middle = results[1];
     max = results[2];
-    
+
+    // printf("%d", min);
+    // printf("%d", middle);
+    // printf("%d", max);
+
     return 0;
 }
 
