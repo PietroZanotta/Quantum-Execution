@@ -18,7 +18,7 @@ def simulate_fpqs_circ(n_shots=100, auto_iter = True, num_iter=None, num_qubit=6
 
     A.h(target)
     
-    fp_qc = fpqs_circ(u_f, .5, num_qubit, A, ancilla, target, num_iter)
+    fp_qc = fpqs_circ(u_f, .5, num_qubit, A, 6, target, num_iter)
     
     A.append(fp_qc, range(0, len(A.qubits)))
     A.measure_all()

@@ -40,7 +40,8 @@ def s_beta(beta, num_qubits, oracle, ancilla, A):
     """
 
     # Create the quantum circuit
-    circuit = QuantumCircuit(A.qubits[:-1], ancilla, name="S(\beta)")
+    circuit = QuantumCircuit(A.qubits, name="S(\beta)")
+    ancilla = circuit.qubits[ancilla]
 
     # Apply the oracle to all qubits
     circuit.barrier()
@@ -70,65 +71,65 @@ def s_alpha(alpha, num_qubits, A, target, ancilla):
     """
     
     # Create quantum circuit
-    circuit = QuantumCircuit(A.qubits[:-1], ancilla, name="S(\alpha)")
-
+    circuit = QuantumCircuit(A.qubits, name="S(\alpha)")
+    ancilla = circuit.qubits[ancilla]
     # Apply A_dagger 
     circuit.append(A.inverse(), range(len(A.qubits)))  
     circuit.barrier()    
       
 
     # Apply Z_{-alpha0.5} to last qubit (not ancilla qubit)
-    circuit.rz(-alpha*0.5, target[-1]) 
+    circuit.rz(-alpha*0.5, target[-2]) 
     circuit.barrier()    
 
     # Apply multicontrolled NOT gate to last and ancilla qubit
     circuit.x(A.qubits)
-    circuit.x(target[-1])
+    circuit.x(target[-2])
     circuit.x(ancilla)
     circuit.barrier()    
 
-    out = [target[-1]]
-    out.extend(ancilla)
+    out = [target[-2]]
+    out.extend([ancilla])
 
     contr = list(filter(lambda x: x not in out, A.qubits)) # All the qubits but the last target qubit and the ancilla 
     # print("\n\n")
     # print(len(contr))
     # print("\n\n")
-    circuit.mcx(contr, target[-1])
+    circuit.mcx(contr, target[-2])
     circuit.mcx(contr, ancilla)
     circuit.barrier()    
 
     circuit.x(ancilla)
-    circuit.x(target[-1])
+    circuit.x(target[-2])
     circuit.x(A.qubits)
     circuit.barrier()    
 
     # Apply Z_{-alpha0.5} to last qubit AND ancilla qubit
-    circuit.rz(-alpha*0.5, target[-1]) 
+    circuit.rz(-alpha*0.5, target[-2]) 
     circuit.rz(-alpha*0.5, ancilla) 
     circuit.barrier()    
    
     # Apply multicontrolled NOT gate to last and ancilla qubit
     circuit.x(A.qubits)
-    circuit.x(target[-1])
+    circuit.x(target[-2])
     circuit.x(ancilla)
     circuit.barrier()    
 
-    out = [target[-1]]
-    out.extend(ancilla)
+    out = [target[-2]]
+    out.extend([ancilla])
     contr = list(filter(lambda x: x not in out, A.qubits)) # All the qubits but the last target qubit and the ancilla 
 
-    circuit.mcx(contr, target[-1])
+    circuit.mcx(contr, target[-2])
     circuit.mcx(contr, ancilla)
     circuit.barrier()    
 
     circuit.x(ancilla)
-    circuit.x(target[-1])
+    circuit.x(target[-2])
     circuit.x(A.qubits)
     circuit.barrier()    
 
     # Apply Z_alpha to last qubit (not ancilla qubit)
-    circuit.rz(alpha, target[-1]) 
+    circuit.rz(alpha, target[-2]) 
     circuit.barrier()    
 
     # Apply A to all qubits
@@ -146,7 +147,6 @@ def fpqs_circ(oracle, delta, n_qubits, A, ancilla, target, num_steps=None):
             delta (float): Precision parameter in (0,1]
             n_qubits (int): Number of qubits on which the fpqs is running (i.e. number of qubits of the solution)
             A (QuantumCircuit): Quantum circuit preparing the search space (should also include the ancilla)
-            ancilla (Qubit): the ancilla necessary to run the FPQS algorithm  
             target ([Qubits]): a list of qubits representing the target
             num_steps (int): Number of steps of the algorithm (l). If none, the number of steps is automatically selected
 
@@ -163,10 +163,12 @@ def fpqs_circ(oracle, delta, n_qubits, A, ancilla, target, num_steps=None):
         num_steps = int(np.ceil(np.log(2/delta)*np.sqrt(np.power(2, n_qubits))))
 
     # Get the dimension of the circuit from A
-    num_qubits = len(A.qubits) - 1
+    num_qubits = len(target)
 
     # Compute the number of qubits in circuit
-    qc = QuantumCircuit(A.qubits[:-1], ancilla, name="fpqs")
+    # print("\n\n")
+    # print(type(ancilla))
+    qc = QuantumCircuit(A.qubits, name="fpqs")
 
     # Run the generalized Grover iterator for num_steps times
     for j in range(num_steps):

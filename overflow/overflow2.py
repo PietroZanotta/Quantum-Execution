@@ -47,6 +47,7 @@ def encoding(qc):
     '''
     # Encoding x as an equal superposition of values ranging from 0 to 7
     qc.h(range(1, 4)) 
+    print(qc)
     
     # Encoding 3 (0011). 3 comes from 2^3 - 1 - 5 
     # where 2^3 - 1 is maximum number the 3-bits machine can represent and 5 is part of the if statement
@@ -105,7 +106,7 @@ def oracle(qc, digits=3):
     qc.append(inv_circuit, range(0,15), range(0,4))
 
 
-def simulate_classical_circ(n_shots=100):
+def simulate_classical_circ(n_shots=100, n_iter=10):
     '''
         Simulate the classical circuit and returns any x thay could cause the overflow, while plotting the result
         of the simulations
@@ -118,7 +119,7 @@ def simulate_classical_circ(n_shots=100):
     digits = 4
 
      # Create the circuit
-    fpqs_qc = fpqs_circ(oracle, .5, 15, digits, encoding, 5)
+    fpqs_qc = fpqs_circ(oracle, .5, 15, digits, encoding, n_iter)
     fpqs_qc.barrier()
 
     # Measure the x at the end of the circuit
@@ -147,4 +148,4 @@ def simulate_classical_circ(n_shots=100):
     plt.show()
 
 
-simulate_classical_circ()
+simulate_classical_circ(n_iter=9)
