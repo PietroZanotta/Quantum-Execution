@@ -15,7 +15,7 @@ int main() {
     int number;
 
     scanf("%d", &number);
-    /*@ assert number <= 7 && number >= 0; */ 
+    /*@ assert number == 7 || number == 0; */ 
 
 
     int digit_sum = sum_of_digits(number);

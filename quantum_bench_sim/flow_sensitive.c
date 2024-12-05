@@ -8,23 +8,20 @@
     ensures \result <= 7 || \result >= 8; 
     ensures \result <= 7 || \result == x + 5 || \result == x + 1;
 */
-int compute_range(int x, int y) {
+int compute_range(int x) {
     int result;
-    if (x >= y) {
+    if (x >= 4) {
         if (x >= 5) {
-            result = (x + 1)%7;  
+            result = x + 1;  
         } else {
-            result = (x + 5)%7;  
+            result = x + 5;  
         }
     } else {
         if (x >= 2) {
-            result = (x + 5)%7;  
+            result = x + 5;  
         } else {
             result = x;      
         }
-    }
-    if (x == y){
-        return 7;
     }
 
     /*@ assert result >= 0; */
@@ -35,14 +32,10 @@ int compute_range(int x, int y) {
 int main() {
     int x;
     scanf("%d", &x);  
-    /*@ assert x <= 7 || x >= 0; */ 
-
-    int y;
-    scanf("%d", &y);  
-    /*@ assert y <= 1 || y >= 0; */ 
+    /*@ assert number <= 7 && number >= 0; */ 
 
 
-    int result = compute_range(x, y);
+    int result = compute_range(x);
         
     printf("%d\n", result);
     return 0;

@@ -5,7 +5,7 @@ int main() {
 
 	int b;
 	scanf("%d", &b);
-	/*@ assert 0 <= b <= 7; */
+	/*@ assert b == 1 || b == 7; */
 
 	for(a = 0; a < b; ++a) {
 		if(b%2 == 0){

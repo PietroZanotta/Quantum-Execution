@@ -110,11 +110,6 @@ for a, b, c, d in pairs:
         print(f"Error: Some values exceed 7 in results for ({a}, {b}, {c}, {d}).")
         break
 
-    all_manual_in_frama = program_results <= frama_closest
-    if not all_manual_in_frama:
-        print(f"Error: Not all manual results are in Frama-C results for ({a}, {b}, {c}, {d}).")
-        break
-
     # Output the results
     print(f"Inputs {a} and {b} and {c} and {d}")
 

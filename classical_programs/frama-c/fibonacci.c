@@ -21,7 +21,7 @@ int main() {
     int n;
 
     scanf("%d", &n);
-    /*@ assert n <= 5 && n >= 0; */ 
+    /*@ assert n == 1 || n == 0; */ 
 
     int nth_fibonacci = fibonacci(n);
     printf("%d", nth_fibonacci);

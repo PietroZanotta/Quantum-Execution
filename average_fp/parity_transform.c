@@ -22,6 +22,7 @@ int main() {
     int x; 
 
     scanf("%d", &x);
+    /*@ assert x == a || x == b;*/
 
     int result = parity_transform(x);
 
