@@ -17,7 +17,7 @@ int main(void) {
   unsigned int y;
 
   scanf("%d", &y);
-  /*@ assert y <= 7 && y >= 0; */ 
+  /*@ assert y == a || y == b; */ 
 
   while (x < 6) {
     if (y % 2 == 0) {

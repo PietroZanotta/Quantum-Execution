@@ -1,11 +1,11 @@
 #include <stdio.h>
 
-int* find_order(int a, int b, int c) {
+int* find_order(int l, int m, int n) {
     static int result[3]; 
 
-    result[0] = a;
-    result[1] = b;
-    result[2] = c;
+    result[0] = l;
+    result[1] = m;
+    result[2] = n;
 
     // Bubble sort
     for (int i = 0; i < 2; i++) {
@@ -25,11 +25,11 @@ int main() {
     int num1, num2, num3;
     int min, middle, max;
 
-    scanf("%d %d %d", &num1, &num2, &num3);
+    scanf("%d", &num1);
+    scanf("%d", &num2);
+    scanf("%d", &num3);
 
-    /*@ assert num1 <= 5 && num1 >= 2; */ 
-    /*@ assert num2 <= 7 && num2 >= 5; */ 
-    /*@ assert num3 <= 2 && num3 >= 0; */ 
+    /*@ assert num1 == a || num1 == b; */
 
     int* results = find_order(num1, num2, num3);
 
@@ -37,9 +37,9 @@ int main() {
     middle = results[1];
     max = results[2];
 
-    // printf("%d", min);
-    // printf("%d", middle);
-    // printf("%d", max);
+    int result_ = max;
+
+    printf("%d", result_);
 
     return 0;
 }

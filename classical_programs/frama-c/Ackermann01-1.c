@@ -26,17 +26,16 @@ int ackermann(int m, int n) {
 
 int main() {
     int m;
+    int n;
+
+    scanf("%d", &n);
 
     scanf("%d", &m);
-    /*@ assert m <= 2 && m >= 0; */ 
+    /*@ assert m == a || m == b; */ 
 
     if (m < 0 || m > 2) {
         return 0;
     }
-    int n;
-
-    scanf("%d", &n);
-    /*@ assert n <= 2 && n >= 0; */ 
 
     if (n < 0 || n > 2) {
         return 0;

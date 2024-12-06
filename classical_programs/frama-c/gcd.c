@@ -5,25 +5,24 @@
     ensures \result >= 0;  
     ensures \result <= 7;  
 */
-int gcd(int a, int b) {
+int gcd(int h, int q) {
    
-    if (b == 0) {
-        return a; 
+    if (q == 0) {
+        return h; 
     } else {
-        int result = gcd(b, a % b); 
+        int result = gcd(q, h % q); 
                 
         return result; 
     }
 }
 
 int main() {
-    int a, b;
-    scanf("%d %d", &a, &b);
+    int h, q;
+    scanf("%d %d", &h, &q);
+    /*@ assert h == a || h == b; */  
 
-    /*@ assert 1 <= a <= 7; */  
-    /*@ assert 1 <= b <= 6; */
 
-    int result = gcd(a, b);    
+    int result = gcd(h, q);    
 
     printf("%d", result);
     return 0;

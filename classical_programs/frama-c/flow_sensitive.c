@@ -34,12 +34,11 @@ int compute_range(int x, int y) {
 
 int main() {
     int x;
-    scanf("%d", &x);  
-    /*@ assert x <= 7 || x >= 0; */ 
-
     int y;
+
+    scanf("%d", &x);  
     scanf("%d", &y);  
-    /*@ assert y <= 1 || y >= 0; */ 
+    /*@ assert x == a || x == b; */ 
 
 
     int result = compute_range(x, y);

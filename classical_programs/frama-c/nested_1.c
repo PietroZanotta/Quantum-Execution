@@ -1,20 +1,20 @@
 #include <stdio.h>
 
 int main() {
-	int a;
+	int q;
 
-	int b;
-	scanf("%d", &b);
-	/*@ assert b == 1 || b == 7; */
+	int h;
+	scanf("%d", &h);
+    /*@ assert h == a || h == b; */
 
-	for(a = 0; a < b; ++a) {
-		if(b%2 == 0){
-			a++;
-			b++;
+	for(q = 0; q < h; ++q) {
+		if(h%2 == 0){
+			q++;
+			h++;
 		}
 	}
 	
-	printf("%d \n", a);
+	printf("%d \n", q);
 
 	return 0;
 }

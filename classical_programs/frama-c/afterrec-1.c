@@ -5,7 +5,7 @@ int f(int n) {
   if (n<3) {
     return n;
   }
-  n--;
+  n=n-1;
   f(n);
 }
 
@@ -13,7 +13,7 @@ int main(void) {
   int x;
   
   scanf("%d", &x);
-  /*@ assert x == 2 || x == 0; */  
+  /*@ assert x == a || x == b; */  
   
   int a = f(x);
   printf("%d\n", a);

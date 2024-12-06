@@ -14,7 +14,7 @@ int main() {
     int n;
 
     scanf("%d", &n);
-    /*@ assert n <= 3 && n >= 0; */ 
+    /*@ assert n == a || n == b; */ 
 
     int fact = factorial(n);
 

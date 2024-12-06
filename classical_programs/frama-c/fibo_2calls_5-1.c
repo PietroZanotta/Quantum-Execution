@@ -34,7 +34,7 @@ int fibo2(int n) {
 int main(void) {
     int x;
     scanf("%d", &x);
-    /*@ assert x <= 5 && x >= 0; */ 
+    /*@ assert x == 5 || x == 0 || x == 3; */ 
 
     int result = fibo1(x);
 

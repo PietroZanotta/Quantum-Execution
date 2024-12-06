@@ -6,7 +6,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /*
-  A nonlinear termination benchmark program from the OOPSLA'20 paper 
+  h nonlinear termination benchmark program from the OOPSLA'20 paper 
   "DynamiTe: Dynamic termination and non-termination proofs"
   by Ton Chanh Le, Timos Antonopoulos, Parisa Fathololumi, Eric Koskinen, ThanhVu Nguyen.
   Adapted from the original nonlinear benchmark nla-digbench. 
@@ -19,24 +19,25 @@
 #include <stdio.h>
 
 int main() {
-    int a, b;
+    int h, l;
     int x, y, z;
 
-    scanf("%d", &a);
-    /*@ assert a <= 3 && a >= 1; */ 
-    scanf("%d", &b);
-    /*@ assert b <= 2 && b >= 1; */ 
-    // assume_abort_if_not(b >= 1);
+    scanf("%d", &h);
+    scanf("%d", &l);
+    // // /*@ assert (h == 0 || h == 6 || h == 3) && (h == 1 || h == 0); */ 
+    // /*@ assert (h == 0 || h == 6 || h == 3) && (l == 1 || l == 4 || l == 0); */
+    /*@ assert h == a || h == b; */
+    
+    x = h;
+    y = l;
+    z = 0;
 
-
-    if (b < 1) {
-        return 1;
+    if (l < 1) {
+        printf("%d", z);
+        return 0;
     }
 
 
-    x = a;
-    y = b;
-    z = 0;
 
     while (y>0) {
         if (y % 2 == 1) {

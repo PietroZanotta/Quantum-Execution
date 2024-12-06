@@ -19,7 +19,7 @@ int main() {
     int number;
 
     scanf("%d", &number);
-    /*@ assert number <= 7 && number >= 0; */ 
+    /*@ assert number == a || number == b; */ 
 
     int binary_digit_count = count_binary_digits(number);
 
