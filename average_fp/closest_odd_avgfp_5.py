@@ -9,8 +9,9 @@ n = 7
 file = "closest_odd.c"
 
 # Define the C file to modify and the terminal command
-c_file = f"/home/pietro/Desktop/cu/average_fp/{file}"
-terminal_command = f"frama-c -eva /home/pietro/Desktop/cu/average_fp/{file}"
+script_dir = os.path.dirname(os.path.abspath(__file__))
+c_file = os.path.join(script_dir, file)
+terminal_command = f"frama-c -eva -eva-unroll-recursive-calls 10 {c_file}"
 
 # Generate all unique pairs (a, b) for a, b in range(0, 8)
 tuples = list(itertools.permutations(range(n+1), 5))

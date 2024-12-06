@@ -43,7 +43,7 @@ int main()
     }
 
     //1
-    (c < (unsigned char)7) { // (1) ancilla 
+    if (c < (unsigned char)7) { // (1) ancilla 
         unsigned char i = ((unsigned char)1) << c; // 4 more qubits
         unsigned char bit = x & i; // 4 more qubits
         if (bit != (unsigned char)0) { // (1) and ancilla
@@ -53,7 +53,7 @@ int main()
     }
 
     //2
-    (c < (unsigned char)7) { // (1) ancilla 
+    if (c < (unsigned char)7) { // (1) ancilla 
         unsigned char i = ((unsigned char)1) << c; // 4 more qubits
         unsigned char bit = x & i; // 4 more qubits
         if (bit != (unsigned char)0) { // (1) and ancilla
@@ -63,7 +63,7 @@ int main()
     }
 
     //3
-    (c < (unsigned char)7) { // (1) ancilla 
+    if (c < (unsigned char)7) { // (1) ancilla 
         unsigned char i = ((unsigned char)1) << c; // 4 more qubits
         unsigned char bit = x & i; // 4 more qubits
         if (bit != (unsigned char)0) { // (1) and ancilla
@@ -73,7 +73,7 @@ int main()
     }
 
     //4
-    (c < (unsigned char)7) { // (1) ancilla 
+    if (c < (unsigned char)7) { // (1) ancilla 
         unsigned char i = ((unsigned char)1) << c; // 4 more qubits
         unsigned char bit = x & i; // 4 more qubits
         if (bit != (unsigned char)0) { // (1) and ancilla
@@ -83,7 +83,7 @@ int main()
     }
 
     //5
-    (c < (unsigned char)7) { // (1) ancilla 
+    if (c < (unsigned char)7) { // (1) ancilla 
         unsigned char i = ((unsigned char)1) << c; // 4 more qubits
         unsigned char bit = x & i; // 4 more qubits
         if (bit != (unsigned char)0) { // (1) and ancilla
@@ -93,7 +93,7 @@ int main()
     }
 
     //6
-    (c < (unsigned char)7) { // (1) ancilla 
+    if (c < (unsigned char)7) { // (1) ancilla 
         unsigned char i = ((unsigned char)1) << c; // 4 more qubits
         unsigned char bit = x & i; // 4 more qubits
         if (bit != (unsigned char)0) { // (1) and ancilla
@@ -103,7 +103,7 @@ int main()
     }
 
     //7
-    (c < (unsigned char)7) { // (1) ancilla 
+    if (c < (unsigned char)7) { // (1) ancilla 
         unsigned char i = ((unsigned char)1) << c; // 4 more qubits
         unsigned char bit = x & i; // 4 more qubits
         if (bit != (unsigned char)0) { // (1) and ancilla

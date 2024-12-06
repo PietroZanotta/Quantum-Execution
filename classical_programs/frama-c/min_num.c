@@ -34,10 +34,8 @@ int main() {
     int* results = find_order(num1, num2, num3);
 
     min = results[0];
-    middle = results[1];
-    max = results[2];
 
-    int result_ = max;
+    int result_ = min;
 
     printf("%d", result_);
 

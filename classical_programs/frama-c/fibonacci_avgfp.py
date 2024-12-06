@@ -10,8 +10,9 @@ n = 5
 fp_list = []
 
 file = "fibonacci.c"
-c_file = f"/home/pietro/Desktop/cu/classical_programs/frama-c/{file}"
-terminal_command = f"frama-c -eva /home/pietro/Desktop/cu/classical_programs/frama-c/{file}"
+script_dir = os.path.dirname(os.path.abspath(__file__))
+c_file = os.path.join(script_dir, file)
+terminal_command = f"frama-c -eva -eva-unroll-recursive-calls 10 {c_file}"
 
 # Read the original content of the C file
 with open(c_file, "r") as o_file:

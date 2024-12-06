@@ -40,13 +40,8 @@ int main() {
     if (n < 0 || n > 2) {
         return 0;
     }
+
     int result = ackermann(m,n);
     printf("%d \n", result);
-
-    if (m < 0 || n < 0 || result >= 0) {
-        return 0;
-    } else {
-        ERROR: {reach_error();abort();}
-    }
-
+    return 0;
 }

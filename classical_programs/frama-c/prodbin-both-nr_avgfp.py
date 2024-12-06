@@ -69,8 +69,8 @@ for tuple_length in range(2, 8):
 
             # Check if the range includes 2147483647
             for line in frama_output.splitlines():
-                if "z" in line:
-                    print(line)
+                # if "z" in line:
+                    # print(line)
                 if ("2147483646" in line or "2147483647" in line) and "z ∈" in line:
                     print("Range includes 2147483647. Setting FP rate to 1.")
                     fp_list.append(1)
