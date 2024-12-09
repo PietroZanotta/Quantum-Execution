@@ -1,13 +1,5 @@
 #include <stdio.h>
 
-/*@ 
-    requires 0 <= x <= 7; 
-    assigns \result;        
-    ensures \result >= 0;   
-    ensures \result <= 10;  
-    ensures \result <= 7 || \result >= 8; 
-    ensures \result <= 7 || \result == x + 5 || \result == x + 1;
-*/
 int compute_range(int x, int y) {
     int result;
     if (x >= y) {
@@ -26,8 +18,6 @@ int compute_range(int x, int y) {
     if (x == y){
         return 7;
     }
-
-    /*@ assert result >= 0; */
     
     return result; 
 }
@@ -38,7 +28,7 @@ int main() {
 
     scanf("%d", &x);  
     scanf("%d", &y);  
-    /*@ assert x == a || x == b; */ 
+    /*@ assert x == a || x == b; */
 
 
     int result = compute_range(x, y);

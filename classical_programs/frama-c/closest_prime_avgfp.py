@@ -4,7 +4,7 @@ import random
 import re
 import os
 
-random.seed(1)  # Set the random seed for reproducibility
+random.seed(1)
 
 n = 7
 fp_list = []
@@ -75,7 +75,7 @@ for tuple_length in range(2, 8):
         # Compile and run the C program
         try:
             subprocess.run(
-                ["gcc", f"/home/pietro/Desktop/cu/average_fp/{str(file)}", "-o", "test"], text=True, capture_output=True
+                ["gcc", f"/home/pietro/Desktop/cu/classical_programs/frama-c/{str(file)}", "-o", "cprime"], text=True, capture_output=True
             )
         except Exception as e:
             print(f"Error during compilation: {e}")
@@ -85,7 +85,7 @@ for tuple_length in range(2, 8):
         for input_value in t:
             try:
                 run_result = subprocess.run(
-                    ["./test"], input=f"{input_value}\n", text=True, capture_output=True
+                    ["./cprime"], input=f"{input_value}\n", text=True, capture_output=True
                 )
                 program_results.add(int(run_result.stdout.strip()))
             except Exception as e:
@@ -94,8 +94,10 @@ for tuple_length in range(2, 8):
 
         # Compare results
         only_in_frama = frama_closest - program_results
+        print(frama_closest)
         ratio = len(only_in_frama) / len(frama_closest) if frama_closest else 0
         fp_list.append(ratio)
+        print(ratio)
 
         # Revert the C file to its original assertion line
         modified_content[assert_line_index] = original_assert_line

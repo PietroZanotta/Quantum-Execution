@@ -89,32 +89,39 @@ for tuple_length in range(2, 8):
                         frama_closest = set(range(range_bounds[0], range_bounds[1] + 1))
                 else:
                     frama_closest = set()
-                print(frama_closest)
+                # print(frama_closest)
 
                 # Compile and run the C program
                 try:
                     subprocess.run(
-                        ["gcc", f"/home/pietro/Desktop/cu/average_fp/{str(file)}", "-o", "test"], text=True, capture_output=True
+                        ["gcc", f"/home/pietro/Desktop/cu/classical_programs/frama-c/{str(file)}", "-o", "fs"], text=True, capture_output=True
                     )
                 except Exception as e:
                     print(f"Error during compilation: {e}")
                     continue
 
                 program_results = set()
-                for input_value in number_t + y_t:  # Combine inputs from both tuples
-                    try:
-                        run_result = subprocess.run(
-                            ["./test"], input=f"{input_value}\n", text=True, capture_output=True
-                        )
-                        program_results.add(int(run_result.stdout.strip()))
-                    except Exception as e:
-                        print(f"Error running compiled program with input {input_value}: {e}")
-                        continue
+                for input_value in number_t:
+                    for input_value2 in y_t:
+                        try:
+                            run_result = subprocess.run(
+                                ["./fs"], input=f"{input_value}\n{input_value2}\n", text=True, capture_output=True
+                            )
+                            print(str(input_value) + "  " + str(input_value2) + " -> " + str(int(run_result.stdout.strip())))
+                            program_results.add(int(run_result.stdout.strip()))
+                        except Exception as e:
+                            print(f"Error running compiled program with input {input_value}: {e}")
+                            continue
 
                 # Compare results
                 only_in_frama = frama_closest - program_results
                 ratio = len(only_in_frama) / len(frama_closest) if frama_closest else 0
                 fp_list.append(ratio)
+                
+                print(ratio)
+                print(frama_closest)
+                print(program_results)
+                print("--------")
 
             # Revert the C file to its original assertion line
             modified_content[assert_line_index] = original_assert_line

@@ -23,6 +23,10 @@ int fibo2(int n) {
     }
 }
 
+int fibo(int n){
+    return fibo1(n);
+}
+
 // fibo 1-30
 // 1, 1, 2, 3, 5,
 // 8, 13, 21, 34, 55, 
@@ -36,7 +40,7 @@ int main(void) {
     scanf("%d", &x);
     /*@ assert x == a || x == b; */ 
 
-    int result = fibo1(x);
+    int result = fibo(x);
 
     printf("%d\n", result);
     return 0;

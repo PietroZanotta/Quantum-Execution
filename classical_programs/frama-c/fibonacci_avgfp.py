@@ -85,8 +85,11 @@ for tuple_length in range(2, 8):
             # Compile and run the C program
             
             try:
+                script_dir = os.path.dirname(os.path.abspath(__file__))
+                exec = os.path.join(script_dir, file)
+
                 subprocess.run(
-                    ["gcc", f"/home/pietro/Desktop/cu/average_fp/{str(file)}", "-o", "test"], text=True, capture_output=True
+                    ["gcc", str(c_file), "-o", "fib"], text=True, capture_output=True
                 )
             except Exception as e:
                 print(f"Error during compilation: {e}")
@@ -96,7 +99,7 @@ for tuple_length in range(2, 8):
             for input_value in t:
                 try:
                     run_result = subprocess.run(
-                        ["./test"], input=f"{input_value}\n", text=True, capture_output=True
+                        ["./fib"], input=f"{input_value}\n", text=True, capture_output=True
                     )
                     program_results.add(int(run_result.stdout.strip()))
                 except Exception as e:

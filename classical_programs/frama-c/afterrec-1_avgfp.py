@@ -10,6 +10,8 @@ n = 7
 fp_list = []
 
 file = "afterrec-1.c"
+c_file = f"/home/pietro/Desktop/cu/classical_programs/frama-c/{file}"
+terminal_command = f"frama-c -eva /home/pietro/Desktop/cu/classical_programs/frama-c/{file} -eva-unroll-recursive-calls 10"
 script_dir = os.path.dirname(os.path.abspath(__file__))
 c_file = os.path.join(script_dir, file)
 terminal_command = f"frama-c -eva -eva-unroll-recursive-calls 10 {c_file}"
@@ -75,9 +77,12 @@ for tuple_length in range(2, 8):
 
         # Compile and run the C program
         try:
-            subprocess.run(
-                ["gcc", f"/home/pietro/Desktop/cu/average_fp/{str(file)}", "-o", "test"], text=True, capture_output=True
+            result = subprocess.run(
+                ["gcc", f"/home/pietro/Desktop/cu/classical_programs/frama-c/{str(file)}", "-o", "afterrec"], 
+                text=True, 
+                capture_output=True
             )
+
         except Exception as e:
             print(f"Error during compilation: {e}")
             continue
@@ -86,7 +91,7 @@ for tuple_length in range(2, 8):
         for input_value in t:
             try:
                 run_result = subprocess.run(
-                    ["./test"], input=f"{input_value}\n", text=True, capture_output=True
+                    ["./afterrec"], input=f"{input_value}\n", text=True, capture_output=True
                 )
                 program_results.add(int(run_result.stdout.strip()))
             except Exception as e:

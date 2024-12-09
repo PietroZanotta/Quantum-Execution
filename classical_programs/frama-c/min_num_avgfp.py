@@ -98,22 +98,25 @@ for tuple_length in range(2, 8):
                     # Compile and run the C program
                     try:
                         subprocess.run(
-                            ["gcc", f"/home/pietro/Desktop/cu/average_fp/{str(file)}", "-o", "test"], text=True, capture_output=True
+                            ["gcc", f"/home/pietro/Desktop/cu/classical_programs/frama-c/{str(file)}", "-o", "min"], text=True, capture_output=True
                         )
                     except Exception as e:
                         print(f"Error during compilation: {e}")
                         continue
 
                     program_results = set()
-                    for input_value in number_t + y_t + num2_t:  # Combine inputs from all three tuples
-                        try:
-                            run_result = subprocess.run(
-                                ["./test"], input=f"{input_value}\n", text=True, capture_output=True
-                            )
-                            program_results.add(int(run_result.stdout.strip()))
-                        except Exception as e:
-                            print(f"Error running compiled program with input {input_value}: {e}")
-                            continue
+                    for input_value in number_t:
+                        for input_value2 in y_t:
+                            for input_value3 in num2_t:
+                                try:
+                                    run_result = subprocess.run(
+                                        ["./min"], input=f"{input_value}\n{input_value2}\n{input_value3}\n", text=True, capture_output=True
+                                    )
+                                    print(str(input_value) + "  " + str(input_value2) + "  " + str(input_value3) + " -> " + str(int(run_result.stdout.strip())))
+                                    program_results.add(int(run_result.stdout.strip()))
+                                except Exception as e:
+                                    print(f"Error running compiled program with input {input_value}: {e}")
+                                    continue
 
                     # Compare results
                     only_in_frama = frama_closest - program_results

@@ -5,14 +5,12 @@ import re
 import os
 
 random.seed(1)  
-
 n = 7
 fp_list = []
 
 file = "Et1_true.c"
-script_dir = os.path.dirname(os.path.abspath(__file__))
-c_file = os.path.join(script_dir, file)
-terminal_command = f"frama-c -eva -eva-unroll-recursive-calls 10 {c_file}"
+c_file = f"/home/pietro/Desktop/cu/classical_programs/frama-c/{file}"
+terminal_command = f"frama-c -eva /home/pietro/Desktop/cu/classical_programs/frama-c/{file}"
 
 # Read the original content of the C file
 with open(c_file, "r") as o_file:
@@ -25,19 +23,16 @@ assert_line_index = next(
 
 # Store the original assertion line
 original_assert_line = original_content[assert_line_index]
-
 # Loop through tuple lengths from 2 to 7
 for tuple_length in range(2, 8):
     # Generate all possible tuples of the current length
     tuples = list(itertools.permutations(range(n + 1), tuple_length))
-
     # Randomly select 2 tuples of the current length
     if len(tuples) >= 2:
         selected_tuples = random.sample(tuples, 2)
     else:
         print(f"Not enough tuples of length {tuple_length} to select.")
         continue
-
     print(selected_tuples)
     for t in selected_tuples:
         # Construct the assertion line with the current tuple
@@ -45,11 +40,9 @@ for tuple_length in range(2, 8):
         modified_line = f"    /*@ assert {tuple_condition}; */\n"
         modified_content = original_content[:]
         modified_content[assert_line_index] = modified_line
-
         # Write the modified content back to the file
         with open(c_file, "w") as o_file:
             o_file.writelines(modified_content)
-
         # Run the specified terminal command and capture output
         try:
             result = subprocess.run(
@@ -59,9 +52,8 @@ for tuple_length in range(2, 8):
         except Exception as e:
             print(f"Error executing Frama-C command for tuple {t}: {e}")
             continue
-
         # Extract closest values from Frama-C output
-        closest_match = re.search(r"y ∈ (\{[0-9; ]+\}|\[[0-9.]+\])", frama_output)
+        closest_match = re.search(r"x ∈ (\{[0-9; ]+\}|\[[0-9.]+\])", frama_output)
         if closest_match:
             closest_values = closest_match.group(1)
             if closest_values.startswith("{"):
@@ -71,40 +63,41 @@ for tuple_length in range(2, 8):
                 frama_closest = set(range(range_bounds[0], range_bounds[1] + 1))
         else:
             frama_closest = set()
-
         # Compile and run the C program
         try:
             subprocess.run(
-                ["gcc", f"/home/pietro/Desktop/cu/average_fp/{str(file)}", "-o", "test"], text=True, capture_output=True
+                ["gcc", f"/home/pietro/Desktop/cu/classical_programs/frama-c/{str(file)}", "-o", "et1"], text=True, capture_output=True
             )
         except Exception as e:
             print(f"Error during compilation: {e}")
             continue
-
         program_results = set()
         for input_value in t:
             try:
                 run_result = subprocess.run(
-                    ["./test"], input=f"{input_value}\n", text=True, capture_output=True
+                    ["./et1"], input=f"{input_value}\n", text=True, capture_output=True
                 )
                 program_results.add(int(run_result.stdout.strip()))
             except Exception as e:
                 print(f"Error running compiled program with input {input_value}: {e}")
                 continue
-
         # Compare results
         only_in_frama = frama_closest - program_results
-        ratio = len(only_in_frama) / len(frama_closest) if frama_closest else 0
-        fp_list.append(ratio)
+        
+        # print(only_in_frama)
+        # print(frama_closest)
+        # print(program_results)
 
+        ratio = len(only_in_frama) / len(frama_closest) if frama_closest else 0
+        print(ratio)
+        fp_list.append(ratio)
         # Revert the C file to its original assertion line
         modified_content[assert_line_index] = original_assert_line
         with open(c_file, "w") as o_file:
             o_file.writelines(modified_content)
-
 # Restore the original content of the file
+
 with open(c_file, "w") as o_file:
     o_file.writelines(original_content)
-
 average_fp = sum(fp_list) / len(fp_list)
 print(f"Average FP ratio across all experiments: {average_fp}")
