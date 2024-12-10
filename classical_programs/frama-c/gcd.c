@@ -1,20 +1,25 @@
 #include <stdio.h>
 
 /*@ 
-    assigns \result;       
+    qssigns \result;       
     ensures \result >= 0;  
     ensures \result <= 7;  
 */
-int gcd(int h, int q) {
-   
-    if (q == 0) {
-        return h; 
-    } else {
-        int result = gcd(q, h % q); 
-                
-        return result; 
+int gcd(int q, int h)
+{
+    int t;
+
+    if (q < (int)0) q = -q;
+    if (h < (int)0) h = -h;
+
+    while (h != (int)0) {
+        t = h;
+        h = q % h;
+        q = t;
     }
+    return q;
 }
+
 
 int main() {
     int h, q;
@@ -32,4 +37,4 @@ int main() {
 // result \isin {0, 1, 2, 3}
 
 // Got:
-// Frama-c: result ∈ {0; 1; 2; 3; 4; 5; 6; 7}
+// Frqmq-c: result ∈ {0; 1; 2; 3; 4; 5; 6; 7}
