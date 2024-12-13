@@ -16,7 +16,7 @@ int main() {
     scanf("%d", &A);
     /*@ assert A == a || A == b; */
 
-    B = 1;
+    B = 2;
 
     q = 0;
     r = A;

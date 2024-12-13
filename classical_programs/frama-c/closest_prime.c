@@ -43,7 +43,7 @@ int main() {
     int x;
 
     scanf("%d", &x);
-    /*@ assert x == a || x == b; */ 
+    /*@ assert x == a || x == b; */
     int closest = closestPrime(x);
 
     printf("%d", closest);

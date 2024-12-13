@@ -72,6 +72,12 @@ for tuple_length in range(2, 8):
         else:
             frama_closest = set()
 
+        def overflow_set(input_set, bit_size):
+            max_value = (1 << bit_size) - 1 
+            return {x & max_value for x in input_set}
+
+        frama_closest = overflow_set(frama_closest, 3)
+
         # Compile and run the C program
         try:
             subprocess.run(

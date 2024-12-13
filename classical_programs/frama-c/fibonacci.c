@@ -12,6 +12,8 @@ int fibonacci(int n) {
         fib = a + b; 
         a = b;       
         b = fib;     
+        printf("aa\n");
+
     }
 
     return b; 

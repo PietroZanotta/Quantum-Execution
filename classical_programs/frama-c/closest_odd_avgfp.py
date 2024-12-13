@@ -6,6 +6,10 @@ import os
 
 random.seed(1)  # Set the random seed for reproducibility
 
+def overflow_set(input_set, bit_size):
+    max_value = (1 << bit_size) - 1 
+    return {x & max_value for x in input_set}
+
 n = 7
 fp_list = []
 
@@ -70,6 +74,8 @@ for tuple_length in range(2, 8):
                 frama_closest = set(range(range_bounds[0], range_bounds[1] + 1))
         else:
             frama_closest = set()
+
+        frama_closest = overflow_set(frama_closest, 3)
 
         # Compile and run the C program
         try:

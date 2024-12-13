@@ -6,6 +6,11 @@ import os
 random.seed(1)
 n = 7
 fp_list = []
+
+def overflow_set(input_set, bit_size):
+    max_value = (1 << bit_size) - 1 
+    return {x & max_value for x in input_set}
+
 file = "Ackermann01-1.c"
 c_file = f"/home/pietro/Desktop/cu/classical_programs/frama-c/{file}"
 terminal_command = f"frama-c -eva /home/pietro/Desktop/cu/classical_programs/frama-c/{file} -eva-unroll-recursive-calls 10"
@@ -57,10 +62,12 @@ for tuple_length in range(2, 8):
             # Check if the range includes 2147483647
             for line in frama_output.splitlines():
                 if "2147483647" in line and "result ∈" in line:
-                    print("Range includes 2147483647. Setting FP rate to 1.")
-                    fp_list.append(1)
+                    print("Range includes 2147483647.")
+                    frama_closest = set()
+                    for i in range(8):
+                        frama_closest.add(i)
                     mask = 1
-                    break
+                    
             if mask == 0:  # Extract closest values from Frama-C output
                 closest_match = re.search(r"result ∈ (\{[0-9; ]+\}|\[[0-9.]+\])", frama_output)
                 if closest_match:

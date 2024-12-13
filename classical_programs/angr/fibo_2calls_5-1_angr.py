@@ -8,7 +8,7 @@ import numpy as np
 random.seed(1)
 
 # Load the binary
-proj = angr.Project("./fibo_2calls_5-1", auto_load_libs=False)
+proj = angr.Project("./fibo_2", auto_load_libs=False)
 func = "fibo"
 
 logging.getLogger("angr").setLevel(logging.ERROR)

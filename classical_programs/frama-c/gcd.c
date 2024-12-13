@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 /*@ 
-    qssigns \result;       
+    assigns \result;       
     ensures \result >= 0;  
     ensures \result <= 7;  
 */
@@ -16,6 +16,7 @@ int gcd(int q, int h)
         t = h;
         h = q % h;
         q = t;
+        printf("aa\n");
     }
     return q;
 }

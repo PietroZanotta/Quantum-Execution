@@ -72,10 +72,11 @@ for tuple_length in range(2, 8):
                 # if "z" in line:
                     # print(line)
                 if ("2147483646" in line or "2147483647" in line) and "z ∈" in line:
-                    print("Range includes 2147483647. Setting FP rate to 1.")
-                    fp_list.append(1)
+                    print("Range includes 2147483647.")
+                    frama_closest = set()
+                    for i in range(8):
+                        frama_closest.add(i)
                     mask = 1
-                    break
 
             if mask == 0:  # Extract closest values from Frama-C output
                 closest_match = re.search(r"z ∈ (\{[0-9; ]+\}|\[[0-9.]+\])", frama_output)
@@ -91,31 +92,31 @@ for tuple_length in range(2, 8):
                 print(frama_closest)
 
                 # Compile and run the C program
-                try:
-                    subprocess.run(
-                        ["gcc", f"/home/pietro/Desktop/cu/classical_programs/frama-c/{str(file)}", "-o", "prod"], text=True, capture_output=True
-                    )
-                except Exception as e:
-                    print(f"Error during compilation: {e}")
-                    continue
+            try:
+                subprocess.run(
+                    ["gcc", f"/home/pietro/Desktop/cu/classical_programs/frama-c/{str(file)}", "-o", "prod"], text=True, capture_output=True
+                )
+            except Exception as e:
+                print(f"Error during compilation: {e}")
+                continue
 
-                program_results = set()
-                for input_value in number_t:
-                    for input_value2 in y_t:
-                        try:
-                            run_result = subprocess.run(
-                                ["./prod"], input=f"{input_value}\n{input_value2}\n", text=True, capture_output=True
-                            )
-                            print(str(input_value) + "  " + str(input_value2) + " -> " + str(int(run_result.stdout.strip())))
-                            program_results.add(int(run_result.stdout.strip()))
-                        except Exception as e:
-                            print(f"Error running compiled program with input {input_value}: {e}")
-                            continue
+            program_results = set()
+            for input_value in number_t:
+                for input_value2 in y_t:
+                    try:
+                        run_result = subprocess.run(
+                            ["./prod"], input=f"{input_value}\n{input_value2}\n", text=True, capture_output=True
+                        )
+                        print(str(input_value) + "  " + str(input_value2) + " -> " + str(int(run_result.stdout.strip())))
+                        program_results.add(int(run_result.stdout.strip()))
+                    except Exception as e:
+                        print(f"Error running compiled program with input {input_value}: {e}")
+                        continue
 
-                # Compare results
-                only_in_frama = frama_closest - program_results
-                ratio = len(only_in_frama) / len(frama_closest) if frama_closest else 0
-                fp_list.append(ratio)
+            # Compare results
+            only_in_frama = frama_closest - program_results
+            ratio = len(only_in_frama) / len(frama_closest) if frama_closest else 0
+            fp_list.append(ratio)
 
             # Revert the C file to its original assertion line
             modified_content[assert_line_index] = original_assert_line

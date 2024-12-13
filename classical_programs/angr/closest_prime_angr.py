@@ -71,6 +71,9 @@ for tuple_length in range(2, n+1):
             for state in simgr.deadended:
                 concrete_y = state.solver.eval(state.regs.eax, cast_to=int)
                 concrete_y_results.add(concrete_y)
+
+        if len(symbolic_y_results) == 0:
+            print("ERROR")  
         
         print(f"results for tuple {number_tuple}: {symbolic_y_results - concrete_y_results}")
         

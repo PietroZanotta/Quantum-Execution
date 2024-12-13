@@ -72,7 +72,13 @@ for tuple_length in range(2, 8):
                 frama_closest = set(range(range_bounds[0], range_bounds[1] + 1))
         else:
             frama_closest = set()
-        print(frama_closest)
+        # print(frama_closest)
+
+        def overflow_set(input_set, bit_size):
+            max_value = (1 << bit_size) - 1 
+            return {x & max_value for x in input_set}
+
+        frama_closest = overflow_set(frama_closest, 3)
         # Compile and run the C program
         try:
             subprocess.run(
@@ -97,6 +103,11 @@ for tuple_length in range(2, 8):
         only_in_frama = frama_closest - program_results
         ratio = len(only_in_frama) / len(frama_closest) if frama_closest else 0
         print(ratio)
+        if ratio != 0.0:
+            print(frama_closest)
+            print(program_results)
+            print("\n\n") 
+
         fp_list.append(ratio)
 
         # Revert the C file to its original assertion line

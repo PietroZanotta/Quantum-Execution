@@ -38,9 +38,9 @@ int fibo(int n){
 int main(void) {
     int x;
     scanf("%d", &x);
-    /*@ assert x == a || x == b; */ 
+    /*@ assert x == 3 || x == 5 || x == 6; */ 
 
-    int result = fibo(x);
+    int result = fibo1(x-2);
 
     printf("%d\n", result);
     return 0;

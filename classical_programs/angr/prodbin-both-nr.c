@@ -1,0 +1,59 @@
+// This file is part of the SV-Benchmarks collection of verification tasks:
+// https://gitlab.com/sosy-lab/benchmarking/sv-benchmarks
+//
+// SPDX-FileCopyrightText: 2021 DynamiTe team <https://github.com/letonchanh/dynamite>
+//
+// SPDX-License-Identifier: Apache-2.0
+
+/*
+  h nonlinear termination benchmark program from the OOPSLA'20 paper 
+  "DynamiTe: Dynamic termination and non-termination proofs"
+  by Ton Chanh Le, Timos Antonopoulos, Parisa Fathololumi, Eric Koskinen, ThanhVu Nguyen.
+  Adapted from the original nonlinear benchmark nla-digbench. 
+*/
+
+/* shift_add algorithm for computing the 
+   product of two natural numbers
+*/
+
+#include <stdio.h>
+
+int prodbin(int h, int l){
+    int x, y, z;
+    x = h;
+    y = l;
+    z = 0;
+
+    if (l < 1) {
+        printf("%d", z);
+        return 0;
+    }
+
+
+
+    while (y>0) {
+        if (y % 2 == 1) {
+            z = z + x;
+            y = y - 1;
+        }
+        x = 2 * x;
+        y = y / 2;
+    }
+
+    return z;
+}
+
+int main() {
+    int h, l;
+
+    scanf("%d", &h);
+    scanf("%d", &l);
+    // // /*@ assert (h == 0 || h == 6 || h == 3) && (h == 1 || h == 0); */ 
+    // /*@ assert (h == 0 || h == 6 || h == 3) && (l == 1 || l == 4 || l == 0); */
+    /*@ assert h == a || h == b; */
+    
+    int result = prodbin(h, l);
+    printf("%d\n", result);
+    
+    return 0;
+}

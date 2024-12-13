@@ -9,17 +9,17 @@
 
 #include <stdio.h>
 
-int gcd(int y1, int y2) {
-    if (y1 <= 0 || y2 <= 0) {
+int gcd(int m, int n) {
+    if (m <= 0 || n <= 0) {
         return 0;
     }
-    if (y1 == y2) {
-        return y1;
+    if (m == n) {
+        return m;
     }
-    if (y1 > y2) {
-        return gcd(y1 - y2, y2);
+    if (m > n) {
+        return gcd(m - n, n);
     }
-    return gcd(y1, y2 - y1);
+    return gcd(m, n - m);
 }
 
 int main() {

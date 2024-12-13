@@ -8,8 +8,8 @@ import numpy as np
 random.seed(1)
 
 # Load the binary
-proj = angr.Project("./fibo_2calls_5-1_unrolled", auto_load_libs=False)
-func = "fibo"
+proj = angr.Project("./nested_1", auto_load_libs=False)
+func = "nested1"
 
 logging.getLogger("angr").setLevel(logging.ERROR)
 logging.getLogger("cle").setLevel(logging.ERROR)
@@ -21,7 +21,7 @@ logging.getLogger("claripy").setLevel(logging.ERROR)
 x = claripy.BVS("x", 32)
 
 # The range of numbers
-n = 3
+n = 7
 numbers = list(range(n + 1))
 
 fp = []
