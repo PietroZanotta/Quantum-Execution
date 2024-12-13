@@ -69,7 +69,7 @@ qc.measure(x, cx)
 
 qct = transpile(qc, AerSimulator())
 
-result = Aer.get_backend('statevector_simulator').run(qct, shots=20).result()
+result = Aer.get_backend('statevector_simulator').run(qct, shots=1000).result()
 counts = result.get_counts()
 
 print(qc)
