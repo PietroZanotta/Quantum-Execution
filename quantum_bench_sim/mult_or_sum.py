@@ -52,13 +52,6 @@ cadd(qc, anc[0], a, b, 2)
 #mult_reg
 qc_ = QuantumCircuit(c, d, mult_reg)
 
-# qc_.h(c[0]) # 010 or 001
-# qc_.x(c[1])
-# qc_.cx(c[0], c[1])
-
-# qc_.h(d[0]) # 010 or 001
-# qc_.x(d[1])
-
 mult(qc_, d, c, mult_reg, 3)
 
 
