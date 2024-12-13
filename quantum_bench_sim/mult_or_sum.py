@@ -49,23 +49,32 @@ qc.x(anc[1])
 # cadd
 cadd(qc, anc[0], a, b, 2)
 
-#cmult_reg
+#mult_reg
 qc_ = QuantumCircuit(c, d, mult_reg)
-mult(qc_, c, d, mult_reg, 3)
+
+# qc_.h(c[0]) # 010 or 001
+# qc_.x(c[1])
+# qc_.cx(c[0], c[1])
+
+# qc_.h(d[0]) # 010 or 001
+# qc_.x(d[1])
+
+mult(qc_, d, c, mult_reg, 3)
+
 
 qc_ = qc_.to_gate().control(1)
 qc.append(qc_, [1] + list(range(8, qc.num_qubits)))
 
 #cswap b or a+b to d or c*d
 for i in range(3):
-    qc.cswap(anc[1], d[i], b[i])
+    qc.cswap(anc[1], mult_reg[i], b[i])
 
 
 qc.measure(b, ca)
 
 qct = transpile(qc, AerSimulator())
 
-result = Aer.get_backend('statevector_simulator').run(qct, shots=30).result()
+result = Aer.get_backend('statevector_simulator').run(qct, shots=200).result()
 counts = result.get_counts()
 
 print(qc)
