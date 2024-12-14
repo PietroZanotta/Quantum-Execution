@@ -66,10 +66,11 @@ for tuple_length in range(2, 8):
             # if "digit_sum" in line:
             #     print(line)
             if ("2147483646" in line or "2147483647" in line) and "digit_sum ∈" in line:
-                print("Range includes 2147483647. Setting FP rate to 1.")
-                fp_list.append(1)
+                print("Range includes 2147483647.")
+                frama_closest = set()
+                for i in range(8):
+                    frama_closest.add(i)
                 mask = 1
-                break
 
         if mask == 0:  # Extract closest values from Frama-C output
             # Extract closest values from Frama-C output
@@ -83,32 +84,37 @@ for tuple_length in range(2, 8):
                     frama_closest = set(range(range_bounds[0], range_bounds[1] + 1))
             else:
                 frama_closest = set()
-            print(frama_closest)
+            # print(frama_closest)
+            def overflow_set(input_set, bit_size):
+                max_value = (1 << bit_size) - 1 
+                return {x & max_value for x in input_set}
+
+            frama_closest = overflow_set(frama_closest, 3)
             # Compile and run the C program
             
+        try:
+            subprocess.run(
+                ["gcc", f"/home/pietro/Desktop/cu/classical_programs/frama-c/{str(file)}", "-o", "sum"], text=True, capture_output=True
+            )
+        except Exception as e:
+            print(f"Error during compilation: {e}")
+            continue
+
+        program_results = set()
+        for input_value in t:
             try:
-                subprocess.run(
-                    ["gcc", f"/home/pietro/Desktop/cu/classical_programs/frama-c/{str(file)}", "-o", "sum"], text=True, capture_output=True
+                run_result = subprocess.run(
+                    ["./sum"], input=f"{input_value}\n", text=True, capture_output=True
                 )
+                program_results.add(int(run_result.stdout.strip()))
             except Exception as e:
-                print(f"Error during compilation: {e}")
+                print(f"Error running compiled program with input {input_value}: {e}")
                 continue
 
-            program_results = set()
-            for input_value in t:
-                try:
-                    run_result = subprocess.run(
-                        ["./sum"], input=f"{input_value}\n", text=True, capture_output=True
-                    )
-                    program_results.add(int(run_result.stdout.strip()))
-                except Exception as e:
-                    print(f"Error running compiled program with input {input_value}: {e}")
-                    continue
-
-            # Compare results
-            only_in_frama = frama_closest - program_results
-            ratio = len(only_in_frama) / len(frama_closest) if frama_closest else 0
-            fp_list.append(ratio)
+        # Compare results
+        only_in_frama = frama_closest - program_results
+        ratio = len(only_in_frama) / len(frama_closest) if frama_closest else 0
+        fp_list.append(ratio)
 
         # Revert the C file to its original assertion line
         modified_content[assert_line_index] = original_assert_line
