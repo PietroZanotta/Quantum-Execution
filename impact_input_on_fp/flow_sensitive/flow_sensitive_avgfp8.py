@@ -6,7 +6,7 @@ import os
 
 n = 7
 
-file = "parity_transform.c"
+file = "flow_sensitive.c"
 
 # Define the C file to modify and the terminal command
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -14,7 +14,7 @@ c_file = os.path.join(script_dir, file)
 terminal_command = f"frama-c -eva -eva-unroll-recursive-calls 10 {c_file}"
 
 # Generate all unique pairs (a, b) for a, b in range(0, 8)
-tuples = list(itertools.permutations(range(n+1), 3))
+tuples = list(itertools.permutations(range(n+1), 8))
 
 # Convert each tuple to a sorted tuple to ignore order
 tuples_dict = {tuple(sorted(t)) for t in tuples}
@@ -36,9 +36,9 @@ original_assert_line = original_content[assert_line_index]
 fp_list=[]
 
 # Loop through each pair, modify the file, and run the commands
-for a, b, c in pairs:
+for a, b, c, d, f, g, h, i in pairs:
     # Modify the assert line for the current pair
-    modified_line = f"    /*@ assert x == {a} || x == {b} || x == {c}; */\n"
+    modified_line = f"    /*@ assert x == {a} || x == {b} || x == {c} || x == {f} || x == {g} || x == {h} || x == {i}; */\n"
     modified_content = original_content[:]
     modified_content[assert_line_index] = modified_line
 
@@ -48,34 +48,39 @@ for a, b, c in pairs:
 
     # Run the specified terminal command and capture output
     try:
-        print(f"Running command for pair ({a}, {b}, {c}):")
+        print(f"Running command for pair ({a}, {b}, {c}, {d}, {f}, {g}, {h}, {i}):")
         result = subprocess.run(
             terminal_command, shell=True, text=True, capture_output=True
         )
         frama_output = result.stdout
-        print(f"Command Output for pair ({a}, {b}, {c}):")
+        print(f"Command Output for pair ({a}, {b}, {c}, {d}, {f}, {g}, {h}, {i}):")
         print(frama_output)
     except Exception as e:
-        print(f"Error executing command for pair ({a}, {b}, {c}): {e}")
+        print(f"Error executing command for pair ({a}, {b}, {c}, {d}, {f}, {g}, {h}, {i}): {e}")
         continue
 
     # Adjust the regex for both formats
-    closest_match = re.search(r"result ∈ (\{[0-9; ]+\}|\[[0-9.]+\])", frama_output)
+    closest_match = re.search(r"result ∈ (\{[a-zA-Z0-9; ]+\}|\[[0-9.]+\])", frama_output)
 
     if closest_match:
         closest_values = closest_match.group(1)
         if closest_values.startswith("{"):
             # Parse as a set of discrete values
-            frama_closest = set(map(int, closest_values.strip("{}").split("; ")))
+            elements = closest_values.strip("{}").split("; ")
+            frama_closest = set()
+            for elem in elements:
+                if elem.isdigit():  # Check if the element is a number
+                    frama_closest.add(int(elem))
+                else:  # Treat non-numeric elements as strings
+                    frama_closest.add(elem)
         elif closest_values.startswith("["):
             # Parse as a range
             range_bounds = list(map(int, closest_values.strip("[]").split("..")))
             frama_closest = set(range(range_bounds[0], range_bounds[1] + 1))
-        # print(f"Closest values from Frama-C: {frama_closest}")
+        print(f"Closest values from Frama-C: {frama_closest}")
     else:
-        # print("No closest values found in Frama-C output.")
+        print("No closest values found in Frama-C output.")
         frama_closest = set()
-
     # print(f"Compiling file: /home/pietro/Desktop/cu/average_fp/{str(file)}, type: {type(str(file))}")
 
 
@@ -83,7 +88,7 @@ for a, b, c in pairs:
     # Run the compiled C program manually with inputs `a` and `b`
     try:
         compile_result = subprocess.run(
-            ["gcc", f"/home/pietro/Desktop/cu/average_fp/{str(file)}", "-o", "test"], text=True, capture_output=True
+            ["gcc", f"{str(c_file)}", "-o", "test"], text=True, capture_output=True
         )
         if compile_result.returncode != 0:
             print("Compilation failed:")
@@ -95,7 +100,7 @@ for a, b, c in pairs:
 
     # Run the compiled program with inputs a and b
     program_results = set()
-    for input_value in [a, b, c]:
+    for input_value in [a, b, c, d, f, g, h]:
         try:
             run_result = subprocess.run(
                 ["./test"], input=f"{input_value}\n", text=True, capture_output=True
@@ -108,11 +113,11 @@ for a, b, c in pairs:
     # Check conditions and break if necessary
     numbers_exceed_7 = any(x > 7 for x in frama_closest | program_results)
     if numbers_exceed_7:
-        print(f"Error: Some values exceed 7 in results for ({a}, {b}, {c}).")
+        print(f"Error: Some values exceed 7 in results for ({a}, {b}, {c}, {d}, {f}, {g}, {h}, {i}).")
         break
 
     # Output the results
-    print(f"Inputs {a} and {b} and {c}")
+    print(f"Inputs {a} and {b} and {c} and {d} and {f} and {g} and {h} and {i}")
 
     # Compare results
     only_in_frama = frama_closest - program_results

@@ -6,7 +6,7 @@ import os
 
 n = 7
 
-file = "parity_transform.c"
+file = "closest_odd.c"
 
 # Define the C file to modify and the terminal command
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -22,7 +22,6 @@ tuples_dict = {tuple(sorted(t)) for t in tuples}
 # Convert back to list if needed
 pairs = list(tuples_dict)
 
-print(pairs)
 # Read the original content of the C file
 with open(c_file, "r") as o_file:
     original_content = o_file.readlines()
@@ -61,7 +60,7 @@ for a, b, c, d, f, g in pairs:
         continue
 
     # Adjust the regex for both formats
-    closest_match = re.search(r"result ∈ (\{[0-9; ]+\}|\[[0-9.]+\])", frama_output)
+    closest_match = re.search(r"closest ∈ (\{[0-9; ]+\}|\[[0-9.]+\])", frama_output)
 
     if closest_match:
         closest_values = closest_match.group(1)
@@ -84,7 +83,7 @@ for a, b, c, d, f, g in pairs:
     # Run the compiled C program manually with inputs `a` and `b`
     try:
         compile_result = subprocess.run(
-            ["gcc", f"/home/pietro/Desktop/cu/average_fp/{str(file)}", "-o", "test"], text=True, capture_output=True
+            ["gcc", f"{str(c_file)}", "-o", "test"], text=True, capture_output=True
         )
         if compile_result.returncode != 0:
             print("Compilation failed:")

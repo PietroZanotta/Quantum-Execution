@@ -20,9 +20,9 @@ int parity_transform(int x) {
 
 int main() {
     int x; 
-
+    
     scanf("%d", &x);
-    /*@ assert x == a || x == b;*/
+    /*@ assert x == a || x == b; */
 
     int result = parity_transform(x);
 

@@ -14,7 +14,7 @@ c_file = os.path.join(script_dir, file)
 terminal_command = f"frama-c -eva -eva-unroll-recursive-calls 10 {c_file}"
 
 # Generate all unique pairs (a, b) for a, b in range(0, 8)
-tuples = list(itertools.permutations(range(n+1), 3))
+tuples = list(itertools.permutations(range(n+1), 4))
 
 # Convert each tuple to a sorted tuple to ignore order
 tuples_dict = {tuple(sorted(t)) for t in tuples}
@@ -36,9 +36,9 @@ original_assert_line = original_content[assert_line_index]
 fp_list=[]
 
 # Loop through each pair, modify the file, and run the commands
-for a, b, c in pairs:
+for a, b, c, d in pairs:
     # Modify the assert line for the current pair
-    modified_line = f"    /*@ assert x == {a} || x == {b} || x == {c}; */\n"
+    modified_line = f"    /*@ assert x == {a} || x == {b} || x == {c} || x == {d}; */\n"
     modified_content = original_content[:]
     modified_content[assert_line_index] = modified_line
 
@@ -48,15 +48,15 @@ for a, b, c in pairs:
 
     # Run the specified terminal command and capture output
     try:
-        print(f"Running command for pair ({a}, {b}, {c}):")
+        print(f"Running command for pair ({a}, {b}, {c}, {d}):")
         result = subprocess.run(
             terminal_command, shell=True, text=True, capture_output=True
         )
         frama_output = result.stdout
-        print(f"Command Output for pair ({a}, {b}, {c}):")
+        print(f"Command Output for pair ({a}, {b}, {c}, {d}):")
         print(frama_output)
     except Exception as e:
-        print(f"Error executing command for pair ({a}, {b}, {c}): {e}")
+        print(f"Error executing command for pair ({a}, {b}, {c}, {d}): {e}")
         continue
 
     # Adjust the regex for both formats
@@ -83,7 +83,7 @@ for a, b, c in pairs:
     # Run the compiled C program manually with inputs `a` and `b`
     try:
         compile_result = subprocess.run(
-            ["gcc", f"/home/pietro/Desktop/cu/average_fp/{str(file)}", "-o", "test"], text=True, capture_output=True
+            ["gcc", f"{str(c_file)}", "-o", "test"], text=True, capture_output=True
         )
         if compile_result.returncode != 0:
             print("Compilation failed:")
@@ -95,7 +95,7 @@ for a, b, c in pairs:
 
     # Run the compiled program with inputs a and b
     program_results = set()
-    for input_value in [a, b, c]:
+    for input_value in [a, b, c, d]:
         try:
             run_result = subprocess.run(
                 ["./test"], input=f"{input_value}\n", text=True, capture_output=True
@@ -108,11 +108,11 @@ for a, b, c in pairs:
     # Check conditions and break if necessary
     numbers_exceed_7 = any(x > 7 for x in frama_closest | program_results)
     if numbers_exceed_7:
-        print(f"Error: Some values exceed 7 in results for ({a}, {b}, {c}).")
+        print(f"Error: Some values exceed 7 in results for ({a}, {b}, {c}, {d}).")
         break
 
     # Output the results
-    print(f"Inputs {a} and {b} and {c}")
+    print(f"Inputs {a} and {b} and {c} and {d}")
 
     # Compare results
     only_in_frama = frama_closest - program_results
