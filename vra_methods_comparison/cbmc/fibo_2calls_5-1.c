@@ -23,7 +23,7 @@ int fibo2(int n) {
     }
 }
 
-int fibo(int n){
+int prefunc(int n){
     return fibo1(n);
 }
 
@@ -36,10 +36,13 @@ int fibo(int n){
 // 121393, 196418, 317811, 514229, 832040
 
 int main(void) {
-    int x;
-    scanf("%d", &x);
+    int y;
+    scanf("%d", &y);
 
-    int result = fibo(x);
+    //  if(0==0){}
+
+
+    int result = prefunc(y);
 
     printf("%d\n", result);
     return 0;

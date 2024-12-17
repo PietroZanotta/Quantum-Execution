@@ -13,8 +13,8 @@ def overflow_set(input_set, bit_size):
     return {x & max_value for x in input_set}
 
 file = "Ackermann01-1.c"
-c_file = f"/home/pietro/Desktop/cu/classical_programs/frama-c/{file}"
-terminal_command = f"frama-c -eva /home/pietro/Desktop/cu/classical_programs/frama-c/{file} -eva-unroll-recursive-calls 10"
+c_file = f"/home/pietro/Desktop/cu/vra_methods_comparison/frama-c/{file}"
+terminal_command = f"frama-c -eva /home/pietro/Desktop/cu/vra_methods_comparison/frama-c/{file} -eva-unroll-recursive-calls 10"
 # Read the original content of the C file
 with open(c_file, "r") as o_file:
     original_content = o_file.readlines()
@@ -84,7 +84,7 @@ for tuple_length in range(2, 8):
                 # Compile and run the C program
                 try:
                     subprocess.run(
-                        ["gcc", f"/home/pietro/Desktop/cu/classical_programs/frama-c/{str(file)}", "-o", "Ackermann"], text=True, capture_output=True
+                        ["gcc", f"/home/pietro/Desktop/cu/vra_methods_comparison/frama-c/{str(file)}", "-o", "Ackermann"], text=True, capture_output=True
                     )
                 except Exception as e:
                     print(f"Error during compilation: {e}")
@@ -115,7 +115,7 @@ for tuple_length in range(2, 8):
 
                 # fn
                 only_in_manual = program_results - frama_closest
-                ratio_fn = len(only_in_manual) / len(frama_closest) if frama_closest else 0
+                ratio_fn = len(only_in_manual) / len(program_results) if program_results else 0
                 fn_list.append(ratio_fn)
 
 

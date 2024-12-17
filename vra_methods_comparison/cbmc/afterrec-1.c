@@ -6,24 +6,24 @@ int func(int n) {
     return n;
   }
   n=n-1;
-  f(n);
+  func(n);
 }
 
 int prefunc(int n){
-  // if (n > 7 || n < 0){
-  //   return 0;
-  // } else {
-  //   }
+
   return func(n);
 }
 
 int main(void) {
-  int x;
+  int y;
   
-  scanf("%d", &x);
+  scanf("%d", &y);
+
+  //  if(0==0){}
+if (y % 2 == 0) { y = 1; } else if (y % 3 == 0) { y = 2; }
 
 
-  int a = prefunc(x);
+  int a = prefunc(y);
   printf("%d\n", a);
   return 0;
 }

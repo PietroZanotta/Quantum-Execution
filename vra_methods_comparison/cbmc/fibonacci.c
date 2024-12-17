@@ -1,14 +1,14 @@
 #include <stdio.h>
 
-int fibonacci(int n) {
-    if (n == 0) return 0; 
-    if (n == 1) return 1; 
+int prefunc(int y) {
+    if (y == 0) return 0; 
+    if (y == 1) return 1; 
 
     int a = 0; 
     int b = 1; 
     int fib;
 
-    for (int i = 2; i <= n; i++) {
+    for (int i = 2; i <= y; i++) {
         fib = a + b; 
         a = b;       
         b = fib;     
@@ -18,17 +18,16 @@ int fibonacci(int n) {
 }
 
 int main() {
-    int n;
+    int y;
 
-    scanf("%d", &n);
+    scanf("%d", &y);
 
-    if(n >0){
-        n = 1;
-    } else {
-        n = 3;
-    }
+        //  if(0==0){}
 
-    int nth_fibonacci = fibonacci(n);
+
+
+
+    int nth_fibonacci = prefunc(y);
     printf("%d", nth_fibonacci);
     return 0;
 }

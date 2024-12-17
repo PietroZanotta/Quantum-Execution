@@ -79,7 +79,7 @@ for tuple_length in range(2, n+1):
         fp_rate = len(symbolic_y_results-concrete_y_results)/len(symbolic_y_results)
         fp.append(fp_rate)
 
-        fn_rate = len(concrete_y_results-symbolic_y_results)/len(symbolic_y_results)
+        ratio = len(only_in_res) / len(program_result) if program_result else 0
         fn.append(fn_rate)
 
 print(f"avg fp rate: {np.sum(fp)/len(fp)}\n")

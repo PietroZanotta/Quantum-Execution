@@ -13,7 +13,7 @@ int main() {
     scanf("%d", &A);
     scanf("%d", &B);
     /*@ assert A == a || A == b; */
-
+    
     q = 0;
     r = A;
     w = B;

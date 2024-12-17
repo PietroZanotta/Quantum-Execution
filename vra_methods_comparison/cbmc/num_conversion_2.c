@@ -6,40 +6,37 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 
-extern void abort(void);
-extern void __assert_fail(const char *, const char *, unsigned int, const char *) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__noreturn__));
-void reach_error() { __assert_fail("0", "num_conversion_2.c", 3, "reach_error"); }
-
-extern int __VERIFIER_nondet_uchar(void);
-void __VERIFIER_assert(int cond) {
-  if (!(cond)) {
-    ERROR: {reach_error();abort();}
-  }
-  return;
-}
 //#include <assert.h>
 #include <stdio.h>
-int main()
-{
-    int x;
-    int y;
-    int c;
 
-    scanf("%d", &x);
-    /*@ assert x == a || x == b; */
-
-    y = 0;
+int prefunc(int y, int z, int c){
+    z = 0;
     c = 0;
     while (c < (int)7) {
         int i = ((int)1) << c;
-        int bit = x & i;
+        int bit = y & i;
         if (bit != (int)0) {
-            y = y + i;
+            z = z + i;
         }
         c = c + ((int)1);
     }
-    
-    printf("%d", y);
+
+    return z;
+
+}
+
+
+int main()
+{
+    int y;
+    int z;
+    int c;
+
+    scanf("%d", &y);
+  //  if(0==0){}
+if (y % 2 == 0) { y = 1; } else if (y % 3 == 0) { y = 2; }
+    int result = prefunc(y, z, c);
+    printf("%d", result);
 
     return 0;
 }

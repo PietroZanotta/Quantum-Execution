@@ -1,25 +1,25 @@
 #include <stdio.h>
 
-int main() {
+int prefunc(int y){
 	int q;
-
-	int h;
-	scanf("%d", &h);
-
-	if(h >0){
-		h = 1;
-	} else {
-		h = 3;
-	}
-
-	for(q = 0; q < h; ++q) {
-		if(h%2 == 0){
+	for(q = 0; q < y; ++q) {
+		if(y%2 == 0){
 			q++;
-			h++;
+			y++;
 		}
 	}
+	return q;
+}
+
+int main() {
+
+	int y;
+	scanf("%d", &y);
+    //  if(0==0){}
+if (y % 2 == 0) { y = 6; } else if (y % 3 == 0) { y = 0; } else if (y % 5 == 0) { y = 5; }
+	int res = prefunc(y);
 	
-	printf("%d \n", q);
+	printf("%d \n", res);
 
 	return 0;
 }

@@ -40,7 +40,9 @@ int main(void) {
 
   scanf("%d", &y);
 
-  if(0==0){}
+//  if(0==0){}
+
+
 
   x = prefunc(y);
 
@@ -48,5 +50,3 @@ int main(void) {
 
   return 0;
 }
-
-//if(0==0){}

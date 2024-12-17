@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int sum_of_digits(int num) {
+int prefunc(int num) {
     int sum = 0;
 
     while (num > 0) {
@@ -12,13 +12,13 @@ int sum_of_digits(int num) {
 }
 
 int main() {
-    int number;
+    int y;
 
-    scanf("%d", &number);
-    /*@ assert number == a || number == b; */
+    scanf("%d", &y);
+//  if(0==0){}
+if (y % 2 == 0) { y = 1; } else if (y % 3 == 0) { y = 2; }
 
-
-    int digit_sum = sum_of_digits(number);
+    int digit_sum = prefunc(y);
     printf("%d", digit_sum);
 
     return 0;

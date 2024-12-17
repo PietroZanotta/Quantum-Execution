@@ -10,8 +10,8 @@ fp_list = []
 fn_list = []
 
 file = "Et1_true.c"
-c_file = f"/home/pietro/Desktop/cu/classical_programs/frama-c/{file}"
-terminal_command = f"frama-c -eva /home/pietro/Desktop/cu/classical_programs/frama-c/{file}"
+c_file = f"/home/pietro/Desktop/cu/vra_methods_comparison/frama-c/{file}"
+terminal_command = f"frama-c -eva /home/pietro/Desktop/cu/vra_methods_comparison/frama-c/{file}"
 
 # Read the original content of the C file
 with open(c_file, "r") as o_file:
@@ -74,7 +74,7 @@ for tuple_length in range(2, 8):
         # Compile and run the C program
         try:
             subprocess.run(
-                ["gcc", f"/home/pietro/Desktop/cu/classical_programs/frama-c/{str(file)}", "-o", "et1"], text=True, capture_output=True
+                ["gcc", f"/home/pietro/Desktop/cu/vra_methods_comparison/frama-c/{str(file)}", "-o", "et1"], text=True, capture_output=True
             )
         except Exception as e:
             print(f"Error during compilation: {e}")
@@ -96,7 +96,7 @@ for tuple_length in range(2, 8):
 
         # fn
         only_in_manual = program_results - frama_closest
-        ratio_fn = len(only_in_manual) / len(frama_closest) if frama_closest else 0
+        ratio_fn = len(only_in_manual) / len(program_results) if program_results else 0
         fn_list.append(ratio_fn)
 
 

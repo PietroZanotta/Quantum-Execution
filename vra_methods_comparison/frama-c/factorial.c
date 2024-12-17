@@ -5,7 +5,6 @@ int factorial(int n) {
 
     for (int i = 1; i <= n; i++) {
         result = result*i; 
-        printf("aa\n");
     }
 
     return result;

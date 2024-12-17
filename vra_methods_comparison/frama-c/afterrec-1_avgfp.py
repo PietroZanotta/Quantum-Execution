@@ -12,11 +12,11 @@ fn_list = []
 
 
 file = "afterrec-1.c"
-c_file = f"/home/pietro/Desktop/cu/classical_programs/frama-c/{file}"
-terminal_command = f"frama-c -eva /home/pietro/Desktop/cu/classical_programs/frama-c/{file} -eva-unroll-recursive-calls 10"
+c_file = f"/home/pietro/Desktop/cu/vra_methods_comparison/frama-c/{file}"
+terminal_command = f"frama-c -eva /home/pietro/Desktop/cu/vra_methods_comparison/frama-c/{file} -eva-unroll-recursive-calls 10"
 script_dir = os.path.dirname(os.path.abspath(__file__))
 c_file = os.path.join(script_dir, file)
-terminal_command = f"frama-c -eva -eva-unroll-recursive-calls 10 {c_file}"
+terminal_command = f"frama-c -eva -eva-unroll-recursive-calls 100 {c_file}"
 
 # Read the original content of the C file
 with open(c_file, "r") as o_file:
@@ -66,7 +66,7 @@ for tuple_length in range(2, 8):
             continue
 
         # Extract closest values from Frama-C output
-        closest_match = re.search(r"closest ∈ (\{[0-9; ]+\}|\[[0-9.]+\])", frama_output)
+        closest_match = re.search(r"a ∈ (\{[0-9; ]+\}|\[[0-9.]+\])", frama_output)
         if closest_match:
             closest_values = closest_match.group(1)
             if closest_values.startswith("{"):
@@ -76,11 +76,12 @@ for tuple_length in range(2, 8):
                 frama_closest = set(range(range_bounds[0], range_bounds[1] + 1))
         else:
             frama_closest = set()
+            # print(frama_output)
 
         # Compile and run the C program
         try:
             result = subprocess.run(
-                ["gcc", f"/home/pietro/Desktop/cu/classical_programs/frama-c/{str(file)}", "-o", "afterrec"], 
+                ["gcc", f"/home/pietro/Desktop/cu/vra_methods_comparison/frama-c/{str(file)}", "-o", "afterrec"], 
                 text=True, 
                 capture_output=True
             )
@@ -105,10 +106,20 @@ for tuple_length in range(2, 8):
         ratio = len(only_in_frama) / len(frama_closest) if frama_closest else 0
         fp_list.append(ratio)
 
+        print("program result:" +str(program_results))
+
         # fn
         only_in_manual = program_results - frama_closest
-        ratio_fn = len(only_in_manual) / len(frama_closest) if frama_closest else 0
+        
+        print(program_results)
+        print(frama_closest)
+        print(only_in_manual)
+        print("\n")
+        
+        ratio_fn = len(only_in_manual) / len(program_results) if program_results else 0
         fn_list.append(ratio_fn)
+
+        # print(len(program_results))
 
 
             # Revert the C file to its original assertion line

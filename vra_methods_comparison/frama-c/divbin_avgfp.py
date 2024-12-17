@@ -95,7 +95,7 @@ for tuple_length in range(2, 8):
                 # Compile and run the C program
                 try:
                     subprocess.run(
-                        ["gcc", f"/home/pietro/Desktop/cu/classical_programs/frama-c/{str(file)}", "-o", "divb"], text=True, capture_output=True
+                        ["gcc", f"/home/pietro/Desktop/cu/vra_methods_comparison/frama-c/{str(file)}", "-o", "divb"], text=True, capture_output=True
                     )
                 except Exception as e:
                     print(f"Error during compilation: {e}")
@@ -110,7 +110,7 @@ for tuple_length in range(2, 8):
                             )
                             program_results.add(int(run_result.stdout.strip()))
                             # if input_value - int(run_result.stdout.strip()) != 0:
-                            print(str(input_value) + "  " + str(input_value2) + " -> " + str(int(run_result.stdout.strip())))
+                            # print(str(input_value) + "  " + str(input_value2) + " -> " + str(int(run_result.stdout.strip())))
                         except Exception as e:
                             print(f"Error running compiled program with input {input_value}: {e}")
                             continue
@@ -122,7 +122,12 @@ for tuple_length in range(2, 8):
 
                     # fn
                     only_in_manual = program_results - frama_closest
-                    ratio_fn = len(only_in_manual) / len(frama_closest) if frama_closest else 0
+
+                    print(frama_closest)
+                    print(program_results)
+                    print(only_in_manual)
+                    print("\n")
+                    ratio_fn = len(only_in_manual) / len(program_results) if program_results else 0
                     fn_list.append(ratio_fn)
 
 

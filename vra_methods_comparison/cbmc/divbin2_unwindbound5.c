@@ -1,28 +1,14 @@
 /*
-  A division algorithm, by Kaldewaij
-  returns A//B
+  y division algorithm, by Kaldewaij
+  returns y//B
 */
 
 #include <limits.h>
 #include <stdio.h>
 
 
-int main() {
-  int counter = 0;
-  int A=0;
-  int B;
-  int q, r, w;
-    A;
-    scanf("%d", &A);
-    /*@ assert A == a || A == b; */
-
-    B = 1;
-
-    q = 0;
-    r = A;
-    w = B;
-
-    while (counter++<5) {
+int prefunc(int counter, int r, int w, int B, int q){
+  while (counter++<5) {
         if (!(r >= w)) break;
         w = 2 * w;
     }
@@ -37,8 +23,27 @@ int main() {
             r = r - w;
         }
     }
+}
 
-    int result = r+w*q;
+int main() {
+  int counter = 0;
+  int y=0;
+  int B;
+  int q, r, w;
+  scanf("%d", &y);
+
+      //  if(0==0){}
+if (y % 2 == 0) { y = 1; } else if (y % 3 == 0) { y = 2; }
+
+    B = 1;
+
+    q = 0;
+    r = y;
+    w = B;
+
+    
+
+    int result = prefunc(counter, r, w, B, q);
     printf("%d", result);
 
     return 0;

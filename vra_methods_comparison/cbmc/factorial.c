@@ -1,35 +1,32 @@
 #include <stdio.h>
 
-int factorial(int n) {
+int factorial(int y) {
     int result = 1; 
 
-    for (int i = 1; i <= n; i++) {
+    for (int i = 1; i <= y; i++) {
         result = result*i; 
     }
 
     return result;
 }
 
-int prefunc(int n){
-  if (n > 7 || n < 0){
+int prefunc(int y){
+  if (y > 7 || y < 0){
     // return 0;
   } else {
-    return factorial(n);
+    return factorial(y);
     }
 }
 
 int main() {
-    int n;
+    int y;
 
-    scanf("%d", &n);
+    scanf("%d", &y);
 
-    if(n >0){
-        n = 1;
-    } else {
-        n = 3;
-    }
+//  if(0==0){}
 
-    int fact = factorial(n);
+
+    int fact = prefunc(y);
 
     printf("%d", fact);
 

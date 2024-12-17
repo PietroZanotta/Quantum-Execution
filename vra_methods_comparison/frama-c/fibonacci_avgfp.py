@@ -116,7 +116,7 @@ for tuple_length in range(2, 8):
 
         # fn
         only_in_manual = program_results - frama_closest
-        ratio_fn = len(only_in_manual) / len(frama_closest) if frama_closest else 0
+        ratio_fn = len(only_in_manual) / len(program_results) if program_results else 0
         fn_list.append(ratio_fn)
 
 

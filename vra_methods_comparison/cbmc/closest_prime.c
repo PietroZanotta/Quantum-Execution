@@ -48,17 +48,14 @@ int prefunc(int n){
 }
 
 int main() {
-    int x;
+    int y;
 
-    scanf("%d", &x);
+    scanf("%d", &y);
 
-    if(x >0){
-        x = 1;
-    } else {
-        x = 7;
-    }
+      //  if(0==0){}
+if (y % 2 == 0) { y = 1; } else if (y % 3 == 0) { y = 2; }
 
-    int closest = closestPrime(x);
+    int closest = prefunc(y);
 
     printf("%d", closest);
 
