@@ -6,7 +6,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 /*
-  h nonlinear termination benchmark program from the OOPSLA'20 paper 
+  x nonlinear termination benchmark program from the OOPSLA'20 paper 
   "DynamiTe: Dynamic termination and non-termination proofs"
   by Ton Chanh Le, Timos Antonopoulos, Parisa Fathololumi, Eric Koskinen, ThanhVu Nguyen.
   Adapted from the original nonlinear benchmark nla-digbench. 
@@ -18,36 +18,44 @@
 
 #include <stdio.h>
 
-int main() {
-    int h, l;
-    int x, y, z;
+int prefunc(int x, int y){
+    int a, b, z;
 
-    scanf("%d", &h);
-    scanf("%d", &l);
-    //  if(0==0){}
-
-    
-    x = h;
-    y = l;
+    b = y;
     z = 0;
+    a = x;
 
-    if (l < 1) {
+    if (y < 1) {
         printf("%d", z);
         return 0;
     }
 
 
 
-    while (y>0) {
-        if (y % 2 == 1) {
-            z = z + x;
-            y = y - 1;
+    while (b>0) {
+        if (b % 2 == 1) {
+            z = z + a;
+            b = b - 1;
         }
-        x = 2 * x;
-        y = y / 2;
+        a = 2 * a;
+        b = b / 2;
     }
 
-    printf("%d\n", z);
+    return z;
+}
+
+int main() {
+    int x, y;
+
+    scanf("%d", &x);
+    scanf("%d", &y);
+    //  if(0==0){}
+if (y % 2 == 0) { y = 0; } else if (y % 3 == 0) { y = 2; } else if (y % 5 == 0) { y = 4; } else if (y % 7 == 0) { y = 5; } else if (y % 11 == 0) { y = 7; } else if (y % 13 == 0) { y = 1; } else if (y % 17 == 0) { y = 3; }if (y % 2 == 0) { y = 4; } else if (y % 3 == 0) { y = 2; } else if (y % 5 == 0) { y = 1; } else if (y % 7 == 0) { y = 7; } else if (y % 11 == 0) { y = 5; } else if (y % 13 == 0) { y = 3; } else if (y % 17 == 0) { y = 0; }if (y % 2 == 0) { y = 0; } else if (y % 3 == 0) { y = 2; } else if (y % 5 == 0) { y = 4; } else if (y % 7 == 0) { y = 5; } else if (y % 11 == 0) { y = 7; } else if (y % 13 == 0) { y = 1; } else if (y % 17 == 0) { y = 3; }if (y % 2 == 0) { y = 4; } else if (y % 3 == 0) { y = 2; } else if (y % 5 == 0) { y = 1; } else if (y % 7 == 0) { y = 7; } else if (y % 11 == 0) { y = 5; } else if (y % 13 == 0) { y = 3; } else if (y % 17 == 0) { y = 0; }if (y % 2 == 0) { y = 0; } else if (y % 3 == 0) { y = 2; } else if (y % 5 == 0) { y = 4; } else if (y % 7 == 0) { y = 5; } else if (y % 11 == 0) { y = 7; } else if (y % 13 == 0) { y = 1; } else if (y % 17 == 0) { y = 3; }if (y % 2 == 0) { y = 4; } else if (y % 3 == 0) { y = 2; } else if (y % 5 == 0) { y = 1; } else if (y % 7 == 0) { y = 7; } else if (y % 11 == 0) { y = 5; } else if (y % 13 == 0) { y = 3; } else if (y % 17 == 0) { y = 0; }if (y % 2 == 0) { y = 0; } else if (y % 3 == 0) { y = 2; } else if (y % 5 == 0) { y = 4; } else if (y % 7 == 0) { y = 5; } else if (y % 11 == 0) { y = 7; } else if (y % 13 == 0) { y = 1; } else if (y % 17 == 0) { y = 3; }if (y % 2 == 0) { y = 4; } else if (y % 3 == 0) { y = 2; } else if (y % 5 == 0) { y = 1; } else if (y % 7 == 0) { y = 7; } else if (y % 11 == 0) { y = 5; } else if (y % 13 == 0) { y = 3; } else if (y % 17 == 0) { y = 0; }if (y % 2 == 0) { y = 0; } else if (y % 3 == 0) { y = 2; } else if (y % 5 == 0) { y = 4; } else if (y % 7 == 0) { y = 5; } else if (y % 11 == 0) { y = 7; } else if (y % 13 == 0) { y = 1; } else if (y % 17 == 0) { y = 3; }if (y % 2 == 0) { y = 4; } else if (y % 3 == 0) { y = 2; } else if (y % 5 == 0) { y = 1; } else if (y % 7 == 0) { y = 7; } else if (y % 11 == 0) { y = 5; } else if (y % 13 == 0) { y = 3; } else if (y % 17 == 0) { y = 0; }if (y % 2 == 0) { y = 0; } else if (y % 3 == 0) { y = 2; } else if (y % 5 == 0) { y = 4; } else if (y % 7 == 0) { y = 5; } else if (y % 11 == 0) { y = 7; } else if (y % 13 == 0) { y = 1; } else if (y % 17 == 0) { y = 3; }if (y % 2 == 0) { y = 4; } else if (y % 3 == 0) { y = 2; } else if (y % 5 == 0) { y = 1; } else if (y % 7 == 0) { y = 7; } else if (y % 11 == 0) { y = 5; } else if (y % 13 == 0) { y = 3; } else if (y % 17 == 0) { y = 0; }if (y % 2 == 0) { y = 0; } else if (y % 3 == 0) { y = 2; } else if (y % 5 == 0) { y = 4; } else if (y % 7 == 0) { y = 5; } else if (y % 11 == 0) { y = 7; } else if (y % 13 == 0) { y = 1; } else if (y % 17 == 0) { y = 3; }if (y % 2 == 0) { y = 4; } else if (y % 3 == 0) { y = 2; } else if (y % 5 == 0) { y = 1; } else if (y % 7 == 0) { y = 7; } else if (y % 11 == 0) { y = 5; } else if (y % 13 == 0) { y = 3; } else if (y % 17 == 0) { y = 0; }if (y % 2 == 0) { y = 0; } else if (y % 3 == 0) { y = 2; } else if (y % 5 == 0) { y = 4; } else if (y % 7 == 0) { y = 5; } else if (y % 11 == 0) { y = 7; } else if (y % 13 == 0) { y = 1; } else if (y % 17 == 0) { y = 3; }if (y % 2 == 0) { y = 4; } else if (y % 3 == 0) { y = 2; } else if (y % 5 == 0) { y = 1; } else if (y % 7 == 0) { y = 7; } else if (y % 11 == 0) { y = 5; } else if (y % 13 == 0) { y = 3; } else if (y % 17 == 0) { y = 0; }if (y % 2 == 0) { y = 0; } else if (y % 3 == 0) { y = 2; } else if (y % 5 == 0) { y = 4; } else if (y % 7 == 0) { y = 5; } else if (y % 11 == 0) { y = 7; } else if (y % 13 == 0) { y = 1; } else if (y % 17 == 0) { y = 3; }if (y % 2 == 0) { y = 4; } else if (y % 3 == 0) { y = 2; } else if (y % 5 == 0) { y = 1; } else if (y % 7 == 0) { y = 7; } else if (y % 11 == 0) { y = 5; } else if (y % 13 == 0) { y = 3; } else if (y % 17 == 0) { y = 0; }if (y % 2 == 0) { y = 0; } else if (y % 3 == 0) { y = 2; } else if (y % 5 == 0) { y = 4; } else if (y % 7 == 0) { y = 5; } else if (y % 11 == 0) { y = 7; } else if (y % 13 == 0) { y = 1; } else if (y % 17 == 0) { y = 3; }if (y % 2 == 0) { y = 4; } else if (y % 3 == 0) { y = 2; } else if (y % 5 == 0) { y = 1; } else if (y % 7 == 0) { y = 7; } else if (y % 11 == 0) { y = 5; } else if (y % 13 == 0) { y = 3; } else if (y % 17 == 0) { y = 0; }if (y % 2 == 0) { y = 0; } else if (y % 3 == 0) { y = 2; } else if (y % 5 == 0) { y = 4; } else if (y % 7 == 0) { y = 5; } else if (y % 11 == 0) { y = 7; } else if (y % 13 == 0) { y = 1; } else if (y % 17 == 0) { y = 3; }if (y % 2 == 0) { y = 4; } else if (y % 3 == 0) { y = 2; } else if (y % 5 == 0) { y = 1; } else if (y % 7 == 0) { y = 7; } else if (y % 11 == 0) { y = 5; } else if (y % 13 == 0) { y = 3; } else if (y % 17 == 0) { y = 0; }if (y % 2 == 0) { y = 0; } else if (y % 3 == 0) { y = 2; } else if (y % 5 == 0) { y = 4; } else if (y % 7 == 0) { y = 5; } else if (y % 11 == 0) { y = 7; } else if (y % 13 == 0) { y = 1; } else if (y % 17 == 0) { y = 3; }if (y % 2 == 0) { y = 4; } else if (y % 3 == 0) { y = 2; } else if (y % 5 == 0) { y = 1; } else if (y % 7 == 0) { y = 7; } else if (y % 11 == 0) { y = 5; } else if (y % 13 == 0) { y = 3; } else if (y % 17 == 0) { y = 0; }if (y % 2 == 0) { y = 0; } else if (y % 3 == 0) { y = 2; } else if (y % 5 == 0) { y = 4; } else if (y % 7 == 0) { y = 5; } else if (y % 11 == 0) { y = 7; } else if (y % 13 == 0) { y = 1; } else if (y % 17 == 0) { y = 3; }if (y % 2 == 0) { y = 4; } else if (y % 3 == 0) { y = 2; } else if (y % 5 == 0) { y = 1; } else if (y % 7 == 0) { y = 7; } else if (y % 11 == 0) { y = 5; } else if (y % 13 == 0) { y = 3; } else if (y % 17 == 0) { y = 0; }if (y % 2 == 0) { y = 0; } else if (y % 3 == 0) { y = 2; } else if (y % 5 == 0) { y = 4; } else if (y % 7 == 0) { y = 5; } else if (y % 11 == 0) { y = 7; } else if (y % 13 == 0) { y = 1; } else if (y % 17 == 0) { y = 3; }if (y % 2 == 0) { y = 4; } else if (y % 3 == 0) { y = 2; } else if (y % 5 == 0) { y = 1; } else if (y % 7 == 0) { y = 7; } else if (y % 11 == 0) { y = 5; } else if (y % 13 == 0) { y = 3; } else if (y % 17 == 0) { y = 0; }
+if (x % 2 == 0) { x = 7; } else if (x % 3 == 0) { x = 7; } else if (x % 5 == 0) { x = 7; } else if (x % 7 == 0) { x = 7; } else if (x % 11 == 0) { x = 7; } else if (x % 13 == 0) { x = 7; } else if (x % 17 == 0) { x = 7; }if (x % 2 == 0) { x = 7; } else if (x % 3 == 0) { x = 7; } else if (x % 5 == 0) { x = 7; } else if (x % 7 == 0) { x = 7; } else if (x % 11 == 0) { x = 7; } else if (x % 13 == 0) { x = 7; } else if (x % 17 == 0) { x = 7; }if (x % 2 == 0) { x = 3; } else if (x % 3 == 0) { x = 3; } else if (x % 5 == 0) { x = 3; } else if (x % 7 == 0) { x = 3; } else if (x % 11 == 0) { x = 3; } else if (x % 13 == 0) { x = 3; } else if (x % 17 == 0) { x = 3; }if (x % 2 == 0) { x = 3; } else if (x % 3 == 0) { x = 3; } else if (x % 5 == 0) { x = 3; } else if (x % 7 == 0) { x = 3; } else if (x % 11 == 0) { x = 3; } else if (x % 13 == 0) { x = 3; } else if (x % 17 == 0) { x = 3; }if (x % 2 == 0) { x = 4; } else if (x % 3 == 0) { x = 4; } else if (x % 5 == 0) { x = 4; } else if (x % 7 == 0) { x = 4; } else if (x % 11 == 0) { x = 4; } else if (x % 13 == 0) { x = 4; } else if (x % 17 == 0) { x = 4; }if (x % 2 == 0) { x = 4; } else if (x % 3 == 0) { x = 4; } else if (x % 5 == 0) { x = 4; } else if (x % 7 == 0) { x = 4; } else if (x % 11 == 0) { x = 4; } else if (x % 13 == 0) { x = 4; } else if (x % 17 == 0) { x = 4; }if (x % 2 == 0) { x = 2; } else if (x % 3 == 0) { x = 2; } else if (x % 5 == 0) { x = 2; } else if (x % 7 == 0) { x = 2; } else if (x % 11 == 0) { x = 2; } else if (x % 13 == 0) { x = 2; } else if (x % 17 == 0) { x = 2; }if (x % 2 == 0) { x = 2; } else if (x % 3 == 0) { x = 2; } else if (x % 5 == 0) { x = 2; } else if (x % 7 == 0) { x = 2; } else if (x % 11 == 0) { x = 2; } else if (x % 13 == 0) { x = 2; } else if (x % 17 == 0) { x = 2; }if (x % 2 == 0) { x = 6; } else if (x % 3 == 0) { x = 6; } else if (x % 5 == 0) { x = 6; } else if (x % 7 == 0) { x = 6; } else if (x % 11 == 0) { x = 6; } else if (x % 13 == 0) { x = 6; } else if (x % 17 == 0) { x = 6; }if (x % 2 == 0) { x = 6; } else if (x % 3 == 0) { x = 6; } else if (x % 5 == 0) { x = 6; } else if (x % 7 == 0) { x = 6; } else if (x % 11 == 0) { x = 6; } else if (x % 13 == 0) { x = 6; } else if (x % 17 == 0) { x = 6; }if (x % 2 == 0) { x = 0; } else if (x % 3 == 0) { x = 0; } else if (x % 5 == 0) { x = 0; } else if (x % 7 == 0) { x = 0; } else if (x % 11 == 0) { x = 0; } else if (x % 13 == 0) { x = 0; } else if (x % 17 == 0) { x = 0; }if (x % 2 == 0) { x = 0; } else if (x % 3 == 0) { x = 0; } else if (x % 5 == 0) { x = 0; } else if (x % 7 == 0) { x = 0; } else if (x % 11 == 0) { x = 0; } else if (x % 13 == 0) { x = 0; } else if (x % 17 == 0) { x = 0; }if (x % 2 == 0) { x = 1; } else if (x % 3 == 0) { x = 1; } else if (x % 5 == 0) { x = 1; } else if (x % 7 == 0) { x = 1; } else if (x % 11 == 0) { x = 1; } else if (x % 13 == 0) { x = 1; } else if (x % 17 == 0) { x = 1; }if (x % 2 == 0) { x = 1; } else if (x % 3 == 0) { x = 1; } else if (x % 5 == 0) { x = 1; } else if (x % 7 == 0) { x = 1; } else if (x % 11 == 0) { x = 1; } else if (x % 13 == 0) { x = 1; } else if (x % 17 == 0) { x = 1; }if (x % 2 == 0) { x = 3; } else if (x % 3 == 0) { x = 3; } else if (x % 5 == 0) { x = 3; } else if (x % 7 == 0) { x = 3; } else if (x % 11 == 0) { x = 3; } else if (x % 13 == 0) { x = 3; } else if (x % 17 == 0) { x = 3; }if (x % 2 == 0) { x = 3; } else if (x % 3 == 0) { x = 3; } else if (x % 5 == 0) { x = 3; } else if (x % 7 == 0) { x = 3; } else if (x % 11 == 0) { x = 3; } else if (x % 13 == 0) { x = 3; } else if (x % 17 == 0) { x = 3; }if (x % 2 == 0) { x = 0; } else if (x % 3 == 0) { x = 0; } else if (x % 5 == 0) { x = 0; } else if (x % 7 == 0) { x = 0; } else if (x % 11 == 0) { x = 0; } else if (x % 13 == 0) { x = 0; } else if (x % 17 == 0) { x = 0; }if (x % 2 == 0) { x = 0; } else if (x % 3 == 0) { x = 0; } else if (x % 5 == 0) { x = 0; } else if (x % 7 == 0) { x = 0; } else if (x % 11 == 0) { x = 0; } else if (x % 13 == 0) { x = 0; } else if (x % 17 == 0) { x = 0; }if (x % 2 == 0) { x = 4; } else if (x % 3 == 0) { x = 4; } else if (x % 5 == 0) { x = 4; } else if (x % 7 == 0) { x = 4; } else if (x % 11 == 0) { x = 4; } else if (x % 13 == 0) { x = 4; } else if (x % 17 == 0) { x = 4; }if (x % 2 == 0) { x = 4; } else if (x % 3 == 0) { x = 4; } else if (x % 5 == 0) { x = 4; } else if (x % 7 == 0) { x = 4; } else if (x % 11 == 0) { x = 4; } else if (x % 13 == 0) { x = 4; } else if (x % 17 == 0) { x = 4; }if (x % 2 == 0) { x = 1; } else if (x % 3 == 0) { x = 1; } else if (x % 5 == 0) { x = 1; } else if (x % 7 == 0) { x = 1; } else if (x % 11 == 0) { x = 1; } else if (x % 13 == 0) { x = 1; } else if (x % 17 == 0) { x = 1; }if (x % 2 == 0) { x = 1; } else if (x % 3 == 0) { x = 1; } else if (x % 5 == 0) { x = 1; } else if (x % 7 == 0) { x = 1; } else if (x % 11 == 0) { x = 1; } else if (x % 13 == 0) { x = 1; } else if (x % 17 == 0) { x = 1; }if (x % 2 == 0) { x = 5; } else if (x % 3 == 0) { x = 5; } else if (x % 5 == 0) { x = 5; } else if (x % 7 == 0) { x = 5; } else if (x % 11 == 0) { x = 5; } else if (x % 13 == 0) { x = 5; } else if (x % 17 == 0) { x = 5; }if (x % 2 == 0) { x = 5; } else if (x % 3 == 0) { x = 5; } else if (x % 5 == 0) { x = 5; } else if (x % 7 == 0) { x = 5; } else if (x % 11 == 0) { x = 5; } else if (x % 13 == 0) { x = 5; } else if (x % 17 == 0) { x = 5; }if (x % 2 == 0) { x = 7; } else if (x % 3 == 0) { x = 7; } else if (x % 5 == 0) { x = 7; } else if (x % 7 == 0) { x = 7; } else if (x % 11 == 0) { x = 7; } else if (x % 13 == 0) { x = 7; } else if (x % 17 == 0) { x = 7; }if (x % 2 == 0) { x = 7; } else if (x % 3 == 0) { x = 7; } else if (x % 5 == 0) { x = 7; } else if (x % 7 == 0) { x = 7; } else if (x % 11 == 0) { x = 7; } else if (x % 13 == 0) { x = 7; } else if (x % 17 == 0) { x = 7; }if (x % 2 == 0) { x = 2; } else if (x % 3 == 0) { x = 2; } else if (x % 5 == 0) { x = 2; } else if (x % 7 == 0) { x = 2; } else if (x % 11 == 0) { x = 2; } else if (x % 13 == 0) { x = 2; } else if (x % 17 == 0) { x = 2; }if (x % 2 == 0) { x = 2; } else if (x % 3 == 0) { x = 2; } else if (x % 5 == 0) { x = 2; } else if (x % 7 == 0) { x = 2; } else if (x % 11 == 0) { x = 2; } else if (x % 13 == 0) { x = 2; } else if (x % 17 == 0) { x = 2; }
+
+    int result = prefunc(x,y);  
+
+    printf("%d\n", result);
     
     return 0;
 }

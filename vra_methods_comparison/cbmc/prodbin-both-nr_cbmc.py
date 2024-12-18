@@ -17,7 +17,7 @@ n = 7
 fp_list = []
 fn_list = []
 
-name = "flow_sensitive"
+name = "prodbin-both-nr"
 file = f"{name}.c"
 c_file = f"/home/pietro/Desktop/cu/vra_methods_comparison/cbmc/{file}"
 terminal_command = f"goto-analyzer --show --vsd --vsd-values intervals /home/pietro/Desktop/cu/vra_methods_comparison/cbmc/{file}"
@@ -71,7 +71,7 @@ for tuple_length in range(2, n+1):
             for t in selected_tuples:
                 for num, p in zip(t, primes[0:len(t)]):
                     if_else_chain += f"if (y % {p} == 0) {{ y = {num}; }} else "
-                    if_else_chain_b += f"if (x % {p} == 0) {{ x = {num}; }} else "
+                    if_else_chain_b += f"if (x % {p} == 0) {{ x = {hh}; }} else "
 
 
                 if_else_chain = if_else_chain[:-6]  # Remove the last else

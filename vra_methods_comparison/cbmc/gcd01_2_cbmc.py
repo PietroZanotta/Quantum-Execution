@@ -17,7 +17,7 @@ n = 7
 fp_list = []
 fn_list = []
 
-name = "flow_sensitive"
+name = "gcd01_2"
 file = f"{name}.c"
 c_file = f"/home/pietro/Desktop/cu/vra_methods_comparison/cbmc/{file}"
 terminal_command = f"goto-analyzer --show --vsd --vsd-values intervals /home/pietro/Desktop/cu/vra_methods_comparison/cbmc/{file}"

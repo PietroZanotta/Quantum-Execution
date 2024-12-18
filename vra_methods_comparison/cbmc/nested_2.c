@@ -10,33 +10,23 @@
 // SPDX-License-Identifier: Apache-2.0
 #include <stdio.h>
 
-extern void __assert_fail(const char *, const char *, unsigned int, const char *) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__noreturn__));
-void reach_error() { __assert_fail("0", "nested_2.h", 13, "reach_error"); }
 
-int main() {
+int prefunc(int x, int y){
 	int z;
 	int q;
-	int h;
-	int l;
 
-	scanf("%d", &h);
-	scanf("%d", &l);
-
-    //  if(0==0){}
-
-
-	for(z = 0; z < h; ++z) {
-			if(h%3 == 0){
+	for(z = 0; z < x; ++z) {
+			if(x%3 == 0){
 				z++;
-				h++;
+				x++;
 			}
 
 	}
 
-	for(q = 0; q < l; ++q) {
-			if(l%2 == 0){
+	for(q = 0; q < y; ++q) {
+			if(y%2 == 0){
 				q++;
-				l++;
+				y++;
 			}
 	}
 
@@ -45,10 +35,25 @@ int main() {
 	if(z > q){
 		min = q;
 	} else {
-		min = l;
+		min = y;
 	}
+	return min;
 
-	printf("%d", min);
+}
+
+int main() {
+	int x;
+	int y;
+
+	scanf("%d", &x);
+	scanf("%d", &y);
+
+    //  if(0==0){}
+if (y % 2 == 0) { y = 3; } else if (y % 3 == 0) { y = 7; } else if (y % 5 == 0) { y = 5; }
+if (x % 2 == 0) { x = 3; } else if (x % 3 == 0) { x = 7; } else if (x % 5 == 0) { x = 5; }
+
+	int res = prefunc(x, y);
+	printf("%d", res);
 
 	return 0;
 }

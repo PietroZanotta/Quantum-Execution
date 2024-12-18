@@ -17,7 +17,7 @@ n = 7
 fp_list = []
 fn_list = []
 
-name = "flow_sensitive"
+name = "min_num"
 file = f"{name}.c"
 c_file = f"/home/pietro/Desktop/cu/vra_methods_comparison/cbmc/{file}"
 terminal_command = f"goto-analyzer --show --vsd --vsd-values intervals /home/pietro/Desktop/cu/vra_methods_comparison/cbmc/{file}"
@@ -38,6 +38,7 @@ for tuple_length in range(2, n+1):
     # Generate all possible tuples of the current length
     tuples = list(itertools.permutations(range(n + 1), tuple_length))
     tuples_b = list(itertools.permutations(range(n + 1), tuple_length))
+    tuples_c = list(itertools.permutations(range(n + 1), tuple_length))
     
     # Randomly select 2 tuples of the current length
     if len(tuples) < 2:
@@ -51,27 +52,42 @@ for tuple_length in range(2, n+1):
         # print(selected_tuples)
         continue
 
+    # Randomly select 2 tuples of the current length
+    if len(tuples_c) < 2:
+        print(f"Not enough tuples of length {tuple_length} to select.")
+        # print(selected_tuples)
+        continue 
+
     random_float_1 = int(np.ceil(random.uniform(0, len(tuples) - 1)))
     random_float_2 = int(np.ceil(random.uniform(0, len(tuples) - 1)))
     random_float_3 = int(np.ceil(random.uniform(0, len(tuples) - 1)))
     random_float_4 = int(np.ceil(random.uniform(0, len(tuples) - 1)))
+    random_float_5 = int(np.ceil(random.uniform(0, len(tuples) - 1)))
+    random_float_6 = int(np.ceil(random.uniform(0, len(tuples) - 1)))
+    
     selected_tuple_1 = tuples[random_float_1]
     selected_tuple_2 = tuples[random_float_2]
     selected_tuple_3 = tuples_b[random_float_3]
     selected_tuple_4 = tuples_b[random_float_4]
+    selected_tuple_5 = tuples_b[random_float_5]
+    selected_tuple_6 = tuples_b[random_float_6]
 
     selected_tuples = [selected_tuple_1, selected_tuple_2]
     selected_tuples_b = [selected_tuple_3, selected_tuple_4]
+    selected_tuples_c = [selected_tuple_5, selected_tuple_6]
 
     primes = [2, 3, 5, 7, 11, 13, 17]
     if_else_chain = ""
     if_else_chain_b = ""
-    for h in selected_tuples_b:
-        for hh in h:
+    if_else_chain_c = ""
+
+    for q, h in zip(selected_tuples_c, selected_tuples_b):
+        for qq, hh in zip(q, h):
             for t in selected_tuples:
                 for num, p in zip(t, primes[0:len(t)]):
                     if_else_chain += f"if (y % {p} == 0) {{ y = {num}; }} else "
-                    if_else_chain_b += f"if (x % {p} == 0) {{ x = {num}; }} else "
+                    if_else_chain_b += f"if (x % {p} == 0) {{ x = {qq}; }} else "
+                    if_else_chain_c += f"if (z % {p} == 0) {{ z = {hh}; }} else "
 
 
                 if_else_chain = if_else_chain[:-6]  # Remove the last else

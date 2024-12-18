@@ -90,7 +90,7 @@ for tuple_length in range(2, n+1):
             # Extract the last match
             a, b = map(int, matches[-1])
             # Create a set including all elements between a and b, modulo 7
-            cbmc_closest = {x % 7 for x in range(a, b + 1)}
+            cbmc_closest = {x % 8 for x in range(a, b + 1)}
             # # print("Last range:", (a, b))
             # # print("Resulting set (modulo 7):", cbmc_closest)
         elif "prefunc#return_value () -> TOP" in cbmc_output:
@@ -130,26 +130,26 @@ for tuple_length in range(2, n+1):
             except Exception as e:
                 print(f"Error running compiled program with input {input_value}: {e}")
                 continue
-        # Compare results
-        only_in_cbmc = cbmc_closest - program_results
-        only_in_res = program_results - cbmc_closest
-        
-        print("cbmc " + str(cbmc_closest))
-        print("manuale" + str(program_results))
-        print(only_in_cbmc)
+            # Compare results
+            only_in_cbmc = cbmc_closest - program_results
+            only_in_res = program_results - cbmc_closest
+            
+            print("cbmc " + str(cbmc_closest))
+            print("manuale" + str(program_results))
+            print(only_in_cbmc)
 
-        ratio = len(only_in_cbmc) / len(cbmc_closest) if cbmc_closest else 0
-        # # print(ratio)
-        fp_list.append(ratio)
+            ratio = len(only_in_cbmc) / len(cbmc_closest) if cbmc_closest else 0
+            # # print(ratio)
+            fp_list.append(ratio)
 
-        ratio = len(only_in_res) / len(cbmc_closest) if cbmc_closest else 0
-        # # print(ratio)
-        fn_list.append(ratio)
+            ratio = len(only_in_res) / len(cbmc_closest) if cbmc_closest else 0
+            # # print(ratio)
+            fn_list.append(ratio)
 
-        # Revert the C file to its original assertion line
-        modified_content[assert_line_index] = original_assert_line
-        with open(c_file, "w") as o_file:
-            o_file.writelines(modified_content)
+            # Revert the C file to its original assertion line
+            modified_content[assert_line_index] = original_assert_line
+            with open(c_file, "w") as o_file:
+                o_file.writelines(modified_content)
 # Restore the original content of the file
 
 with open(c_file, "w") as o_file:
