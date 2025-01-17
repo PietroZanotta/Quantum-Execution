@@ -162,6 +162,8 @@ def fpqs_circ(oracle, delta, n_qubits, A, ancilla, target, num_steps=None):
     if num_steps == None:
         num_steps = int(np.ceil(np.log(2/delta)*np.sqrt(np.power(2, n_qubits))))
 
+    print(num_steps)
+
     # Get the dimension of the circuit from A
     num_qubits = len(target)
 

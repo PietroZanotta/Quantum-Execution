@@ -140,10 +140,12 @@ def simulate_classical_circ(n_shots=100, n_iter=None, plot=True):
     qc.measure(range(12, 16), reversed(range(0, 4)))
 
     # Run the simulation
-    qct = transpile(qc, simulator)
-    # print(qct)
+    seed_transpiler = 42
+    qct = transpile(qc, simulator, seed_transpiler=seed_transpiler)
+    seed_simulator = 42
+    backend = Aer.get_backend('statevector_simulator')
 
-    result = Aer.get_backend('statevector_simulator').run(qct, shots=n_shots).result()
+    result = backend.run(qct, shots=n_shots, seed_simulator=seed_simulator).result()    
     counts = result.get_counts()
 
     print(counts)
@@ -153,7 +155,7 @@ def simulate_classical_circ(n_shots=100, n_iter=None, plot=True):
     # Post processing
     decimal_list = [int(reversed_key, 2) for reversed_key in counts.keys()]
     digit_dict = {int(key, 2): value for key, value in counts.items()}
-    print(digit_dict)
+    # print(digit_dict)
     
     # Plot the frequencies
     if plot==True:

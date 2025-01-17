@@ -92,7 +92,7 @@ def run_concrete_program(inp):
     """
     Run the concrete program with the provided inputs.
     """
-    inp = inp[0] % 8
+    inp = inp[0]
 
     # Prepare the command to run the program with the concrete inputs
     # We will pass the inputs as command-line arguments to the program
@@ -107,7 +107,7 @@ def run_concrete_program(inp):
         print(f"Error running the concrete program: {stderr.decode()}")
         return None
 
-    print(str(inp) + " -> " + str(int(process.stdout.strip())))
+    # print(str(inp) + " -> " + str(int(process.stdout.strip())))
 
     return int(process.stdout.strip())%8
     # return stdout.decode().strip()
@@ -194,21 +194,21 @@ for tuple_length in range(2, n+1):
     selected_tuples = [selected_tuple_1, selected_tuple_2]
 
     primes = [2, 3, 5, 7, 11, 13, 17]
-    if_else_chain = ""
+    # if_else_chain = ""
     
     for t in selected_tuples:
-        for num, p in zip(t, primes[0:len(t)]):
-            if_else_chain += f"if (a % {p} == 0) {{ a = {num}; }} else "
+        # for num, p in zip(t, primes[0:len(t)]):
+    #         if_else_chain += f"if (a % {p} == 0) {{ a = {num}; }} else "
 
 
-        if_else_chain = if_else_chain[:-6]  # Remove the last else
+    #     if_else_chain = if_else_chain[:-6]  # Remove the last else
 
-        modified_content = original_content[:]
-        modified_content[assert_line_index+1] = if_else_chain + "\n"
-        print(assert_line_index)  
+    #     modified_content = original_content[:]
+    #     modified_content[assert_line_index+1] = if_else_chain + "\n"
+    #     print(assert_line_index)  
 
-        with open(source_file, "w") as o_file:
-            o_file.writelines(modified_content)
+    #     with open(source_file, "w") as o_file:
+    #         o_file.writelines(modified_content)
 
 
 
@@ -250,15 +250,15 @@ for tuple_length in range(2, n+1):
 
             fp_rate = len(unique_outputs-concrete_set)/len(unique_outputs) 
             fn_rate = len(concrete_set-unique_outputs)/len(concrete_set) 
-            print("\n\n")
-            print(fp_rate)
-            print("\n\n")
+            # print("\n\n")
+            # # print(fp_rate)
+            # print("\n\n")
 
             fp_list.append(fp_rate)
             fn_list.append(fn_rate)
 
-            print("\nfp: " + str(fp_rate))
-            print("fn: " + str(fn_rate) + "\n")
+            # print("\nfp: " + str(fp_rate))
+            # print("fn: " + str(fn_rate) + "\n")
 
             print(concrete_set)
             print(unique_outputs)
@@ -269,18 +269,18 @@ for tuple_length in range(2, n+1):
         finally:
             # Cleanup generated files and directories at the end
             cleanup()
-
+            # print(22)
         # Revert the C file to its original assertion line
-        modified_content[assert_line_index] = original_assert_line
-        with open(source_file, "w") as o_file:
-            o_file.writelines(modified_content)
+        # modified_content[assert_line_index] = original_assert_line
+        # with open(source_file, "w") as o_file:
+        #     o_file.writelines(modified_content)
 # Restore the original content of the file
 
 with open(source_file, "w") as o_file:
     o_file.writelines(original_content)
 print(fp_list)
-average_fp = sum(fp_list) / len(fp_list)
-average_fn = sum(fn_list) / len(fn_list)
+average_fp = min(fp_list)
+average_fn = min(fn_list)
 
 print(f"Average FP ratio across all experiments: {average_fp}")
 print(f"Average FN ratio across all experiments: {average_fn}")

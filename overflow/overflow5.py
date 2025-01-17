@@ -154,7 +154,6 @@ def simulate_classical_circ(n_shots=100, n_iter=None, plot=True):
 
     # qc.measure_all()
     qc_new.measure(range(8, 12), reversed(range(0,4)))
-    qct = transpile(qc_new, simulator)
     # print(qct)
 
     # # # # Measure the x
@@ -166,11 +165,13 @@ def simulate_classical_circ(n_shots=100, n_iter=None, plot=True):
     # qc.measure_all()
 
     # Run the simulation
-    print("trans")
-    qct = transpile(qc_new, simulator)
-    print(qct)
+    # print("trans")
+    seed_transpiler = 42
+    qct = transpile(qc_new, simulator, seed_transpiler=seed_transpiler)
+    seed_simulator = 42
+    backend = Aer.get_backend('statevector_simulator')
 
-    result = Aer.get_backend('statevector_simulator').run(qct, shots=n_shots).result()
+    result = backend.run(qct, shots=n_shots, seed_simulator=seed_simulator).result()    
     counts = result.get_counts()
 
     # decimal_list = [int(reversed_key, 2) for reversed_key in counts.keys()]
@@ -178,7 +179,6 @@ def simulate_classical_circ(n_shots=100, n_iter=None, plot=True):
     # print(digit_dict)
 
     print(counts)
-    return(counts)
     
     # Plot the frequencies
     if plot == True:
@@ -188,12 +188,8 @@ def simulate_classical_circ(n_shots=100, n_iter=None, plot=True):
         plt.ylabel('Frequency')
         plt.xticks(rotation=90)
         plt.tight_layout()
-        plt.show()
+        # plt.show()
+    
+    return(counts)
 
-simulate_classical_circ(100)
-
-#['4-00100', '2-00000', '1-00000', '6-10100', '0-00000', '7-10100', '3-00110', '8-11100', '0-00001', '2-00001', '7-10101', '1-00001', '6-10101', '4-00101']
-#['4-00100', '2-00000', '1-00000', '6-10100', '0-00000', '7-10100', '3-00110', '8-11100']
-
-
-#['4-00100', '2-00001', '8-11100', '2-00000', '6-10101', '7-10100', '3-00111', '7-10101', '3-00110', '1-00000', '6-10100', '8-11101', '1-00001']
+# simulate_classical_circ(100)

@@ -169,8 +169,7 @@ if (n < 1) {; // ancilla
                     f1122 = 0;
                 } else if(n-7==0) {;// (1), ancilla
                     f1122 = 1;
-                } else {;
-                };
+                }
 
                 f112 = f1121 + f1122;
             };
@@ -216,8 +215,7 @@ if (n < 1) {; // ancilla
                     f1212 = 0;
                 } else if(n-7==0) {;// (1), ancilla
                     f1212 = 1;
-                } else {;
-                };
+                } 
 
                 f121 = f1211 + f1212;
             };
@@ -235,9 +233,7 @@ if (n < 1) {; // ancilla
                     f122 = 0;
                 } else if(n-7==0) {;// (1), ancilla
                     f122 = 1;
-                } else {;
-                    
-                };
+                } 
             };
 
             f12= f121 + f122;
@@ -290,8 +286,7 @@ if (n < 1) {; // ancilla
                     f2112 = 0;
                 } else if(n-7==0) {;// (1), ancilla
                     f2112 = 1;
-                } else {;
-                };
+                } 
 
                 f211 = f2111 + f2112;
             };
@@ -308,8 +303,7 @@ if (n < 1) {; // ancilla
                     f212 = 0;
                 } else if(n-7==0) {;// (1), ancilla
                     f212 = 1;
-                } else {;
-                };
+                } 
             };
 
             f21 = f211 + f212;
@@ -334,9 +328,7 @@ if (n < 1) {; // ancilla
                     f221 = 0;
                 } else if(n-7==0) {;// (1), ancilla
                     f221 = 1;
-                } else {;
-                    
-                };
+                }
 
             };
 
@@ -345,8 +337,7 @@ if (n < 1) {; // ancilla
                 f222 = 0;
             } else if(n-7==0) {;// (1), ancilla
                 f222 = 1;
-            } else {;
-            };
+            } 
 
             f22= f221 + f222;
         };

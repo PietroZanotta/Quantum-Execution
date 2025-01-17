@@ -148,7 +148,9 @@ def fpqs_circ(oracle, delta, num_qubits, digits, A, num_steps=None):
     # Computing the number of steps assuming the worst case scenario (M = 1)
     if num_steps == None:
         num_steps = int(np.ceil(np.log(2/delta)*np.sqrt(np.power(2, digits))))
-        print(num_steps)
+
+    print(num_steps)
+
 
     # Compute the number of qubits in circuit
     qc = QuantumCircuit(3*digits + 3, digits, name="fpqs")

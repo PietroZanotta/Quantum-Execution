@@ -47,7 +47,7 @@ def encoding(qc):
     '''
     # Encoding x as an equal superposition of values ranging from 0 to 7
     qc.h(range(1, 4)) 
-    print(qc)
+    # print(qc)
     
     # Encoding 3 (0011). 3 comes from 2^3 - 1 - 5 
     # where 2^3 - 1 is maximum number the 3-bits machine can represent and 5 is part of the if statement
@@ -126,10 +126,12 @@ def simulate_classical_circ(n_shots=100, n_iter=10):
     fpqs_qc.measure(range(0, 4), reversed(range(0, 4)))
 
     # Run the simulation
-    qct = transpile(fpqs_qc, simulator)
-    print(qct)
+    seed_transpiler = 42
+    qct = transpile(fpqs_qc, simulator, seed_transpiler=seed_transpiler)
+    seed_simulator = 42
+    backend = Aer.get_backend('statevector_simulator')
 
-    result = Aer.get_backend('statevector_simulator').run(qct, shots=n_shots).result()
+    result = backend.run(qct, shots=n_shots, seed_simulator=seed_simulator).result()
     counts = result.get_counts()
     print(counts)
 
@@ -145,7 +147,7 @@ def simulate_classical_circ(n_shots=100, n_iter=10):
     plt.ylabel('Frequency')
     plt.xticks(rotation=90)
     plt.tight_layout()
-    plt.show()
+    # plt.show()
 
 
-simulate_classical_circ(n_iter=9)
+# simulate_classical_circ(n_iter=9)

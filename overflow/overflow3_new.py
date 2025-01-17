@@ -80,17 +80,21 @@ def simulate_classical_circ(n_shots=100, n_iter=None, plot=True):
 
     # Perform fixed-point quantum search
     fpqs_qc = fpqs_circ(oracle, .5, 4, A, 9, x, n_iter)
-    print(fpqs_qc)
+    # print(fpqs_qc)
     qc.append(fpqs_qc, range(len(A.qubits)))
 
     # Measure the x
     qc.measure_all()
 
     # Run the simulation
-    qct = transpile(qc, simulator)
+    seed_transpiler = 42
+    qct = transpile(qc, simulator, seed_transpiler=seed_transpiler)
+    seed_simulator = 42
+    backend = Aer.get_backend('statevector_simulator')
 
-    result = Aer.get_backend('statevector_simulator').run(qct, shots=n_shots).result()
+    result = backend.run(qct, shots=n_shots, seed_simulator=seed_simulator).result()
     counts = result.get_counts()
+    # print(counts)
     summed_counts = {}
 
     for key, value in counts.items():
@@ -100,14 +104,14 @@ def simulate_classical_circ(n_shots=100, n_iter=None, plot=True):
         else:
             summed_counts[last_4_bits] = value 
 
-    print(counts)
+    # print(counts)
     print(summed_counts)
     counts = summed_counts
 
     # Post processing
     decimal_list = [int(reversed_key, 2) for reversed_key in counts.keys()]
     digit_dict = {int(key, 2): value for key, value in counts.items()}
-    print(digit_dict)
+    # print(digit_dict)
     
     # Plot the frequencies
     if plot == True:
@@ -117,8 +121,8 @@ def simulate_classical_circ(n_shots=100, n_iter=None, plot=True):
         plt.ylabel('Frequency')
         plt.xticks(rotation=90)
         plt.tight_layout()
-        plt.show()
+        # plt.show()
 
     return(counts)
 
-simulate_classical_circ(n_shots=100)
+# simulate_classical_circ(n_shots=100)
