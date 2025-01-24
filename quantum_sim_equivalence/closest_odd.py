@@ -1,3 +1,5 @@
+# quantum version of the following classical program
+
 """
 num=input
 

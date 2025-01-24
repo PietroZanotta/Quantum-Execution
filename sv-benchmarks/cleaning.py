@@ -1,3 +1,5 @@
+# script used to remove all the programs coming from the SV repository which have numbers bigger than 7
+
 import os
 import re
 

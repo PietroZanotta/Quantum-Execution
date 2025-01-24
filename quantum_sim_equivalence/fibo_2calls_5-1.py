@@ -1,4 +1,6 @@
+# quantum version of the following classical program
 # unroled fibonacci (working with inputs <= 2)
+
 """
     x=input
     if x - 1 < 0: 

@@ -45,6 +45,7 @@ input_list = [0, 1, 2, 3, 4, 5, 6]
 
 myList = []
 
+# simulate the quantum execution and print the result
 for i in input_list:
     try:
         result = subprocess.run(

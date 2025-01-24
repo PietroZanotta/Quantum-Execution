@@ -7,7 +7,6 @@ depth_list =[]
 m=23
 
 for n in range(3, m):
-# Registers and circuit.
     a = QuantumRegister(n)
     b = QuantumRegister(n)
     m = QuantumRegister(2*n)
@@ -16,14 +15,11 @@ for n in range(3, m):
 
     mult(qc, a, b, m, n-1)
 
-    # print(qc)
     print(n)
     print(qc.depth())
     print((n*(n+1)/2 + 2*(5*n*(n-1)/2 + n) -n+2)*(n-1)-(n-2)== qc.depth())
     depth_list.append(qc.depth())
-    # print("\n")
 
-# print(qc)
 # print("true size: " + str(qc.size()))
 
 

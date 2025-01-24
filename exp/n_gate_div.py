@@ -5,7 +5,6 @@ from QArithmetic import div
 m=7
 
 for n in range(3, m):
-    # Registers and circuit.
     a = QuantumRegister(2*n)
     b = QuantumRegister(2*n)
     c = QuantumRegister(n)
@@ -16,7 +15,6 @@ for n in range(3, m):
 
     div(qc, b, a, c, n)
 
-    # print(qc)
     print(qc.depth())
     print(10*n**2 + (2*n-1) + 2*(n-1) - 3*(n-1)+3*n + n*(2*n*(2*n+1)/2 + 2*(5*2*n*(2*n-1)/2 + 2*n) -2*n+2) + 1)
     print(10*n**2 + (2*n-1) + 2*(n-1) - 3*(n-1)+3*n + n*(2*n*(2*n+1)/2 + 2*(5*2*n*(2*n-1)/2 + 2*n) -2*n+2) + 1 == qc.depth())

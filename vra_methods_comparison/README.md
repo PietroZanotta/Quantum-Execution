@@ -1,0 +1,3 @@
+This folder is used for the evaluation of some software analysis tools pertaining to abstract analysis or symbolic execution. The scripts in this folder simply computes the FP and FN rate of such tools.
+
+The analysis is carried out by providing some random inputs to the programs. This inputs are represented by tuples of various lenght (from 2 to 7 in general) containing random numbers. The FP and FN rates at the end of the evaluation of a specific program are the average of all the FP and FN rates across all the tuples.

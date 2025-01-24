@@ -1,3 +1,5 @@
+# script simulating a quantum computer and running the specific c program
+
 import subprocess
 import os
 

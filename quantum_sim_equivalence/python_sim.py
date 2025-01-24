@@ -1,3 +1,5 @@
+# quantum simulator running the c programs below
+
 import subprocess
 import os
 

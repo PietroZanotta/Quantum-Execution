@@ -31,9 +31,8 @@ def find_minimal_unwind(c_file):
     return None
 
 if __name__ == "__main__":
-    c_file = "example.c"  # Replace with your C file name
+    c_file = "example.c"  
 
-    # Check if the C file exists
     try:
         with open(c_file, 'r'):
             pass

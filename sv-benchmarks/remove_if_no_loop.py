@@ -1,3 +1,5 @@
+# script used to remove all the programs coming from the SV repository which have no loops
+
 import os
 import re
 import csv

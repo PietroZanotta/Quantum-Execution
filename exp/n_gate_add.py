@@ -12,14 +12,15 @@ qc = QuantumCircuit(a, b, cb)
 
 add(qc, a, b, n-1)
 
-# print(qc)
-# print(qc.size())
-
-# print(int(2*(0-n*(n+1)/2 + n**2 + n) + n**2 +n - n*(n+1)/2))
 
 print(qc)
 print(qc.depth())
 print(n*5 -2)
+
+# print(qc)
+# print(qc.size())
+
+# print(int(2*(0-n*(n+1)/2 + n**2 + n) + n**2 +n - n*(n+1)/2))
 
 # gate_counts = qc.count_ops()
 # print(gate_counts)

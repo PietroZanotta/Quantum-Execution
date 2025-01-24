@@ -1,3 +1,5 @@
+# script analysing the specific c program using symbolic execution
+
 import angr
 import claripy
 import logging

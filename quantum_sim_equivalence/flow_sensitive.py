@@ -1,3 +1,5 @@
+# quantum version of the following classical program
+
 """
 if x >= 4:          (4,5,6,7)
     if x >= 5:
