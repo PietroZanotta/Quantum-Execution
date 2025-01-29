@@ -14,19 +14,18 @@ from QArithmetic import mult, add, cadd
 
 def simulate_classical_circ(n_shots=100, n_iter=None, plot=False):
     # Registers and circuit.
-    a = QuantumRegister(4)
     b = QuantumRegister(4)
     x = QuantumRegister(4)
     m = QuantumRegister(8)
     anc = QuantumRegister(2)
     cm = ClassicalRegister(4)
     canc = ClassicalRegister(2)
-    qc = QuantumCircuit(a, b, x, m, anc, cm)
-    qc_new = QuantumCircuit(a, b, x, m, anc, cm)
+    qc = QuantumCircuit(b, x, m, anc, cm)
+    qc_new = QuantumCircuit(b, x, m, anc, cm)
 
     # Numbers to multiply.
-    qc_new.x(a[1]) # a = 0010 / 0011
-    qc_new.h(a[0])
+    qc_new.x(b[1]) # b = 0010 / 0011
+    qc_new.h(b[0])
 
     qc_new.h(x[0]) # x = from 0000 to 0111
     qc_new.h(x[1])
@@ -34,11 +33,14 @@ def simulate_classical_circ(n_shots=100, n_iter=None, plot=False):
 
     # Multiply the numbers, so |a>|x>|m=0> to |a>|x>|a*x>.
     qc.barrier()
-    mult(qc, a, x, m, 3)
+    mult(qc, b, x, m, 3)
     qc.barrier()
 
 
     # # Encode |1> in b register
+    qc_new.h(b[0])
+    qc_new.x(b[1])
+
     qc_new.x(b[0]) # 0001
 
     qc.barrier()
@@ -56,7 +58,7 @@ def simulate_classical_circ(n_shots=100, n_iter=None, plot=False):
 
 
     # revert the *2/3 and +1
-    qc_new.append(qc_inv, range(0, len(qc.qubits)), range(0, len(qc.clbits)))
+    # qc_new.append(qc_inv, range(0, len(qc.qubits)), range(0, len(qc.clbits)))
 
     # controlled x+1
     cadd(qc_new, anc[0], b, x, 3)
@@ -64,14 +66,10 @@ def simulate_classical_circ(n_shots=100, n_iter=None, plot=False):
     # x gate to the first ancilla to act on the other qubits
     qc_new.x(anc[0])
 
-    # # encode |7> in b register
-    qc_new.x(b[0]) # 0101
-    qc_new.x(b[0])
-    qc_new.x(b[1])
+    # # encode |5> in b register
     qc_new.x(b[2])
 
-
-    # controlled x+7
+    # controlled x+5
     cadd(qc_new, anc[0], b, x, 3)
 
     # qc_new.barrier()
@@ -84,13 +82,13 @@ def simulate_classical_circ(n_shots=100, n_iter=None, plot=False):
     # fpqs
     def oracle(qc, num_qubits):
         # oracle to observe if an overflow happened
-        qc.cx(11, 21)
+        qc.cx(11, 17)
 
     A = qc_new
 
     # Perform fixed-point quantum search
     fpqs_qc = fpqs_circ(oracle, .5, 4, A, n_iter)
-    qc_new.append(fpqs_qc, range(0, 22), range(0,4))
+    qc_new.append(fpqs_qc, range(0, 18), range(0,4))
 
     # Measure the result
     qc_new.barrier()
