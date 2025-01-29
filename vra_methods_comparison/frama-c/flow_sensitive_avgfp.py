@@ -116,7 +116,7 @@ for tuple_length in range(2, 8):
                         run_result = subprocess.run(
                             ["./fs"], input=f"{input_value}\n{input_value2}\n", text=True, capture_output=True
                         )
-                        print(str(input_value) + "  " + str(input_value2) + " -> " + str(int(run_result.stdout.strip())))
+                        # print(str(input_value) + "  " + str(input_value2) + " -> " + str(int(run_result.stdout.strip())))
                         program_results.add(int(run_result.stdout.strip()))
                     except Exception as e:
                         print(f"Error running compiled program with input {input_value}: {e}")

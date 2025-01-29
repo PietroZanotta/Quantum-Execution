@@ -57,7 +57,7 @@ for tuple_length in range(2, 8):
                 frama_output = result.stdout
                 # print(frama_output)
             except Exception as e:
-                print(f"Error executing Frama-C command for tuple {number_t} and {y_t}: {e}")
+                print(f"Error executing Frama-C command for tuple {y_t} and {number_t}: {e}")
                 continue
             mask = 0
             # Check if the range includes 2147483647
@@ -94,7 +94,7 @@ for tuple_length in range(2, 8):
                     for input2 in y_t:
                         try:
                             run_result = subprocess.run(
-                                ["./Ackermann"], input=f"{input_value}\n{input2}\n", text=True, capture_output=True
+                                ["./Ackermann"], input=f"{input2}\n{input_value}\n", text=True, capture_output=True
                             )
                             # print("runres " + str(run_result.stdout.strip()))
                             # print(input2)

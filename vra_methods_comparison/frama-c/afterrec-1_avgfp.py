@@ -66,7 +66,7 @@ for tuple_length in range(2, 8):
             continue
 
         # Extract closest values from Frama-C output
-        closest_match = re.search(r"a ∈ (\{[0-9; ]+\}|\[[0-9.]+\])", frama_output)
+        closest_match = re.search(r"_retres ∈ (\{[0-9; ]+\}|\[[0-9.]+\])", frama_output)
         if closest_match:
             closest_values = closest_match.group(1)
             if closest_values.startswith("{"):

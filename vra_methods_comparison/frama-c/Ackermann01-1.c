@@ -35,8 +35,7 @@ int main() {
 
     scanf("%d", &m);
     /*@ assert m == a || m == b; */
-    // /*@ assert m == 2 || m == 7; */
-    // /*@ assert n == 2 || n == 2; */
+
 
     if (m < 0 || m > 2) {
         printf("%d", 7);

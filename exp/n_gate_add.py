@@ -3,7 +3,7 @@ from qiskit_aer import AerSimulator, Aer
 from QArithmetic import add, qft, bitwise_and
 
 
-n = 20
+n = 4
 
 a = QuantumRegister(n)
 b = QuantumRegister(n)
@@ -12,15 +12,14 @@ qc = QuantumCircuit(a, b, cb)
 
 add(qc, a, b, n-1)
 
-
-print(qc)
-print(qc.depth())
-print(n*5 -2)
-
 # print(qc)
 # print(qc.size())
 
-# print(int(2*(0-n*(n+1)/2 + n**2 + n) + n**2 +n - n*(n+1)/2))
+# print(int(3*(0-n*(n+1)/2 + n**2 + n)))
+
+# print(qc)
+# print(qc.depth())
+# print(n*5 -2)
 
 # gate_counts = qc.count_ops()
 # print(gate_counts)

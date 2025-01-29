@@ -1,25 +1,25 @@
 #include <stdio.h>
 
 int compute_range(int x, int y) {
-    int result;
+    int result1;
     if (x >= y) {
         if (x >= 5) {
-            result = (x + 1)%7;  
+            result1 = (x + 1)%7;  
         } else {
-            result = (x + 5)%7;  
+            result1 = (x + 5)%7;  
         }
     } else {
         if (x >= 2) {
-            result = (x + 5)%7;  
+            result1 = (x + 5)%7;  
         } else {
-            result = x;      
+            result1 = x;      
         }
     }
     if (x == y){
         return 7;
     }
     
-    return result; 
+    return result1; 
 }
 
 int main() {

@@ -168,4 +168,4 @@ def simulate_classical_circ(n_shots=100, n_iter=None, plot=True):
         plt.show()
 
 
-simulate_classical_circ()
+# simulate_classical_circ()

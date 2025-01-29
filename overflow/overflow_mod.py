@@ -107,7 +107,7 @@ def simulate_classical_circ(n_shots=100, n_iter=None, plot=False):
     A = qc_new
 
     # Perform fixed-point quantum search
-    fpqs_qc = fpqs_circ(oracle, .5, 4, A, 6)
+    fpqs_qc = fpqs_circ(oracle, .5, 4, A, n_iter)
     qc_new.append(fpqs_qc, range(0, 17), range(0, 6))
 
     # Measure the result
