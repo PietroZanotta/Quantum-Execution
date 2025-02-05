@@ -1,10 +1,17 @@
 # Quantum Execution
 
-Repository containing the code used for the evalutaion in [link to paper]. 
+Repository containing the code used for the evalutation in [link to paper]. 
 
 ## Abstract
 
-[Abstract of the paper]
+Classical program analysis techniques, such as abstract interpretation and symbolic execution, are essential for ensuring software correctness, optimizing performance, and enabling compiler optimizations. 
+However, these techniques face computational limitations when analyzing programs with large or exponential state spaces, limiting their effectiveness in ensuring system reliability. 
+Quantum computing, with its parallelism and ability to process superposed states, offers a promising solution to these challenges.
+In this work, we present QEX, a design that uses quantum computing to analyze classical programs. 
+By synthesizing quantum circuits that encode program states in superposition, QEX enables the simultaneous exploration of program execution paths, significantly improving scalability and precision. 
+This advancement has broad applications, from debugging and security verification to optimizing compilers for next-generation hardware. 
+As a proof-of-concept, we evaluated QEX on 22 benchmark programs, demonstrating its feasibility in analyzing program states with zero false positives.
+To our knowledge, this is the first proposal to use quantum computing for classical program analysis.
 
 ## Code Structure
 
