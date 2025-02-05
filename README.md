@@ -44,7 +44,7 @@ All the metrics provided in the paper come from experiments runned on a laptop w
  - Clang: Ubuntu clang version 14.0.0-1ubuntu1.1; Target: x86_64-pc-linux-gnu; Thread model: posix
  - gcc: (Ubuntu 11.4.0-1ubuntu1~22.04) 11.4.0
 
-The Python modules and their version used in this poject can be found at [LINK].
+This project requires Python and several external libraries.  You can find the exact versions of all required Python modules in the `requirements.txt`.  The contents of this file can be viewed online here: [requirements.txt](https://github.com/PietroZanotta/Quantum-Execution/blob/main/requirements.txt).
 
 ## Acknowledgements
 
